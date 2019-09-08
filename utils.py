@@ -18,6 +18,8 @@ def pre_parse(html):
 
 
 def remove_noise_node(element, noise_xpath_list):
+    if not noise_xpath_list:
+        return
     for noise_xpath in noise_xpath_list:
         nodes = element.xpath(noise_xpath)
         for node in nodes:

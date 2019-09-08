@@ -110,6 +110,16 @@ class ContentExtractor:
         return std
 
     def calc_new_score(self, std):
+        """
+        score = log(std) * ndi * log10(text_tag_count + 2) * log(sbdi)
+
+        std：每个节点文本密度的标准差
+        ndi：节点 i 的文本密度
+        text_tag_count: 正文所在标签数。例如正文在<p></p>标签里面，这里就是 p 标签数，如果正文在<div></div>标签，这里就是 div 标签数
+        sbdi：节点 i 的符号密度
+        :param std:
+        :return:
+        """
         for node_hash, node_info in self.node_info.items():
             score = np.log(std) * node_info['density'] * np.log10(node_info['text_tag_count'] + 2) * np.log(
                 node_info['sbdi'])

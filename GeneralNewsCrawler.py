@@ -1,0 +1,34 @@
+import json
+import glob
+from utils import pre_parse, remove_noise_node
+from extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor
+
+
+class GeneralNewsExtractor:
+    def __init__(self):
+        self.content_extractor = ContentExtractor()
+        self.title_extractor = TitleExtractor()
+        self.author_extractor = AuthorExtractor()
+        self.time_extractor = TimeExtractor()
+
+    def extract(self, html):
+        element = pre_parse(html)
+        element = remove_noise_node(element, ['//div[@class="comment-list"]'])
+        content = self.content_extractor.extract(element)
+        title = self.title_extractor.extract(element)
+        publish_time = self.time_extractor.extractor(element)
+        author = self.author_extractor.extractor(element)
+        return {'title': title,
+                'author': author,
+                'publish_time': publish_time,
+                'content': content[0][1]['text']}
+
+
+if __name__ == '__main__':
+    html_list = glob.glob('**/toutiao/*.html', recursive=True)
+    for html_file in html_list:
+        with open(html_file, encoding='utf-8') as f:
+            html = f.read()
+        extractor = GeneralNewsExtractor()
+        result = extractor.extract(html)
+        print(json.dumps(result, indent=2, ensure_ascii=False))

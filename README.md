@@ -75,6 +75,10 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 `test`文件夹中的网页的提取结果，请查看`result.txt`。
 
+## 项目文档
+
+[GNE 常见问题 Q&A](https://github.com/kingname/GeneralNewsExtractor/wiki/GeneralNewsExtractor-Q&A)
+
 ## 已知问题
 
 1. 目前本项目只适用于新闻页的信息提取。如果目标网站不是新闻页，或者是今日头条中的相册型文章，那么抽取结果可能不符合预期。
@@ -85,15 +89,18 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 * 使用一个配置文件来存放常量数据，而不是直接 Hard Code 写在代码中。
 * 允许自定义时间、作者的提取Pattern
 * 新闻文章列表页提取
+* 对于多页的新闻，允许传入一个 HTML 列表，GNE 解析以后，自动拼接为完整的新闻正文
 * 优化内容提取速度
 * 测试更多新闻网站
 * ……
 
 ## 交流沟通
 
-本项目的交流微信群：
+如果您觉得GNE对您的日常开发或公司有帮助，请加作者微信 mxqiuchen（或扫描下方二维码） 并注明"GNE"，作者会将你拉入群。
 
-![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/IMG_3725.JPG)
+扫描二维码：![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/IMG_3729.JPG)
+
+验证消息：`GNE`
 
 
 ## 论文修订

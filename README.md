@@ -68,9 +68,17 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 * 使用一个配置文件来存放常量数据，而不是直接 Hard Code 写在代码中。
 * 允许自定义时间、作者的提取Pattern
+* 新闻文章列表页提取
 * 优化内容提取速度
 * 测试更多新闻网站
 * ……
+
+## 交流沟通
+
+本项目的交流微信群：
+
+![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/IMG_3725.JPG)
+
 
 ## 论文修订
 

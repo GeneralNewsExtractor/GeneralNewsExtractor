@@ -75,6 +75,29 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 `test`文件夹中的网页的提取结果，请查看`result.txt`。
 
+## 运行截图
+
+### 凤凰网
+
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-232516.png)
+
+### 网易新闻
+
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-233122.png)
+
+### 今日头条
+
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-233313.png)
+
+### 新浪新闻
+
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-233702.png)
+
+### 观察者网
+
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-234102.png)
+
+
 ## 项目文档
 
 [GNE 常见问题 Q&A](https://github.com/kingname/GeneralNewsExtractor/wiki/GeneralNewsExtractor-Q&A)

@@ -10,7 +10,7 @@
 
 最后的输出效果如下图所示：
 
-![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-08-22-02-04.png)
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/2019-09-08-22-02-04.png)
 
 目前这个项目是一个非常非常早期的 Demo，发布出来是希望能够尽快得到大家的使用反馈，从而能够更好地有针对性地进行开发。
 
@@ -42,11 +42,11 @@ python3 GeneralNewsCrawler.py
 * 本项目的输入 HTML 为经过 JavaScript 渲染以后的 HTML，而不是普通的网页源代码。所以无论是后端渲染、Ajax 异步加载都适用于本项目。
 * 如果你要手动测试新的目标网站或者目标新闻，那么你可以在 Chrome 浏览器中打开对应页面，然后开启`开发者工具`，如下图所示：
 
-![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-08-22-20-33.png)
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/2019-09-08-22-20-33.png)
 
 在`Elements`标签页定位到`<html>`标签，并右键，选择`Copy`-`Copy OuterHTML`，如下图所示
 
-![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-08-22-21-49.png)
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/2019-09-08-22-21-49.png)
 
 * 当然，你可以使用 Puppeteer/Pyppeteer、Selenium 或者其他任何方式获取目标页面的`JavaScript渲染后的`源代码。
 

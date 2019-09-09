@@ -31,7 +31,7 @@ git clone https://github.com/kingname/GeneralNewsExtractor.git
 cd GeneralNewsExtractor
 pipenv install
 pipenv shell
-python3 GeneralNewsCrawler.py
+python3 test.py
 ```
 
 ### 特别说明

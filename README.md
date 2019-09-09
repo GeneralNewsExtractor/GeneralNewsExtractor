@@ -26,8 +26,16 @@
 
 1. 安装 GNE
 
-```python
+```bash
+
+# 以下两种方案任选一种即可
+
+# 使用 pip 安装
 pip install --upgrade git+https://github.com/kingname/GeneralNewsExtractor.git
+
+# 使用 pipenv 安装
+pipenv install git+https://github.com/kingname/GeneralNewsExtractor.git#egg=gne
+
 ```
 
 2. 使用 GNE

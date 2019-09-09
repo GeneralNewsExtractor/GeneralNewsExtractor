@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 setup(
     name='GeneralNewsExtractor',
     packages=find_packages(exclude=[]),
-    install_requires=['lxml'],
+    install_requires=['lxml', 'numpy'],
     version='0.0.1',
     description='General extractor of news pages.',
     author='Kingname',

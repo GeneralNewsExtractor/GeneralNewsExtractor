@@ -20,7 +20,34 @@
 
 ## 如何使用
 
-### 准备环境
+### 使用环境
+
+如果你想体验 GNE 的功能，请按照如下步骤进行：
+
+1. 安装 GNE
+
+```python
+pip install --upgrade git+https://github.com/kingname/GeneralNewsExtractor.git
+```
+
+2. 使用 GNE
+
+```python
+>>> from gne import GeneralNewsExtractor
+
+>>> html = '''经过渲染的网页 HTML 代码'''
+
+>>> extractor = GeneralNewsExtractor()
+>>> result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
+>>> print(result)
+
+{"title": "xxxx", "publish_time": "2019-09-10 11:12:13", "author": "yyy", "content": "zzzz"}
+```
+
+
+### 开发环境
+
+如果你需要参与本项目的开发，请按照如下步骤进行。
 
 本项目使用 `Pipenv`管理 Python 的第三方库。如果你不知道 `Pipenv` 是什么，请[点我跳转](https://github.com/pypa/pipenv)。
 
@@ -31,14 +58,14 @@ git clone https://github.com/kingname/GeneralNewsExtractor.git
 cd GeneralNewsExtractor
 pipenv install
 pipenv shell
-python3 test.py
+python3 example.py
 ```
 
 ### 特别说明
 
-项目代码中的`GeneralNewsCrawler.py`提供了本项目的基本使用示例。
+项目代码中的`example.py`提供了本项目的基本使用示例。
 
-* 本项目的测试代码在`test`文件夹中
+* 本项目的测试代码在`tests`文件夹中
 * 本项目的输入 HTML 为经过 JavaScript 渲染以后的 HTML，而不是普通的网页源代码。所以无论是后端渲染、Ajax 异步加载都适用于本项目。
 * 如果你要手动测试新的目标网站或者目标新闻，那么你可以在 Chrome 浏览器中打开对应页面，然后开启`开发者工具`，如下图所示：
 
@@ -53,7 +80,7 @@ python3 test.py
 * 获取到源代码以后，通过如下代码提取信息：
 
 ``` python
-from GeneralNewsCrawler import GeneralNewsExtractor
+from gne import GeneralNewsExtractor
 
 extractor = GeneralNewsExtractor()
 html = '你的目标网页正文'

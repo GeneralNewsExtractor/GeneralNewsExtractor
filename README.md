@@ -20,6 +20,22 @@
 
 ## 如何使用
 
+### 准备环境
+
+本项目使用 `Pipenv`管理 Python 的第三方库。如果你不知道 `Pipenv` 是什么，请[点我跳转](https://github.com/pypa/pipenv)。
+
+安装完成`Pipenv`以后，按照如下步骤运行代码：
+
+```bash
+git clone https://github.com/kingname/GeneralNewsExtractor.git
+cd GeneralNewsExtractor
+pipenv install
+pipenv shell
+python3 GeneralNewsCrawler.py
+```
+
+### 特别说明
+
 项目代码中的`GeneralNewsCrawler.py`提供了本项目的基本使用示例。
 
 * 本项目的测试代码在`test`文件夹中

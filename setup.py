@@ -2,6 +2,7 @@ from setuptools import setup, find_packages
 setup(
     name='GeneralNewsExtractor',
     packages=find_packages(exclude=[]),
+    install_requires=['lxml'],
     version='0.0.1',
     description='General extractor of news pages.',
     author='Kingname',
@@ -9,10 +10,10 @@ setup(
     url='https://github.com/kingname/GeneralNewsExtractor',
     keywords=['python', 'webcrawler', 'webspider'],
     python_requires='>=3.6',
-    license='PyPA',
+    license='MIT',
     classifiers=[
       'Development Status :: 3 - Alpha',
-      'License :: PyPA',
+      'License :: MIT',
       'Programming Language :: Python :: 3.6',
       'Programming Language :: Python :: 3.7',
     ]

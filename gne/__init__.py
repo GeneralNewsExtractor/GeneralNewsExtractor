@@ -11,7 +11,7 @@ class GeneralNewsExtractor:
 
     def extract(self, html, noise_node_list=None):
         element = pre_parse(html)
-        remove_noise_node(element, noise_node_list)
+        element = remove_noise_node(element, noise_node_list)
         content = self.content_extractor.extract(element)
         title = self.title_extractor.extract(element)
         publish_time = self.time_extractor.extractor(element)

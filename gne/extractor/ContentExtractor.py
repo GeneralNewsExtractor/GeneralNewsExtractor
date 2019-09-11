@@ -1,6 +1,7 @@
 import re
 import numpy as np
-from lxml.html import HtmlElement
+from gne.utils import iter_node
+from gne.defaults import USELESS_TAG
 
 
 class ContentExtractor:
@@ -11,18 +12,22 @@ class ContentExtractor:
         """
         self.content_tag = content_tag
         self.node_info = {}
-        self.punctuation = set('''！，。？；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
+        self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
 
     def extract(self, selector):
         body = selector.xpath('//body')[0]
-        for node in self.iter_node(body):
+        for node in iter_node(body):
             node_hash = hash(node)
             density_info = self.calc_text_density(node)
             text_density = density_info['density']
             ti_text = density_info['ti_text']
             text_tag_count = self.count_text_tag(node, tag='p')
             sbdi = self.calc_sbdi(ti_text, density_info['ti'], density_info['lti'])
-            self.node_info[node_hash] = {'node': node,
+            self.node_info[node_hash] = {'ti': density_info['ti'],
+                                         'lti': density_info['lti'],
+                                         'tgi': density_info['tgi'],
+                                         'ltgi': density_info['ltgi'],
+                                         'node': node,
                                          'density': text_density,
                                          'text': ti_text,
                                          'text_tag_count': text_tag_count,
@@ -45,7 +50,7 @@ class ContentExtractor:
                 text = text.strip()
                 if not text:
                     continue
-                clear_text = re.sub(' +', '', text, flags=re.S)
+                clear_text = re.sub(' +', ' ', text, flags=re.S)
                 text_list.append(clear_text.replace('\n', ''))
         return text_list
 
@@ -72,9 +77,9 @@ class ContentExtractor:
         tgi = len(element.xpath('.//*'))
         ltgi = len(element.xpath('.//a'))
         if (tgi - ltgi) == 0:
-            return {'density': 0, 'ti_text': ti_text, 'ti': ti, 'lti': lti}
+            return {'density': 0, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
         density = (ti - lti) / (tgi - ltgi)
-        return {'density': density, 'ti_text': ti_text, 'ti': ti, 'lti': lti}
+        return {'density': density, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
 
     def calc_sbdi(self, text, ti, lti):
         """
@@ -89,7 +94,7 @@ class ContentExtractor:
         """
         sbi = self.count_punctuation_num(text)
         sbdi = (ti - lti) / (sbi + 1)
-        return sbdi or 1  # sbdi 不能为0，否则会导致求对数时报错。
+        return sbdi or 1   # sbdi 不能为0，否则会导致求对数时报错。
 
     def count_punctuation_num(self, text):
         count = 0
@@ -97,12 +102,6 @@ class ContentExtractor:
             if char in self.punctuation:
                 count += 1
         return count
-
-    def iter_node(self, element: HtmlElement):
-        yield element
-        for sub_element in element:
-            if isinstance(sub_element, HtmlElement):
-                yield from self.iter_node(sub_element)
 
     def calc_standard_deviation(self):
         score_list = [x['density'] for x in self.node_info.values()]

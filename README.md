@@ -144,7 +144,7 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Todo
 
-* 使用一个配置文件来存放常量数据，而不是直接 Hard Code 写在代码中。
+* ~~使用一个配置文件来存放常量数据，而不是直接 Hard Code 写在代码中。~~
 * 允许自定义时间、作者的提取Pattern
 * 新闻文章列表页提取
 * 对于多页的新闻，允许传入一个 HTML 列表，GNE 解析以后，自动拼接为完整的新闻正文

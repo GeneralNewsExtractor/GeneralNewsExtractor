@@ -1,5 +1,6 @@
 import re
 from lxml.html import HtmlElement
+from gne.defaults import TITLE_HTAG_XPATH, TITLE_SPLIT_CHAR_PATTERN
 
 
 class TitleExtractor:
@@ -16,14 +17,14 @@ class TitleExtractor:
         title_list = element.xpath('//title/text()')
         if not title_list:
             return ''
-        title = re.split('[-_|]', title_list[0])
+        title = re.split(TITLE_SPLIT_CHAR_PATTERN, title_list[0])
         if title:
             return title[0]
         else:
             return ''
 
     def extract_by_htag(self, element):
-        title_list = element.xpath('//h1//text() | //h2//text() | //h3//text() | //h4//text()')
+        title_list = element.xpath(TITLE_HTAG_XPATH)
         if not title_list:
             return ''
         return title_list[1]

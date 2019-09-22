@@ -1,4 +1,4 @@
-from .defaults import USELESS_TAG
+from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY
 from lxml.html import fromstring, HtmlElement
 from lxml.html import etree
 
@@ -8,13 +8,17 @@ def normalize_node(element: HtmlElement):
         if node.tag.lower() in USELESS_TAG:
             remove_node(node)
 
-        # 移除空的 span 标签
-        if node.tag.lower() == 'span' and not node.getchildren() and not node.text:
+        # inspired by readability.
+        if node.tag.lower() in TAGS_CAN_BE_REMOVE_IF_EMPTY and is_empty_element(node):
             remove_node(node)
 
         # p 标签下面的 span 标签中的文字，可以合并到 p 标签中
         if node.tag.lower() == 'p':
             etree.strip_tags(node, 'span')
+
+        # if a div tag does not contain any sub node, it could be converted to p node.
+        if node.tag.lower() == 'div' and not node.getchildren():
+            node.tag = 'p'
 
         class_name = node.get('class')
         if class_name and ('share' in class_name or 'contribution' in class_name):
@@ -50,4 +54,10 @@ def remove_node(node: HtmlElement):
     :param node:
     :return:
     """
-    node.getparent().remove(node)
+    parent = node.getparent()
+    if parent:
+        parent.remove(node)
+
+
+def is_empty_element(node: HtmlElement):
+    return not node.getchildren() and not node.text

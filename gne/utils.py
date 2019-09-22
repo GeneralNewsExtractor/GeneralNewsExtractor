@@ -1,17 +1,25 @@
 from .defaults import USELESS_TAG
 from lxml.html import fromstring, HtmlElement
+from lxml.html import etree
 
 
 def normalize_node(element: HtmlElement):
     for node in iter_node(element):
         if node.tag.lower() in USELESS_TAG:
             remove_node(node)
+
+        # 移除空的 span 标签
         if node.tag.lower() == 'span' and not node.getchildren() and not node.text:
             remove_node(node)
+
+        # p 标签下面的 span 标签中的文字，可以合并到 p 标签中
+        if node.tag.lower() == 'p':
+            etree.strip_tags(node, 'span')
 
         class_name = node.get('class')
         if class_name and ('share' in class_name or 'contribution' in class_name):
             remove_node(node)
+
 
 def pre_parse(html):
     element = fromstring(html)

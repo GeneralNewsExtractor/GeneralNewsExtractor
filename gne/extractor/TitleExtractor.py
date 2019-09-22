@@ -27,7 +27,7 @@ class TitleExtractor:
         title_list = element.xpath(TITLE_HTAG_XPATH)
         if not title_list:
             return ''
-        return title_list[1]
+        return title_list[0]
 
     def extract(self, element: HtmlElement, title_xpath: str=''):
         title = self.extract_by_xpath(element, title_xpath) or self.extract_by_title(element) or self.extract_by_htag(element)

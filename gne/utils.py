@@ -55,7 +55,7 @@ def remove_node(node: HtmlElement):
     :return:
     """
     parent = node.getparent()
-    if parent:
+    if parent is not None:
         parent.remove(node)
 
 

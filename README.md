@@ -96,6 +96,17 @@ result = extractor.extract(html)
 print(result)
 ```
 
+* 如果标题自动提取失败了，你可以指定 XPath：
+
+```python
+from gne import GeneralNewsExtractor
+
+extractor = GeneralNewsExtractor()
+html = '你的目标网页正文'
+result = extractor.extract(html, title_xpath='//h5/text()')
+print(result)
+```
+
 对大多数新闻页面而言，以上的写法就能够解决问题了。
 
 但某些新闻网页下面会有评论，评论里面可能存在长篇大论，它们会看起来比真正的新闻正文更像是正文，因此`extractor.extract()`方法还有一个默认参数`noise_mode_list`，用于在网页预处理时提前把评论区域整个移除。

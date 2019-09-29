@@ -9,11 +9,11 @@ class GeneralNewsExtractor:
         self.author_extractor = AuthorExtractor()
         self.time_extractor = TimeExtractor()
 
-    def extract(self, html, noise_node_list=None):
+    def extract(self, html, title_xpath='', noise_node_list=None):
         element = pre_parse(html)
         remove_noise_node(element, noise_node_list)
         content = self.content_extractor.extract(element)
-        title = self.title_extractor.extract(element)
+        title = self.title_extractor.extract(element, title_xpath=title_xpath)
         publish_time = self.time_extractor.extractor(element)
         author = self.author_extractor.extractor(element)
         return {'title': title,

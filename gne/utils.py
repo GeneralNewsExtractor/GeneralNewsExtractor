@@ -15,13 +15,20 @@ def normalize_node(element: HtmlElement):
         # p 标签下面的 span 标签中的文字，可以合并到 p 标签中
         if node.tag.lower() == 'p':
             etree.strip_tags(node, 'span')
+            etree.strip_tags(node, 'strong')
 
         # if a div tag does not contain any sub node, it could be converted to p node.
         if node.tag.lower() == 'div' and not node.getchildren():
             node.tag = 'p'
 
+        if node.tag.lower() == 'span' and not node.getchildren():
+            node.tag = 'p'
+
+        if node.tag.lower() == 'br':
+            remove_node(node)
+
         class_name = node.get('class')
-        if class_name and ('share' in class_name or 'contribution' in class_name):
+        if class_name and ('share' in class_name or 'contribution' in class_name or 'copyright' in class_name):
             remove_node(node)
 
 
@@ -55,7 +62,7 @@ def remove_node(node: HtmlElement):
     :return:
     """
     parent = node.getparent()
-    if parent:
+    if parent is not None:
         parent.remove(node)
 
 

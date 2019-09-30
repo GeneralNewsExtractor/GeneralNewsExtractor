@@ -1,4 +1,5 @@
-from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY
+import re
+from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY, USELESS_ATTR
 from lxml.html import fromstring, HtmlElement
 from lxml.html import etree
 
@@ -12,6 +13,7 @@ def normalize_node(element: HtmlElement):
         if node.tag.lower() in TAGS_CAN_BE_REMOVE_IF_EMPTY and is_empty_element(node):
             remove_node(node)
 
+
         # p 标签下面的 span 标签中的文字，可以合并到 p 标签中
         if node.tag.lower() == 'p':
             etree.strip_tags(node, 'span')
@@ -24,15 +26,16 @@ def normalize_node(element: HtmlElement):
         if node.tag.lower() == 'span' and not node.getchildren():
             node.tag = 'p'
 
-        if node.tag.lower() == 'br':
-            remove_node(node)
-
         class_name = node.get('class')
-        if class_name and ('share' in class_name or 'contribution' in class_name or 'copyright' in class_name):
-            remove_node(node)
+        if class_name:
+            for attribute in USELESS_ATTR:
+                if attribute in class_name:
+                    remove_node(node)
+                    break
 
 
 def pre_parse(html):
+    html = re.sub('</?br.*?>', '', html)
     element = fromstring(html)
     normalize_node(element)
     return element

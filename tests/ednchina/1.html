@@ -1,0 +1,1869 @@
+<html lang="en"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>阿里发布最强AI芯片：性能“吊打”同行，一块顶十块GPU-EDN 电子技术设计</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="发布含光800芯片时，张建锋拿出一张芯片展示，称“这个芯片真的非常大”。张建锋表示，“含光800”是阿里平头哥成立后首款正式流片的芯片，并称含光800性能“吊打”同行。">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="https://www.ednchina.com/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://www.ednchina.com/css/index.css">
+	<link rel="stylesheet" type="text/css" href="https://www.ednchina.com/css/list.css">
+	<link rel="stylesheet" type="text/css" href="https://www.ednchina.com/css/newDetail.css?v=1.0">
+
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="https://hm.baidu.com/hm.js?8389243b4fb6156c2fb080a018bf68a1"></script><script type="text/javascript" src="https://www.ednchina.com/js/jquery.min.js"></script>
+	<link rel="shortcut icon" href="https://www.ednchina.com/favicon.ico">
+<style type="text/css">
+        .MathJax {
+            outline: 0;
+        }
+        .MathJax_Display {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+</style>
+<link rel="stylesheet" href="https://www.ednchina.com/js/theme/default/layer.css?v=3.1.1" id="layuicss-layer"><script src="https://www.ednchina.com/e/extend/lgyPl/assets/hd.js?v=1" type="text/javascript"></script><script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script><link rel="preload" href="https://adservice.google.com/adsid/integrator.js?domain=www.ednchina.com" as="script"><script type="text/javascript" src="https://adservice.google.com/adsid/integrator.js?domain=www.ednchina.com"></script><script src="https://securepubads.g.doubleclick.net/gpt/pubads_impl_2019091901.js" async=""></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><script src="https://www.ednchina.com/e/extend/lgyPl/assets/lgyPl.js?v=1" type="text/javascript"></script><link rel="stylesheet" type="text/css" href="https://www.ednchina.com/e/extend/lgyPl/assets/style.css?v=1"><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body style=""><div id="MathJax_Message" style="display: none;"></div>
+<div class="nav-bg navbar-fixed-top">
+    <div class="nav-con">
+        <a href="https://www.ednchina.com/">
+            <div class="nav-logo">
+            </div>
+        </a>
+        <div class="nav-menu-xs visible-xs visible-sm visible-md">
+            <span class="iconfont menu-btn"></span>
+            <span class="iconfont colse-btn"></span>
+        </div><!-- 手机端菜单按钮 -->
+        <div class="nav-list hidden-xs hidden-sm hidden-md">
+            <ul>
+                <li class="thefirst"><a href="https://www.ednchina.com/" target="_blank" class="nav-link">首页</a></li>
+                <li class="thefirst dropdown">
+                    <a href="https://www.ednchina.com/news" target="_blank" class="nav-link dropdown-toggle">资讯 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/tag/analog" target="_blank">模拟设计</a></li>
+                        <li><a href="/tag/embedded-system" target="_blank">嵌入式系统</a></li>
+                        <li><a href="/tag/pld" target="_blank">可编程器件</a></li>
+                        <li><a href="/tag/test-measurement" target="_blank">测试与测量</a></li>
+                        <li><a href="/tag/power-management" target="_blank">电源管理</a></li>
+                        <li><a href="/tag/communication" target="_blank">通信</a></li>
+                        <li><a href="/tag/pcbdesign" target="_blank">PCB设计</a></li>
+                        <li><a href="/tag/edaipic" target="_blank">EDA/IP/IC设计</a></li>
+                        <li><a href="/tag/cpu-dsp" target="_blank">处理器与DSP</a></li>
+                        <li><a href="/tag/medicalelectronics" target="_blank">医疗电子</a></li>
+                        <li><a href="/tag/consumer-electronics" target="_blank">消费电子</a></li>
+                        <li><a href="/tag/auto" target="_blank">汽车电子</a></li>
+                        <li><a href="/tag/industrial" target="_blank">工业电子</a></li>
+                        <li><a href="/tag/mpd" target="_blank">手机设计</a></li>
+                        <li><a href="/tag/incs" target="_blank">智能家居</a></li>
+                        <li><a href="/tag/IoT" target="_blank">物联网</a></li>
+                        <li><a href="/tag/arvr" target="_blank">AR/VR</a></li>
+                        <li><a href="/tag/innovate" target="_blank">创新/创客</a></li>
+                    </ul>
+                </li>
+                <li class="thefirst"><a href="/tag/technical-applications" target="_blank" class="nav-link">技术实例</a></li>
+                <li class="thefirst dropdown">
+                    <a href="javascript:void(0)" class="nav-link dropdown-toggle">技术资源 <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-aline">
+                        <li><a href="https://www.ednchina.com/video" target="_blank">视频中心</a></li>
+                        <li><a href="https://www.ednchina.com/webinars/" target="_blank">在线研讨会</a></li>
+                        <li><a href="https://www.ednchina.com/downloads/" target="_blank">资料下载</a></li>
+                        <li><a href="https://www.ednchina.com/iqs/" target="_blank">小测验</a></li>
+                        <li><a href="https://www.ednchina.com/rc" target="_blank">供应商资源</a></li>
+                    </ul>
+                </li>
+                <li class="thefirst dropdown">
+                    <a href="https://www.mianbaoban.cn/" target="_blank" class="nav-link dropdown-toggle">社区 <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-aline">
+                        <li><a href="https://forum.mianbaoban.cn/" target="_blank">论坛</a></li>
+						<li><a href="https://www.mianbaoban.cn/blog/" target="_blank">博客</a></li>
+						<li><a href="https://forum.mianbaoban.cn/cat/8_1.html" target="_blank">问答</a></li>
+						<li><a href="https://www.mianbaoban.cn/download " target="_blank">下载中心</a></li>
+						<li><a href="https://www.mianbaoban.cn/evaluating " target="_blank">评测中心</a></li>
+						<li><a href="https://www.mianbaoban.cn/mp" target="_blank">面包芯语</a></li>
+						<li><a href="https://estore.mianbaoban.cn" target="_blank">E币商城</a></li>
+						<li><a href="https://www.mianbaoban.cn/activity" target="_blank">社区活动</a></li>
+                    </ul>
+                </li>
+                <li class="thefirst dropdown">
+                    <a href="javascript:void(0)" rel="nofollow" class="nav-link dropdown-toggle">EDN杂志 <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-aline">
+                        <li><a href="https://subscription.eet-china.com" rel="nofollow" target="_blank">杂志订阅</a></li>
+                           <li><a href="javascript:void (0)" data-toggle="modal" data-target="#statement">杂志声明</a></li>
+                        <li><a href="https://www.ednchina.com/EditorialCalendar.html" rel="nofollow" target="_blank">编辑计划表</a></li>
+                        <li><a href="https://www.ednchina.com/downloads/tag/emagazine" rel="nofollow" target="_blank">电子杂志下载</a></li>
+                        <li><a href="http://site.ednchina.com/about-us/index.html" target="_blank">关于我们</a></li>
+                    </ul>
+                </li>
+                <li class="thefirst"><a href="https://www.eet-china.com/ACSTUDIO/#all" target="_blank" rel="nofollow" class="nav-link">ASPENCORE工作室</a></li>
+                <li class="thefirst dropdown">
+					<a href="javascript:void(0)" class="nav-link dropdown-toggle">行业活动<span class="caret"></span></a>
+					<ul class="dropdown-menu dropdown-menu-aline" style="width: auto">
+						<li style="width: auto"><a href="https://doublesummits.eet-china.com" target="_blank">2019 ASPENCORE全球双峰会</a></li>
+						<li style="width: auto"><a href="http://site.eet-china.com/events/index.html" target="_blank">更多行业及技术活动</a></li>
+						<li style="width: auto"><a href="https://www.mianbaoban.cn/activity" target="_blank">工程师社群活动</a></li>
+					</ul>
+				</li>
+                <li class="thefirst">
+                    <a href="https://doublesummits.eet-china.com" target="_blank" class="nav-link">2019全球双峰会</a>
+                </li>
+            </ul>
+        </div><!-- nav-list -->
+        <script src="https://www.ednchina.com/e/member/login/loginAuth.php"></script><div class="nav-login hidden-xs hidden-sm hidden-md"><div class="nav-login-text dropdown">    <span class="iconfont"></span><ul class="dropdown-menu" aria-labelledby="dropdownMenu1"><li><a href="https://www.mianbaoban.cn/member.php?mod=logging&amp;action=login&amp;next=https%3A%2F%2Fwww.ednchina.com%2Fnews%2F201909251301.html&amp;sig=3f6bb6b838c0ff36fbbb1b14d4f4bedfaa57bd0cddfc64607f26c9f8f756cc59">登录</a></li><li><a href="https://www.mianbaoban.cn/member.php?mod=register&amp;url=https%3A%2F%2Fwww.ednchina.com%2Fnews%2F201909251301.html&amp;sig=ca3c52cf5779f195ed12b5a3ee95206a2a2f4d5ae03718de690116aaf383fc3c">注册</a></li></ul></div></div>
+        <!-- pc端用户登录 -->
+        <div class="nav-search hidden-xs hidden-sm hidden-md">
+            <form action="/e/search/index.php" method="post" name="search_news" id="search_news">
+                <input type="hidden" name="show" value="title,smalltext,newstext,writer">
+                <div class="search-option">
+                    <div class="search-option-value">
+                        <span class="thetext">全部</span>
+                        <span class="caret"></span>
+                    </div>
+                    <ul>
+                        <li value="title">标题</li>
+                        <li value="smalltext">简介</li>
+                        <li value="newstext">内容</li>
+                        <li value="writer">作者</li>
+                        <li value="title,smalltext,newstext,writer" class="thetitle">全部</li>
+                    </ul>
+                </div>
+                <div class="theline"></div>
+                <input name="keyboard" id="keyboard" type="text" class="search-input" placeholder="请输入搜索内容">
+                <input type="hidden" name="classid" value="2">
+                <input type="hidden" name="tempid" value="1">
+                <button class="iconfont" type="submit" name="submit"></button>
+            </form>
+        </div><!-- pc端搜索 -->
+        <div class="nav-search-xs visible-xs visible-sm visible-md">
+            <a href="javascript:void(0)" target="_blank"><span class="iconfont search-btn"></span></a>
+            <a href="javascript:void(0)" target="_blank"><span class="iconfont colse-btn"></span></a>
+        </div> <!-- 手机端搜索和关闭按钮 -->
+        <script src="https://www.ednchina.com/e/member/login/loginState.php"></script><div class="nav-login-xs visible-xs visible-sm visible-md "><a href="https://www.mianbaoban.cn/member.php?mod=logging&amp;action=login&amp;next=https%3A%2F%2Fwww.ednchina.com%2Fnews%2F201909251301.html&amp;sig=3f6bb6b838c0ff36fbbb1b14d4f4bedfaa57bd0cddfc64607f26c9f8f756cc59" class="login-text-xs">登录</a></div>
+    </div>
+</div>
+<div class="nav-search-xs-con">
+    <form action="/e/search/index.php" method="post" name="search_news" id="search_news">
+        <input type="hidden" name="show" value="title,smalltext,newstext,writer">
+        <div class="search-option">
+            <div class="search-option-value">
+                <span class="thetext-xs">全部</span>
+                <span class="caret"></span>
+            </div>
+            <div class="theline"></div>
+            <ul>
+                <li value="title">标题</li>
+                <li value="smalltext">简介</li>
+                <li value="newstext">内容</li>
+                <li value="writer">作者</li>
+                <li value="title,smalltext,newstext,writer" class="thetitle-xs">全部</li>
+            </ul>
+        </div>
+        <input name="keyboard" id="keyboard" type="text" class="search-xs-input" placeholder="请输入搜索内容">
+        <input type="hidden" name="classid" value="2">
+        <input type="hidden" name="tempid" value="1">
+        <button class="iconfont" type="submit" name="submit"></button>
+    </form>
+</div> <!-- 手机端搜索 -->
+<div class="nav-list-xs">
+    <ul>
+        <li><a href="https://www.ednchina.com/" target="_blank" class="theOne">首页</a></li>
+        <li>
+            <a href="javascript:void(0)" target="_blank" class="theOne">资讯 <span class="caret"></span></a>
+            <ul class="nav-list-subnav">
+                <li><a href="/tag/analog" target="_blank">模拟设计</a></li>
+                <li><a href="/tag/embedded-system" target="_blank">嵌入式系统</a></li>
+                <li><a href="/tag/pld" target="_blank">可编程器件</a></li>
+                <li><a href="/tag/test-measurement" target="_blank">测试与测量</a></li>
+                <li><a href="/tag/power-management" target="_blank">电源管理</a></li>
+                <li><a href="/tag/communication" target="_blank">通信</a></li>
+                <li><a href="/tag/pcbdesign" target="_blank">PCB设计</a></li>
+                <li><a href="/tag/edaipic" target="_blank">EDA/IP/IC设计</a></li>
+                <li><a href="/tag/cpu-dsp" target="_blank">处理器与DSP</a></li>
+                <li><a href="/tag/medicalelectronics" target="_blank">医疗电子</a></li>
+                <li><a href="/tag/consumer-electronics" target="_blank">消费电子</a></li>
+                <li><a href="/tag/auto" target="_blank">汽车电子</a></li>
+                <li><a href="/tag/industrial" target="_blank">工业电子</a></li>
+                <li><a href="/tag/mpd" target="_blank">手机设计</a></li>
+                <li><a href="/tag/incs" target="_blank">智能家居</a></li>
+                <li><a href="/tag/IoT" target="_blank">物联网</a></li>
+                <li><a href="/tag/arvr" target="_blank">AR/VR</a></li>
+                <li><a href="/tag/innovate" target="_blank">创新/创客</a></li>
+            </ul>
+        </li>
+        <li><a href="/tag/technical-applications" target="_blank" class="theOne">技术实例</a></li>
+        <li>
+            <a href="javascript:void(0)" class="theOne">技术资源 <span class="caret"></span></a>
+            <ul class="nav-list-subnav">
+                <li><a href="https://www.ednchina.com/video" target="_blank">视频中心</a></li>
+                <li><a href="https://www.ednchina.com/webinars/" target="_blank">在线研讨会</a></li>
+                <li><a href="https://www.ednchina.com/downloads/" target="_blank">资料下载</a></li>
+                <li><a href="https://www.ednchina.com/iqs/" target="_blank">小测验</a></li>
+                <li><a href="https://www.ednchina.com/rc" target="_blank">供应商资源</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="https://www.mianbaoban.cn/" target="_blank" class="theOne">社区 <span class="caret"></span></a>
+            <ul class="nav-list-subnav">
+                <li><a href="https://forum.mianbaoban.cn/" target="_blank">论坛</a></li>
+						<li><a href="https://www.mianbaoban.cn/blog/" target="_blank">博客</a></li>
+						<li><a href="https://forum.mianbaoban.cn/cat/8_1.html" target="_blank">问答</a></li>
+						<li><a href="https://www.mianbaoban.cn/download " target="_blank">下载中心</a></li>
+						<li><a href="https://www.mianbaoban.cn/evaluating " target="_blank">评测中心</a></li>
+						<li><a href="https://www.mianbaoban.cn/mp" target="_blank">面包芯语</a></li>
+						<li><a href="https://estore.mianbaoban.cn" target="_blank">E币商城</a></li>
+						<li><a href="https://www.mianbaoban.cn/activity" target="_blank">社区活动</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0)" rel="nofollow" target="_blank" class="theOne">EDN杂志 <span class="caret"></span></a>
+            <ul class="nav-list-subnav">
+                <li><a href="https://subscription.eet-china.com" rel="nofollow" target="_blank">杂志订阅</a></li>
+
+                                                <li><a href="javascript:void (0)" data-toggle="modal" data-target="#statement">杂志声明</a></li>
+                <li><a href="https://www.ednchina.com/EditorialCalendar.html" rel="nofollow" target="_blank">编辑计划表</a></li>
+                <li><a href="https://www.ednchina.com/downloads/tag/emagazine" rel="nofollow" target="_blank">电子杂志下载</a></li>
+                <li><a href="http://site.ednchina.com/about-us/index.html" target="_blank">关于我们</a></li>
+            </ul>
+        </li>
+        <li><a href="https://www.eet-china.com/ACSTUDIO/#all" target="_blank" rel="nofollow" class="nav-link">ASPENCORE工作室</a></li>
+       <li>
+			<a href="javascript:void (0)" target="_blank" class="theOne">行业活动 <span class="caret"></span></a>
+			<ul class="nav-list-subnav">
+				<li style="width: 100%; float: none; height: auto; padding: 0px 20px;">
+					<a href="https://doublesummits.eet-china.com" target="_blank" style="padding-left: 0px;">
+						2019 ASPENCORE全球双峰会
+					</a>
+				</li>
+				<li style="width: 100%; float: none; height: auto; padding: 0px 20px;">
+					<a href=" http://site.eet-china.com/events/index.html" target="_blank" style="padding-left: 0px;">
+						更多行业及技术活动
+					</a>
+				</li>
+				<li style="width: 100%; float: none; height: auto; padding: 0px 20px;">
+					<a href=" https://www.mianbaoban.cn/activity" target="_blank" style="padding-left: 0px;">
+						工程师社群活动
+					</a>
+				</li>
+			</ul>
+		</li>
+        <li><a href="https://doublesummits.eet-china.com" target="_blank" class="theOne">2019全球双峰会</a></li>
+    </ul>
+</div><!-- 手机端导航 -->
+
+<div class="modal" id="statement">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title">
+                    杂志声明
+                </h4>
+            </div>
+            <div class="modal-body">
+                我司杂志提供免费订阅，任何第三方平台的赠送或售卖行为均未获得我司授权，我司保留追究其法律责任的权利！
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    #statement{
+        z-index: 99999;
+    }
+    #statement .modal-dialog {
+       width:600px;
+    height: 100%!important;
+    margin: 0px auto;
+
+    }
+@media screen and (max-width:767px){
+	#statement .modal-body{
+		height: auto;
+	}
+	#statement .modal-dialog{
+		width: 92%;
+	}
+}
+    #statement .modal-content{
+        width: 100%;
+        border: none;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #statement .modal-header {
+        border-bottom: none;
+        text-align: center;
+        color: #333;
+        border: none;
+        padding: 15px 15px 10px 15px;
+        position: relative;
+    }
+    #statement .modal-header:before{
+        content: '';
+        width: 100%;
+        height: 1px;
+        background: #e5e5e5;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+    }
+    #statement .close{
+        font-size: 24px;
+    }
+    #statement .modal-body{
+        padding: 30px;
+        font-size: 14px;
+        line-height: 30px;
+    }
+</style>
+<style>
+        svg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 1000000;
+        }
+
+
+        #l_r_touch_hand {
+            background: rgba(0, 0, 0, 0.5);
+        }
+ </style>
+    <svg id="l_r_touch_view" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <ellipse style="fill:rgb(0,0,0);opacity: 0.3"></ellipse>
+    </svg>
+    <svg id="l_r_touch_hand" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMinYMin meet" viewBox="0,0,1000,1400">
+        <defs>
+            <linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(255,255,255);
+stop-opacity:0.1"></stop>
+                <stop offset="100%" style="stop-color:rgb(255,255,255);
+stop-opacity:1"></stop>
+            </linearGradient>
+        </defs>
+
+        <symbol id="pointer">
+            <g transform="rotate(17.95)">
+                <animateMotion path="M10 0 L250 0" from="0" to="160" begin="0s" dur="1s" repeatCount="indefinite"></animateMotion>
+                <animateTransform attributeName="transform" begin="0s" dur="1s" type="rotate" from="0" to="20" repeatCount="indefinite"></animateTransform>
+                <g>
+                    <animate attributeName="opacity" from="0.2" to="1" begin="0s" dur="1s" repeatCount="indefinite"></animate>
+                    <path fill="url(#orange_red)" transform="scale(2)" d="M77.2,32l-8.1-8c-0.7-0.7-1.9-0.7-2.6,0c-0.7,0.7-0.7,1.9,0,2.6l5.3,5.2C43.5,34.2,5,61.6,3.7,62.5
+		c-0.8,0.6-1,1.8-0.4,2.6c0.4,0.6,1.2,0.8,1.9,0.7c0.2-0.1,0.5-0.2,0.7-0.3c0.3-0.2,39.1-27.8,66.4-30l-5.6,5.7
+		c-0.7,0.7-0.7,1.9,0,2.6c0.5,0.5,1.1,0.6,1.7,0.5c0.3-0.1,0.6-0.2,0.9-0.5l8-8.1C78.3,34.6,78.2,33,77.2,32z"></path>
+                </g>
+                <g>
+                    <path class="llft_hand" fill="#FFF" transform="scale(2),translate(40,65)" d="M51.8,15.9c-1,0.5-1.9,1.1-2.6,2c-2.8-2.5-6.5-3.3-9.6-1.9c-1.6,0.7-3,2.1-3.9,3.8c-2.5-1.6-5.5-1.8-8-0.7
+		c-1.2,0.5-2.2,1.4-3,2.4L19.3,9.8c-2.3-5-8.1-7.4-12.9-5.2c-4.8,2.2-6.9,8.1-4.6,13.1l15.4,33.8c-2.1-0.4-4.2-0.2-6.2,0.7
+		c-1.9,0.8-3.4,2.2-4.4,3.9c-1.4,2.3-1.8,5-1.2,7.6c0.6,2.6,2.2,4.8,4.5,6.2l21.6,13.3l0,0c0.1,0.1,0.3,0.2,0.5,0.3
+		c0.1,0,0.2,0.1,0.3,0.1l0,0c0.2,0.1,0.4,0.2,0.6,0.3l0.1,0c3.2,2.1,6.7,4.4,11.4,2.3L72,73.8c2-0.9,3.8-3.2,4.9-6.3
+		c2.2-5.9,1.9-13.5-0.7-19.2L64,21.4C61.7,16.3,56.2,13.9,51.8,15.9z M10.4,58.4c0.6-0.9,1.4-1.7,2.4-2.1c1.7-0.8,3.7-0.7,5.3,0.3
+		l4.1,2.5c0.6,0.4,1.4,0.3,1.9-0.2c0.6-0.5,0.7-1.2,0.4-1.9L5.8,15.9c-1.3-2.8-0.2-6.1,2.4-7.2c2.6-1.2,5.7,0.2,7,3l11,23.9l0.3,0.6
+		c0.5,1.1,1.8,1.6,2.9,1.1l0,0c1.1-0.5,1.6-1.8,1.1-2.9l-3-6.6c-0.3-0.6-0.3-1.2-0.2-1.7c0.3-1.3,1.1-2.3,2.1-2.8
+		c1.8-0.8,4.1,0.1,5.6,2.1l0.4,0.6c0.2,0.3,0.4,0.6,0.6,1l2.8,6.2c0.5,1.1,1.8,1.6,2.9,1.2c0.6-0.2,1-0.7,1.2-1.2
+		c0.2-0.6,0.2-1.2,0-1.8l-3.5-7.6c-0.2-0.4-0.2-0.9-0.1-1.3c0.4-1,1.1-1.8,1.9-2.2c2-0.9,4.7,0.3,6.1,2.8l1.2,2.2l2.9,6.3
+		c0.5,1.1,1.8,1.6,3,1.1c1.1-0.5,1.6-1.8,1.1-3l-3.2-7.1c-0.3-0.7-0.1-1.6,0.5-2.1c0.2-0.2,0.5-0.4,0.8-0.5c2.2-1,5.1,0.5,6.3,3.3
+		l12.2,26.9C74.4,55,74,60,73.5,62.5c-0.6,3.6-2.1,6.5-3.5,7.2L42.4,82.3c-2.2,1-3.9,0.1-7.2-2l-0.1,0l0,0c-0.2-0.1-0.5-0.3-0.7-0.4
+		c-0.1-0.1-0.2-0.1-0.3-0.2c-0.1-0.1-0.2-0.1-0.3-0.2L12.2,66.1C9.6,64.4,8.7,61,10.4,58.4z"></path>
+                </g>
+            </g>
+
+            <path fill="#FFF" transform="translate(30,230)scale(1.5)" d="M290.1,121c-0.1-0.5-0.2-0.9-0.3-1.4c-1.9-8.2-5.7-17-27.5-17.6c-20.5-0.6-217.8-0.9-220.5-1
+	c-0.2,0-0.5,0-0.9,0c-5.3,0-28.4,0.6-31.5,11.9c-2.4,8.8-2.5,21.7-2.2,29.6c0,8.1,0.2,14.9,0.4,16.7c0.5,7.5,13.8,18.8,31.3,19
+	l5.7,0.1c38.3,0.5,80.3,0.8,117.2,0.8c52.1,0,94.3-0.7,102.9-3c9.3-2.4,16.7-12.2,21.1-23.6C290.7,143.4,292.4,130.9,290.1,121z
+	 M272.6,160c-7.5,2.3-54.2,4.7-234.1,2.9c-5-0.1-8.5-0.1-10.1-0.1c-14.3-0.1-16.7-7.3-17.1-14.4c-0.1-1-0.2-3.2-0.3-6.1
+	c0-10.3,0.5-22.3,2.2-28.4c2-7.5,19.7-9.1,27.5-9.1c0.3,0,0.6,0,0.9,0l0,0c2,0,200,0.4,220.5,0.9c19.9,0.6,22.1,8.4,23.9,14.8
+	c0.1,0.4,0.2,0.9,0.3,1.3c1.4,7.7-0.1,18.5-3.7,28.2C280.3,154.9,276.8,158.7,272.6,160z M261.8,172.7c-1,0.2-2.2,0.3-3.8,0.5
+	l3.6-7.9c1.4-0.1,2.6-0.2,3.8-0.3L261.8,172.7z M252.1,173.6l3.6-8c1.3-0.1,2.5-0.1,3.7-0.2l-3.6,8
+	C254.7,173.5,253.5,173.6,252.1,173.6z M246.2,174l3.7-8c1.3-0.1,2.5-0.1,3.7-0.2l-3.6,8C248.8,173.8,247.6,173.9,246.2,174z
+	 M240.4,174.2l3.7-8c1.3,0,2.5-0.1,3.7-0.1l-3.7,8C242.9,174.1,241.7,174.2,240.4,174.2z M234.6,174.4l3.7-8c1.3,0,2.5-0.1,3.7-0.1
+	l-3.7,8C237.1,174.3,235.9,174.4,234.6,174.4z M228.9,174.6l3.7-8c1.3,0,2.5-0.1,3.7-0.1l-3.7,8
+	C231.3,174.5,230.1,174.5,228.9,174.6z M223.1,174.7l3.6-8c1.2,0,2.5-0.1,3.7-0.1l-3.6,8C225.6,174.6,224.4,174.7,223.1,174.7z
+	 M217.3,174.8l3.6-8c1.2,0,2.5,0,3.6-0.1l-3.6,8C219.8,174.8,218.6,174.8,217.3,174.8z M173,167.3l-3.4,7.5
+	c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0l3.6-7.9C170.7,167.3,171.8,167.3,173,167.3z M175.1,167.3c1.2,0,2.4,0,3.6,0l-3.4,7.5
+	c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0L175.1,167.3z M180.9,167.3c1.2,0,2.4,0,3.6,0l-3.4,7.5c-0.1,0.1-0.1,0.3-0.1,0.4
+	c-1.2,0-2.5,0-3.7,0L180.9,167.3z M186.6,167.2c1.2,0,2.4,0,3.6,0l-3.4,7.6c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0
+	L186.6,167.2z M192.3,167.2c1.2,0,2.4,0,3.6,0l-3.5,7.6c-0.1,0.1-0.1,0.2-0.1,0.3c-1.2,0-2.4,0-3.7,0L192.3,167.2z M198,167.1
+	c1.2,0,2.4,0,3.6,0l-3.5,7.7c0,0.1-0.1,0.2-0.1,0.3c-1.2,0-2.4,0-3.7,0L198,167.1z M203.8,167.1c1.2,0,2.4,0,3.6,0l-3.5,7.7
+	c0,0.1,0,0.2-0.1,0.2c-1.2,0-2.4,0-3.7,0L203.8,167.1z M209.5,167c1.2,0,2.4,0,3.6-0.1l-3.6,7.8c0,0.1,0,0.1,0,0.2
+	c-1.2,0-2.4,0-3.7,0L209.5,167z M215.2,166.9c1.2,0,2.4,0,3.6-0.1l-3.6,7.9c0,0,0,0.1,0,0.1c-1.2,0-2.4,0-3.7,0.1L215.2,166.9z
+	 M158.2,175.2c-1.2,0-2.5,0-3.7,0l3.6-7.9c1.2,0,2.4,0,3.6,0l-3.4,7.4C158.2,174.9,158.2,175,158.2,175.2z M74.8,174.7l3.5-7.7
+	c1.2,0,2.4,0,3.6,0l-3.5,7.7C77.2,174.7,76,174.7,74.8,174.7z M69.1,174.6l3.5-7.6c1.2,0,2.4,0,3.6,0l-3.5,7.7
+	C71.5,174.7,70.3,174.6,69.1,174.6z M63.5,174.6l3.5-7.6c1.2,0,2.4,0,3.6,0l-3.5,7.6C65.9,174.6,64.7,174.6,63.5,174.6z M57.8,174.5
+	l3.5-7.6c1.2,0,2.4,0,3.6,0l-3.5,7.6C60.2,174.5,59,174.5,57.8,174.5z M52.1,174.4l3.5-7.6c1.2,0,2.4,0,3.6,0l-3.5,7.6
+	C54.5,174.5,53.3,174.5,52.1,174.4z M46.4,174.4l3.4-7.6c1.2,0,2.4,0,3.6,0l-3.4,7.6C48.8,174.4,47.6,174.4,46.4,174.4z M40.8,174.3
+	l3.4-7.6c1.2,0,2.4,0,3.6,0l-3.4,7.6L40.8,174.3z M35.2,174.1l3.3-7.4c1.2,0,2.4,0,3.6,0l-3.4,7.6C37.5,174.3,36.3,174.2,35.2,174.1
+	z M29.9,173.1l2.9-6.5c1.1,0,2.3,0,3.6,0l-3.2,7.1C32.1,173.6,31,173.4,29.9,173.1z M84,167.1c1.2,0,2.4,0,3.6,0l-3.5,7.6
+	c0,0,0,0,0,0c-1.2,0-2.4,0-3.6,0L84,167.1z M89.7,167.1c1.2,0,2.4,0,3.6,0l-3.5,7.6c0,0,0,0.1,0,0.1c-1.2,0-2.4,0-3.6,0L89.7,167.1z
+	 M95.4,167.2c1.2,0,2.4,0,3.6,0l-3.4,7.6c0,0,0,0.1,0,0.1c-1.2,0-2.4,0-3.6,0L95.4,167.2z M101,167.2c1.2,0,2.4,0,3.6,0l-3.4,7.5
+	c0,0.1,0,0.1,0,0.2c-1.2,0-2.4,0-3.6,0L101,167.2z M106.7,167.2c1.2,0,2.4,0,3.6,0l-3.4,7.5c0,0.1,0,0.1-0.1,0.2c-1.2,0-2.4,0-3.7,0
+	L106.7,167.2z M112.4,167.2c1.2,0,2.4,0,3.6,0l-3.4,7.5c0,0.1,0,0.2-0.1,0.3c-1.2,0-2.4,0-3.7,0L112.4,167.2z M118.1,167.3
+	c1.2,0,2.4,0,3.6,0l-3.4,7.5c0,0.1-0.1,0.2-0.1,0.3c-1.2,0-2.4,0-3.7,0L118.1,167.3z M123.8,167.3c1.2,0,2.4,0,3.6,0l-3.4,7.5
+	c0,0.1-0.1,0.2-0.1,0.3c-1.2,0-2.4,0-3.7,0L123.8,167.3z M129.5,167.3c1.2,0,2.4,0,3.6,0l-3.4,7.4c-0.1,0.1-0.1,0.2-0.1,0.4
+	c-1.2,0-2.5,0-3.7,0L129.5,167.3z M135.2,167.3c1.2,0,2.4,0,3.6,0l-3.4,7.4c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0
+	L135.2,167.3z M140.9,167.3c1.2,0,2.4,0,3.6,0l-3.4,7.4c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0L140.9,167.3z M146.6,167.3
+	c1,0,2,0,3,0c0.2,0,0.4,0,0.7,0l-3.4,7.4c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0L146.6,167.3z M152.3,167.3c1.2,0,2.4,0,3.6,0
+	l-3.4,7.4c-0.1,0.1-0.1,0.3-0.1,0.4c-1.2,0-2.5,0-3.7,0L152.3,167.3z M12.1,161.2c3,3.2,8,5.4,16.3,5.4c0.6,0,1.4,0,2.3,0l-2.7,6
+	C19.8,169.9,14.1,164.8,12.1,161.2z M160.1,175.2l3.6-7.9c1.2,0,2.4,0,3.6,0l-3.4,7.4c-0.1,0.1-0.1,0.3-0.1,0.4
+	C162.6,175.2,161.4,175.2,160.1,175.2z M264.1,172.2l3.2-7.1c0.1-0.1,0.1-0.2,0.1-0.4c2.9-0.3,5-0.7,6.3-1.1c0.9-0.3,1.7-0.6,2.5-1
+	C272.8,167.4,268.8,170.9,264.1,172.2z"></path>
+        </symbol>
+
+
+        <use xlink:href="#pointer" transform="translate(40,150)"></use>
+        <text font-family="microsoft yahei" fill="#FFF" font-size="42" y="600" x="110">
+            向右滑动：上一篇
+        </text>
+        <use xlink:href="#pointer" transform="scale(-1, 1)translate(-950,650)" fill="none"></use>
+        <text font-family="microsoft yahei" fill="#FFF" font-size="42" y="1100" x="520">
+            向左滑动：下一篇
+        </text>
+        <rect class="btn_ok" cursor="pointer" x="350" y="1250" rx="20" ry="20" width="300" height="100" style="fill:white;stroke:#003352;stroke-width:5;stroke-opacity:0.9;">
+        </rect>
+        <text class="btn_ok" font-family="microsoft yahei" fill="#003352" font-size="50" y="1320" x="390" font-weight="bold" letter-spacing="10">
+            我知道了
+        </text>
+    </svg>
+<script type="text/javascript" src="https://www.ednchina.com/js/newstouch.js?v=2.0"></script>
+<div class="column-ad column-ad-top none_top">
+	<div class="tag_banner">
+		<div id="div-gpt-ad-1512121863269-0"></div>
+		<div class="ad-title">
+			广告
+		</div>
+	</div>
+
+</div>
+<div class="cover-text">
+	<h4>
+		阿里发布最强AI芯片：性能“吊打”同行，一块顶十块GPU	</h4>
+	<div>
+		<span>时间：2019-09-25</span>
+		<span>作者：网络整理</span>		<span style="display:none">阅读：<script src="https://www.ednchina.com/e/public/ViewClick/?classid=2&amp;id=4385">  </script>1644</span>
+	</div>
+</div><!-- cover-text -->
+<div class="column-new column-detail">
+	<div class="detail-con new-left">
+
+		<div class="cover-img" style="background-image:url(//www.ednchina.com/d/file/news/2019-09-25/16e40175b2bb7c49106af67bdb868475.jpg)"></div>	<!-- cover-img -->
+	<div class="art-lead">
+		<span class="iconfont"></span>
+		<span class="art-lead-text">发布含光800芯片时，张建锋拿出一张芯片展示，称“这个芯片真的非常大”。张建锋表示，“含光800”是阿里平头哥成立后首款正式流片的芯片，并称含光800性能“吊打”同行。</span>
+	</div>
+	<div class="art-con article_body">
+<div class="article_text">
+		<!--start_body-->
+		<p>刚刚，在阿里2019云栖大会上，阿里巴巴集团首席技术官兼阿里云智能总裁张建锋发布了阿里的首款AI芯片“含光800”。</p>
+<p>这是一款云端AI推理芯片，峰值性能为7.8万IPS（每秒能处理7.8万张照片），峰值能效达到500IPS/W，张建锋表示，这是全球最高性能的AI推理芯片，一块“含光800”相当于10块GPU。</p>
+<p style="text-align: center;"><img src="//www.ednchina.com/d/file/news/2019-09-25/9290e3939bd26c77996bed210bbb936d.jpg" alt="003ednc20190925" width="846" height="381"></p>
+<p>据了解，含光800主要应用于视觉场景，已经在阿里巴巴集团内多个场景大规模应用，其它企业可以通过阿里云获得含光NPU的算力。</p>
+<h3 style="color: rgb(59, 17, 73); font-weight: bold;"><span style="color: rgb(128, 0, 128);">性能“吊打”同行，一块顶10块GPU</span></h3>
+<p><span class="bjh-p">发布含光800芯片时，张建锋拿出一张芯片展示，称“这个芯片真的非常大”。</span></p>
+<p style="text-align: center;"><img src="//www.ednchina.com/d/file/news/2019-09-25/55dc0f760869dde46f72d05945dcc757.jpg" alt="004ednc20190925" width="719" height="393"></p>
+<p>张建锋表示，“含光800”是阿里平头哥成立后首款正式流片的芯片，并表示含光800性能“吊打”同行。</p>
+<p><span class="bjh-p">据达摩院介绍，在业界标准的ResNet-50测试中，含光800推理性能达到78563 IPS，比目前业界最好的AI芯片性能</span><span class="bjh-p"><span class="bjh-p">（第二名：15012）</span>高5倍；能效比500 IPS/W，是第二名的3.3倍，张建锋称：“含光800是阿里巴巴在芯片领域的万里长征第一步。”</span></p>
+<p style="text-align: center;"><span class="bjh-p"><img src="//www.ednchina.com/d/file/news/2019-09-25/06d176fdd97f033e7d16cbbc7bc09e25.jpg" alt="005ednc20190925" width="817" height="345"></span></p>
+<p>据张建锋称，这是全球最高性能的AI推理芯片，一块含光800相当于10块GPU。</p>
+<p>据了解，不同于基于冯·诺依曼架构的传统通用处理器，含光800根据神经网络推理运算特征，设计特定的硬件神经元、高速连接的存储结构以及专用指令集，对内存和计算单元实现高效组织管理，实现单条指令完成多个操作，提高计算效率和内存访问效率。</p>
+<p style="text-align: center;"><img src="//www.ednchina.com/d/file/news/2019-09-25/4d5059310cbb6b0b2f49754a7855a5ec.jpg" alt="006ednc20190925" width="801" height="361"></p>
+<p>在杭州城市大脑里，视频实时处理使用GPU需要40块，延时300ms，单路视频功耗2.8W；而使用含光800仅需4块，延时150ms，单路视频功耗1W，有效节约了硬件和时间成本。</p>
+<p><strong>不过，阿里在现场并没有给出Tops、功耗等数据，也没有给出对标的GPU具体品牌与产品线，让这对比的参数多少有些不明确。</strong></p>
+<h3 style="color: rgb(59, 17, 73); font-weight: bold;"><span style="color: rgb(128, 0, 128);">从设计到流片只用了一年半时间</span></h3>
+<p>张建锋表示，这块芯片从设计到流片只用了一年半时间。</p>
+<p>据了解，平头哥用7个月完成了前端设计，之后用3个月就成功流片。<strong>仅成立一年的平头哥半导体为何这么快就能设计出云端AI芯片？</strong></p>
+<p style="text-align: center;"><strong><img src="//www.ednchina.com/d/file/news/2019-09-25/6f95ae001ec4cca86e77574c9ca8c7cb.jpeg" alt="007ednc20190925" width="740" height="740"></strong></p>
+<p>要知道，芯片作为典型的长周期产品，想加速芯片的商用，在硬件和软件方面都需要有很强的实力，特别是在AI时代，软硬一体化的重要性更加突显。<strong>平头哥就得益于阿里在软硬件方面的积累：</strong></p>
+<p><strong>算法方面，</strong>阿里巴巴达摩院机器智能实验室过去两年构建了完整的算法体系，涵盖语音智能、语言技术、机器视觉、决策智能等方向，并且取得多个世界领先水平的成果；<strong>硬件方面，</strong>阿里巴巴此前已在服务器、FPGA以及存储等领域拥有多年研发经验，此外，平头哥团队在体系结构、编译技术等领域拥有深厚的技术储备。</p>
+<p><strong>含光800性能的突破得益于软硬件的协同创新，芯片架构方面，含光800采用创新的架构，针对深度学习中使用的大量权重参数和张量数据，在支持稀疏压缩与量化处理的基础上，通过独特设计的数据访存与流水线处理技术，大大减低了I/O需求和数据的搬移。NPU同时深度优化了卷积，矩阵乘，向量计算和各种激活函数，通过高有效的硬件资源调度和全并行的数据流处理，把AI运算的性能和能效都推向极致。</strong></p>
+<p>其中，性能的提升必须解决内存墙问题。所谓的内存墙，是指采用采用冯诺依曼结构的处理器，存储和运算处理分离，当进行深度神经网络处理时，算力得到了提升，但大量读写运行操作会受到带宽限制，芯片的整体性能提升也同时受到限制。</p>
+<p>平头哥的做法是通过自研架构大幅减少对内存的访问，在保证性能的情况下，把芯片功耗降到最低水平。具体而言，含光800会根据神经网络推理运算特征，设计特定的硬件、高速连接的存储结构以及专用指令集，对内存和计算单元实现高效组织管理，实现单条指令完成多个操作，提高计算效率和内存访问效率。</p>
+<h3 style="color: rgb(59, 17, 73); font-weight: bold;"><span style="color: rgb(128, 0, 128);">已应用于阿里巴巴集团内多个场景</span></h3>
+<p>据了解，目前，含光800已应用于阿里巴巴集团内多个场景，例如视频图像识别/分类/搜索、城市大脑等，未来还可应用于医疗影像、自动驾驶等领域。</p>
+<p>比如，拍立淘商品库每天新增10亿商品图片，为了让用户快速从海量图片中精准搜索到商品，需要强大的计算力支撑，使用含光800搜索效率可提升12倍，时间从传统通用GPU的1小时缩减至5分钟。</p>
+<p><span class="bjh-p">过去半年，平头哥先后发布玄铁910、无剑SoC平台。随着含光800的发布，平头哥端云一体全栈产品系列初步成型，涵盖处理器IP、一站式芯片设计平台和AI芯片，实现了芯片设计链路的全覆盖。</span></p>
+<p>张建锋说，这块芯片只是阿里万里长征第一步，今天阿里有足够的信心、能力，把传统硬件公司能做到的、不能做到的都做到。未来，阿里成为软硬件一体化协同发展的公司。</p>
+<p><strong>责编：Demi Xia</strong></p>
+<p><span style="color: rgb(153, 153, 153);"><strong>(综合整理自澎湃新闻、智东西、雷锋网等)</strong></span></p>		<!--end_body-->
+</div>
+ <div class="article_cover hidden-xs" style="display: none;">
+            阅读全文，请先 <script src="../e/member/login/loginAuthReadFullArticle.php"></script><a href="https://www.mianbaoban.cn/member.php?mod=logging&amp;action=login&amp;next=https%3A%2F%2Fwww.ednchina.com%2Fnews%2F201909251301.html%3Fmethod%3D1&amp;sig=d43330f86e546db781580b212136cb2730958a5db266771e012130a035486e6e">登录</a>
+        </div>
+	</div>
+	<div class="hidden-xs pagelist"></div>
+		<div class="note" style="display: none;">
+            <span class="be_from" style="display: none;">
+                            </span>
+		<div class="note_show">本文为EDN电子技术设计 原创文章，禁止转载。请尊重知识产权，违者本司保留追究责任的权利。</div>
+	</div>
+	<div class="art-relative-tags">
+		<a href="https://www.ednchina.com/tag/cpu-dsp" target="_blank">处理器与DSP</a>&nbsp;<a href="https://www.ednchina.com/tag/AI" target="_blank">人工智能</a>&nbsp;<a href="https://www.ednchina.com/tag/chip" target="_blank">芯片</a>&nbsp;<a href="https://www.ednchina.com/tag/industrial-frontiers" target="_blank">产业前沿</a>	</div>
+
+	<div class="diggtop not_praise"><a class="operation-thumbs hidden-xs " href="JavaScript:makeRequest('https://www.ednchina.com/e/public/digg?classid=2&amp;id=4385&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');" onclick="return diggtop()">
+					<span class="iconfont">
+						
+					</span>
+                <strong id="diggnum">
+                   22
+                </strong>
+            </a> </div>
+	<div class="operation-share">
+		<div class="share hidden-xs">
+			<span class="share-title">分享到：</span>
+			<span id="share-weibo" class="iconfont share-icon" title="分享到微博"></span>
+			<span class="share-icon1" title="分享到微信">
+                        <span id="share-weixin" class="iconfont">
+                            
+                        </span>
+                        <div class="weixin-pic">
+                            <img src="https://www.ednchina.com/e/extend/qrcoode/index.php?text=https://www.ednchina.com/news/201909251301.html">
+                        </div>
+                    </span>
+			<span id="share-qZone" class="iconfont share-icon" title="分享到QQ空间"></span>
+		</div>
+		<div class="return-list hidden-xs">
+			<a href="https://www.ednchina.com/news">
+				<span class="iconfont"></span>返回列表</a>
+		</div>
+	</div> <!-- operation-share -->
+	<div class="art-part">
+                <span class="previous-page">
+                    <strong>上一篇：</strong>
+                       <a href="https://www.ednchina.com/news/201909251103.html">如何选择最优的NVMe-over-Fabrics方案</a>
+                </span>
+		<span class="theright next-page">
+                    <strong>下一篇：</strong>
+                      <a href="https://www.ednchina.com/news/">返回列表</a>
+                </span>
+	</div> <!-- art-part -->
+
+
+
+
+<div class="column-code">
+	<ul>
+		<li>
+			<img src="https://www.ednchina.com/e/extend/qrcoode/index.php?text=https://www.ednchina.com/news/201909251301.html">
+			<span>微信扫一扫<br>一键转发</span>
+		</li>
+		<li>
+			<img src="/images/code.jpg">
+			<span>最前沿的电子设计资讯<br>请关注<strong>“电子技术设计微信公众号”</strong></span>
+		</li>
+	</ul>
+</div>
+
+<!--评论标签-->
+<div class="pl-520am" data-newsurl="https://www.ednchina.com/" data-id="4385" data-classid="2" data-pagesize="5" data-showhot="1" data-hotpagesize="5"><script id="PlReplyTemplate" type="text/template">
+    <div class="pl-post pl-post-reply">
+        <div class="pl-textarea"><textarea class="pl-post-word" id="pl-520am-f-saytext-reply"
+                                           placeholder="@{{username}}"></textarea></div>
+        <div class="pl-tools">
+            <ul>
+                <li onclick="lgyPl.showPickFace(event,1)"><a class="pl-icon icon-face"></a></li>
+                <!--<li onclick="lgyPl.showPickImg(event,1)"><a class="pl-icon icon-img"></a></li>-->
+                                <li class="pl-tools-lastchild">
+                    <button class="pl-submit-btn" id="re_pl-submit-btn" onclick="lgyPl.submitComment(this,{{plid}},str)">发 布</button>
+                </li>
+            </ul>
+        </div>
+        <div class="pl-face-box" id="pl-face-box-reply">
+            <div class="pl-face-box-before"><a class="pl-icon icon-face"></a></div>
+            <li onclick="lgyPl.addplface('[/惊讶]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/1.gif"></a></li><li onclick="lgyPl.addplface('[/大哭]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/2.gif"></a></li><li onclick="lgyPl.addplface('[/口水]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/3.gif"></a></li><li onclick="lgyPl.addplface('[/生气]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/4.gif"></a></li><li onclick="lgyPl.addplface('[/流汗]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/5.gif"></a></li><li onclick="lgyPl.addplface('[/可爱]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/6.gif"></a></li><li onclick="lgyPl.addplface('[/哈哈]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/7.gif"></a></li><li onclick="lgyPl.addplface('[/害羞]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/8.gif"></a></li><li onclick="lgyPl.addplface('[/难过]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/9.gif"></a></li><li onclick="lgyPl.addplface('[/吐]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/10.gif"></a></li><li onclick="lgyPl.addplface('[/滑稽]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/13.gif"></a></li><li onclick="lgyPl.addplface('[/笑哭]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/11.gif"></a></li><li onclick="lgyPl.addplface('[/嘿哈]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/12.gif"></a></li><li onclick="lgyPl.addplface('[/捂脸]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/17.gif"></a></li><li onclick="lgyPl.addplface('[/偷笑]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/14.gif"></a></li><li onclick="lgyPl.addplface('[/惊恐]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/15.gif"></a></li><li onclick="lgyPl.addplface('[/撇嘴]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/16.gif"></a></li><li onclick="lgyPl.addplface('[/白眼]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/18.gif"></a></li><li onclick="lgyPl.addplface('[/抓狂]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/19.gif"></a></li><li onclick="lgyPl.addplface('[/鼓掌]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/20.gif"></a></li><li onclick="lgyPl.addplface('[/酷]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/21.gif"></a></li><li onclick="lgyPl.addplface('[/衰]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/22.gif"></a></li><li onclick="lgyPl.addplface('[/强]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/23.gif"></a></li><li onclick="lgyPl.addplface('[/弱]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/24.gif"></a></li><li onclick="lgyPl.addplface('[/加油]',1)"><a href="javascript:;" ><img width=20 border=0 height=20 src="https://www.ednchina.com/e/data/face/25.gif"></a></li>        </div>
+        <div class="pl-img-box" id="pl-img-box-reply">
+            <div class="pl-img-box-before"><a class="pl-icon icon-img"></a></div>
+            <div class="pl-img-file"><input placeholder="http://" type="text">
+                <button>添加</button>
+            </div>
+        </div>
+    </div>
+    <div class="pl-showinfo pl-showinfo-reply clearfix">请先说点什么</div>
+</script>
+<script id="NewsCommentTemplate" type="text/template">
+    {{#if data}}
+    {{#data }}
+    <div class="pl-area pl-show-box pl-show-box-{{plid}}" id="pl-show-box-{{plid}}">
+        <div class="pl-area-userpic">
+            <!--            <img id="pl-userpic" src="{{userpic}}" {{#if pluserid}}onclick="window.open('{{newsurl}}e/space/?userid={{pluserid}}')" style="cursor:pointer;"{{/if}}>-->
+            {{#if pluserid}}
+            <a href='https://www.mianbaoban.cn/home/me-{{pluserid}}.html'  target="_blank" onclick="javascript:void(0)" style="cursor:pointer;">
+            <img id="pl-userpic" src="{{userpic}}"/>
+            </a>
+            {{else}}
+            <img id="pl-userpic" src="{{userpic}}"/>
+            {{/if}}
+        </div>
+
+        <div class="pl-area-post pl-area-post-p">
+            <!--            <div class="pl-show-title"><a {{#if pluserid}}href="{{newsurl}}e/space/?userid={{pluserid}}"{{/if}}>{{plusername}}</a> <span class="pl-show-time pl-fr">{{formattime}}</span></div>-->
+            <div class="pl-show-title">
+            {{#if pluserid}}
+                <a href='https://www.mianbaoban.cn/home/me-{{pluserid}}.html'  target="_blank" onclick="javascript:void(0)" style="cursor:pointer;">
+                {{plusername}}
+                </a>
+            {{else}}
+            <strong>{{plusername}}</strong>
+            {{/if}}
+                <span class="pl-show-time pl-fr">{{formattime}}</span>
+            </div>
+            <div class="pl-show-saytext">{{{saytext}}}</div>
+            <div class="pl-show-tools"><a id="pl-err-info-{{plid}}" class="pl-err-info-{{plid}}"></a> <a href="javascript:;"
+                                                                            onclick="lgyPl.doForPl({{plid}},1,this)"><i
+                            class="pl-icon icon-good"></i><span id="pl-1-{{plid}}" class="pl-1-{{plid}}">{{zcnum}}</span></a> <a
+                        href="javascript:;" onclick="lgyPl.doForPl({{plid}},0,this)"><i class="pl-icon icon-bad"></i><span
+                            id="pl-0-{{plid}}" class="pl-0-{{plid}}">{{fdnum}}</span></a> <a class="pl-reply"
+                                                                       onclick="lgyPl.showReply({{plid}},'{{plusername}}')"
+                                                                       href="javascript:;">回复</a></div>
+            <div class="pl-show-replay"></div>
+        </div>
+
+        <div class="pl-clr"></div>
+        <div class="reply-box"></div>
+        {{#if child}}
+        {{#child }}
+        <div class="reply-box">
+        <div class="pl-area pl-show-box1 reply_bg" id="pl-show-box-{{plid}}">
+            <div class="pl-area-userpic">
+                <!--                  <img id="pl-userpic" src="{{userpic}}" {{#if pluserid}}onclick="window.open('{{newsurl}}e/space/?userid={{pluserid}}')" style="cursor:pointer;"{{/if}}>-->
+                <!--<img id="pl-userpic" src="{{userpic}}" {{#if pluserid}}onclick="javascript:void(0)" style="cursor:pointer;"-->
+<!--                     {{/if}}-->
+            </div>
+            <div class="pl-area-post">
+                <!--                  <div class="pl-show-title"><a {{#if pluserid}}href="{{newsurl}}e/space/?userid={{pluserid}}"{{/if}}>{{plusername}}</a> <span class="pl-show-time pl-fr">{{formattime}}</span></div>-->
+                <div class="pl-show-saytext">
+                    <span class="reply_user">
+                        <a href='https://www.mianbaoban.cn/home/me-{{pluserid}}.html'>{{plusername}}</a>
+                    </span>
+                    ：{{{saytext}}}
+
+                </div>
+                <div class="pl-reply-time">
+                    <span class="times">{{formattime}}</span>
+                    <div class="pl-show-tools-ry">
+                        <a id="pl-err-info-{{plid}}" class="pl-err-info-{{plid}}"></a> <a href="javascript:;"
+                                                             onclick="lgyPl.doForPl({{plid}},1,this)"><i
+                                    class="pl-icon icon-good"></i><span id="pl-1-{{plid}}" class="pl-1-{{plid}}">{{zcnum}}</span></a> <a
+                                href="javascript:;" onclick="lgyPl.doForPl({{plid}},0,this)"><i class="pl-icon icon-bad"></i><span
+                                    id="pl-0-{{plid}}" class="pl-0-{{plid}}">{{fdnum}}</span></a>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+            <div class="pl-clr"></div>
+        </div>
+        {{/child}}
+        {{/if}}
+
+
+
+    </div>
+    {{/data}}
+    {{else}}
+    <div class="lgy_no_data">
+        <p><i class="iconfont icon-comment"></i></p>
+        <font color="#999">暂无评论</font>
+    </div>
+    {{/if}}
+</script>
+<div class="pl-zanwei"></div>
+<div class="pl-header hidden-xs">
+	<p class="pl-header-title">
+		评论(<span id="pl-totalnum">0</span>)
+	</p>
+        <div class="pl-userinfo"><a href="https://www.mianbaoban.cn/member.php?mod=logging&amp;action=login&amp;a=2&amp;next=https%3A%2F%2Fwww.ednchina.com%2Fnews%2F201909251301.html&amp;sig=3f6bb6b838c0ff36fbbb1b14d4f4bedfaa57bd0cddfc64607f26c9f8f756cc59">登录</a> <span>后参与讨论</span></div>    <script>
+        var user = "";
+        var loginUrl = "https://www.mianbaoban.cn/member.php?mod=logging&action=login&a=2&next=https%3A%2F%2Fwww.ednchina.com%2Fnews%2F201909251301.html&sig=3f6bb6b838c0ff36fbbb1b14d4f4bedfaa57bd0cddfc64607f26c9f8f756cc59";
+        var RegisterUrl = "https://www.mianbaoban.cn/member.php?mod=register&url=https%3A%2F%2Fwww.ednchina.com%2Fe%2Fextend%2FlgyPl%2Ftemplate.php%3Fajax%3D1%26_t%3D1569855093000&sig=2a10b6a74b39516014cb973e7358a68d273c22b70f14dcb6e6f2d5030e36b861";
+        var str  = null;
+         if(!user&&0!=0){
+            str = '<div>请先<a href="'+loginUrl+'">登录</a>评论 （<a href="'+RegisterUrl+'">立即注册</a>）</div>';
+        }
+    </script>
+</div>
+<div class="pl-area pl-box hidden-xs" id="pl-area-box">
+    <div class="pl-area-userpic">
+        <img id="pl-userpic" src="https://www.mianbaoban.cn/uc_server/avatar.php?uid=&amp;size=small">    </div>
+    <div class="pl-area-post">
+        <div class="pl-post">
+            <div class="pl-textarea pl-textarea-first"><textarea class="pl-post-word" id="pl-520am-f-saytext" placeholder="请输入内容~"></textarea></div>
+            <div class="pl-tools">
+                <ul>
+                    <li onclick="lgyPl.showPickFace(event,0)"><a class="pl-icon icon-face"></a></li>
+                    <!--<li onclick="lgyPl.showPickImg(event,0)"><a class="pl-icon icon-img"></a></li>-->
+                                        <li class="pl-tools-lastchild pl-tools-lastchild-first">
+                        <button class="pl-submit-btn" id="pl-submit-btn-main" onclick="lgyPl.submitComment(this,null,str)">发 布
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="pl-face-box" id="pl-face-box" style="display: none;">
+                <div class="pl-face-box-before"><a class="pl-icon icon-face"></a></div>
+                <li onclick="lgyPl.addplface('[/惊讶]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/1.gif"></a></li><li onclick="lgyPl.addplface('[/大哭]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/2.gif"></a></li><li onclick="lgyPl.addplface('[/口水]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/3.gif"></a></li><li onclick="lgyPl.addplface('[/生气]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/4.gif"></a></li><li onclick="lgyPl.addplface('[/流汗]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/5.gif"></a></li><li onclick="lgyPl.addplface('[/可爱]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/6.gif"></a></li><li onclick="lgyPl.addplface('[/哈哈]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/7.gif"></a></li><li onclick="lgyPl.addplface('[/害羞]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/8.gif"></a></li><li onclick="lgyPl.addplface('[/难过]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/9.gif"></a></li><li onclick="lgyPl.addplface('[/吐]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/10.gif"></a></li><li onclick="lgyPl.addplface('[/滑稽]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/13.gif"></a></li><li onclick="lgyPl.addplface('[/笑哭]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/11.gif"></a></li><li onclick="lgyPl.addplface('[/嘿哈]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/12.gif"></a></li><li onclick="lgyPl.addplface('[/捂脸]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/17.gif"></a></li><li onclick="lgyPl.addplface('[/偷笑]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/14.gif"></a></li><li onclick="lgyPl.addplface('[/惊恐]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/15.gif"></a></li><li onclick="lgyPl.addplface('[/撇嘴]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/16.gif"></a></li><li onclick="lgyPl.addplface('[/白眼]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/18.gif"></a></li><li onclick="lgyPl.addplface('[/抓狂]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/19.gif"></a></li><li onclick="lgyPl.addplface('[/鼓掌]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/20.gif"></a></li><li onclick="lgyPl.addplface('[/酷]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/21.gif"></a></li><li onclick="lgyPl.addplface('[/衰]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/22.gif"></a></li><li onclick="lgyPl.addplface('[/强]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/23.gif"></a></li><li onclick="lgyPl.addplface('[/弱]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/24.gif"></a></li><li onclick="lgyPl.addplface('[/加油]',0)"><a href="javascript:;"><img width="20" border="0" height="20" src="https://www.ednchina.com/e/data/face/25.gif"></a></li>            </div>
+            <div class="pl-img-box" id="pl-img-box" style="display: none;">
+                <div class="pl-img-box-before"><a class="pl-icon icon-img"></a></div>
+                <div class="pl-img-file"><input placeholder="http://" type="text">
+                    <button>添加</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="pl-clr"></div>
+<div class="pl-showinfo clearfix">请先说点什么</div>
+<div class="pl-clr"></div>
+<div class="pl-title-tab nav nav-tabs">
+    <ul id="myTab" class="tablist">
+        <li class="active"><a data-toggle="tab" href="#pl-hot">按热度</a></li>
+        <li class="theline"></li>
+        <li id="li-pl-time"><a data-toggle="tab" href="#pl-time" id="li-pl-time">按时间</a></li>
+    </ul>
+</div>
+<div id="myTabContent" class="tab-content">
+    <div class="pl-show-hot-list tab-pane fade active in" id="pl-hot">
+        <div class="pl-title">
+            <!--<span>热门评论</span>-->
+        </div>
+        <div class="pl-show-hot-list" id="pl-show-hot">
+
+
+    <div class="lgy_no_data">
+        <p><i class="iconfont icon-comment"></i></p>
+        <font color="#999">暂无评论</font>
+    </div>
+</div>
+        <div id="pl-pagination-hot"></div><button class="over-button-hot pl-over-btn ">评论已加载完毕</button>
+
+        <div class="cl">
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pl-time">
+        <div class="pl-clr" id="pl-start"></div>
+        <div class="pl-title hot-pl"><!--最新评论--></div>
+        <div class="pl-show-list" id="pl-show-all">
+
+
+    <div class="lgy_no_data">
+        <p><i class="iconfont icon-comment"></i></p>
+        <font color="#999">暂无评论</font>
+    </div>
+</div>
+        <div id="pl-pagination"></div><button class="over-button showAllComment buttonGray buttonGray-over">评论已加载完毕</button>
+
+        <div class="cl">
+        </div>
+    </div><!--pl-time-->
+</div>
+<div class="sidebar-comment hidden-xs">
+    <span class="iconfont">
+        
+        <strong>0</strong>
+    </span>
+</div>
+<div class="art-comment-xs visible-xs">
+    <div class="hidden-comment-area-xs">
+    </div>
+    <div class="art-comment-xs-box">
+        <div class="mypl-xs">我要评论</div>
+        <div class="myicon-xs">
+            <div class="myicon-icon">
+                <span class="iconfont reply-icon">
+                    <span class="iconfont"></span>
+                    <strong id="mobile-totalnum" class="reply-num">0</strong>
+                </span>
+            </div>
+
+            <div class="myicon-icon diggtop_mobile">
+
+            </div>
+            <div class="myicon-icon share-icon-xs">
+                <span class="iconfont"></span>
+            </div>
+        </div>
+    </div>
+    <div class="comment-area-xs" style="display: none;">
+    </div>
+    <div class="hidden-re-comment-area-xs">
+    </div>
+    <div class="re-comment-area-xs">
+    </div>
+
+    <div class="share-xs" style="display: none;">
+        <ul>
+            <li>
+                <span class="share-weibo iconfont" title="分享到微博"></span>
+                <strong>分享到微博</strong>
+            </li>
+            <li>
+                <span class="share-weixin iconfont" title="分享到微信"></span>
+                <strong>分享到微信</strong>
+            </li>
+            <li>
+                <span class="share-qZone iconfont" title="分享到QQ空间"></span>
+                <strong>分享到空间</strong>
+            </li>
+        </ul>
+    </div>
+    <div class="share-weixin-xs" style="display: none;">
+        <span class="iconfont"></span>
+        <span class="thetext">
+            点击右上角，分享到朋友圈
+        </span>
+        <span class="thebtn">
+            我知道啦
+        </span>
+    </div>
+    <div class="share-browser-xs" style="display: none;">
+        <span class="thetext">
+           请使用浏览器分享功能
+        </span>
+        <span class="thebtn">
+            我知道啦
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+
+     $.post('/e/class/get_data.php', data, function (e) {
+         var dom = JSON.parse(e);
+         if (dom.type == true) {
+             if (dom.isMobile) {
+                 $('.diggtop_mobile').append(dom.mes);
+             }else{
+                 $('.diggtop').append(dom.mes);
+             }
+             diggtop();
+         }
+     });
+
+     var Nhash = window.location.hash;
+     if(Nhash){
+         var result = Nhash.split("#").join("");
+         document.getElementById(result).scrollIntoView();
+     }
+
+     $('.share-weixin-xs').hide();
+     $('.share-browser-xs').hide();
+    /*移动端点击评论框获取焦点*/
+        $('.comment-area-xs').hide();
+        var commentXsBox = $('.art-comment-xs-box');
+        var commentXsArea = $('.comment-area-xs');
+        var bgLayer = $('.bg-layer');
+        var plTextareaFirst = $('.pl-textarea-first');
+        var plToolsLastchildFirst = $('.pl-tools-lastchild-first');
+        var plHtml = plTextareaFirst.html();
+        var buttonHtml = plToolsLastchildFirst.html();
+        var plShowInfo = $('.pl-showinfo');
+        var reCommentAreaXs=$('.re-comment-area-xs');
+        var fun = function(){
+            windowWidth = $(window).width();
+            if ( windowWidth <= 768 ){
+                commentXsArea.html('');
+                plTextareaFirst.html('');
+                plToolsLastchildFirst.html('');
+                commentXsArea.prepend(plHtml);
+                commentXsArea.append(buttonHtml);
+                $('.hidden-comment-area-xs').append(plShowInfo);
+                commentXsArea.find('textarea').addClass('form-cotrol-xs');
+                commentXsArea.find('button').addClass('btn');
+                commentXsArea.find('button').addClass('btn-default');
+                commentXsArea.find('button').addClass('btn-lg');
+
+               if( commentXsArea.get(0).style.display=='block'||reCommentAreaXs.get(0).style.display=='block'){
+                // console.log(commentXsArea.get(0).style.display);
+                // console.log(reCommentAreaXs.get(0).style.display);
+
+               }else{
+                 commentXsBox.show();
+               };
+
+
+            }
+            else{
+               $('.bg-layer').click();
+               plTextareaFirst.html('');
+               plToolsLastchildFirst.html('');
+               plTextareaFirst.html(plHtml);
+               plToolsLastchildFirst.html(buttonHtml);
+            }
+        }
+        $(function(){
+            fun();
+            $('.mypl-xs').click(function() {
+                textarea = $('.comment-area-xs').find('textarea');
+                $('.re-comment-area-xs').hide();
+                commentXsBox.hide();
+                commentXsArea.show();
+                bgLayer.show();
+                $('html,body').addClass('disable-scroll');
+                textarea.focus();
+                return false;
+            });
+
+            $('.share-xs').hide();
+            var ShareIcon = $('.share-icon-xs');
+            ShareIcon.click(function() {
+                commentXsBox.hide();
+                bgLayer.show();
+                $('.share-xs').show();
+                $('html,body').addClass('disable-scroll');
+            })
+
+            bgLayer.click(function() {
+                commentXsArea.hide();
+                commentXsBox.show();
+                $('.re-comment-area-xs').hide();
+                bgLayer.hide();
+                $('.share-xs').hide();
+                $('html,body').removeClass('disable-scroll');
+                return false;
+            });
+
+
+            $(".share-weibo").on("click",function(){
+                $(this).socialShare("sinaWeibo");
+            });
+
+            $(".share-qZone").on("click",function(){
+                $(this).socialShare("qZone");
+            });
+            $(".share-qq").on("click",function(){
+                $(this).socialShare("tQQ");
+            });
+
+
+
+
+            function isWeiXin() {
+                var ua = window.navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            if (isWeiXin()){
+                $('.share-weixin').click(function () {
+                    $('.share-weixin-xs').css('display','flex');
+                    // $('.share-browser-xs').css('display','none');
+                    $('.bg-layer').hide();
+                });
+                $('.share-weixin-xs .thebtn').click(function(){
+                    $('.share-weixin-xs').css('display','none');
+                    $('.bg-layer').show();
+                });
+            }else{
+                $('.share-weixin').click(function () {
+                    $('.share-browser-xs').css('display','flex');
+                    // $('.share-weixin-xs').css('display','none');
+                    $('.bg-layer').hide();
+                });
+                $('.share-browser-xs .thebtn').click(function(){
+                    $('.share-browser-xs').css('display','none');
+                    $('.bg-layer').show();
+                });
+            }
+
+
+
+
+
+            //点击评论icon显示到对应的位置
+            var replyIcon = $('.reply-icon');
+            var Top = $('.pl-title-tab').offset().top;
+            var navheight = $('.nav-bg').height();
+            replyIcon.click(function() {
+                $('html,body').animate({scrollTop:Top - navheight - 10},800);
+            });
+
+
+
+            var sidebarIcon = $('.sidebar-comment');
+            sidebarIcon.click(function () {
+                var pHeight = $(".pl-520am").offset().top;
+                var navheight = $('.nav-bg').height();
+                $("html, body").animate({
+                    scrollTop: pHeight - navheight - 20
+                }, 1000);
+            })
+
+
+        });
+
+
+
+
+
+        ;
+(function($, window, document, undefined) {
+    //插件初始化
+    function init(target, options) {
+
+        //添加腾讯微博分享事件
+        $(document).on("click",".msb_network_button.tQQ",function(){
+            tQQ(this,settings);
+        });
+        //添加QQ空间分享事件
+        $(document).on("click",".msb_network_button.qZone",function(){
+            qZone(this,settings);
+        });
+        //添加新浪微博分享事件
+        $(document).on("click",".msb_network_button.sina",function(){
+            sinaWeibo(this,settings);
+        });
+        //添加豆瓣分享事件
+        $(document).on("click",".msb_network_button.douban",function(){
+            doubanShare(this,settings);
+        });
+        //添加微信分享事件
+        $(document).on("click",".msb_network_button.weixin",function(){
+            weixinShare(this,settings);
+        });
+    }
+
+    function replaceAPI (api,options) {
+        api = api.replace('{url}', options.url);
+        api = api.replace('{title}', options.title);
+        api = api.replace('{content}', options.content);
+        api = api.replace('{pic}', options.pic);
+        return api;
+    }
+    function tQQ(target,options){
+        var options = $.extend({}, $.fn.socialShare.defaults, options);
+        window.open(replaceAPI(tqq,options));
+    }
+    function qZone(target,options){
+        var options = $.extend({}, $.fn.socialShare.defaults, options);
+        window.open(replaceAPI(qzone,options));
+    }
+    function sinaWeibo(target,options){
+        var options = $.extend({}, $.fn.socialShare.defaults, options);
+        window.open(replaceAPI(sina,options));
+    }
+    function doubanShare(target,options){
+        window.open(replaceAPI(douban,$.extend({},$.fn.socialShare.defaults,options)));
+    }
+    function weixinShare(target,options){
+        window.open(replaceAPI(weixin,$.extend({},$.fn.socialShare.defaults,options)));
+    }
+    $.fn.socialShare = function(options, param) {
+        if(typeof options == 'string'){
+            var method = $.fn.socialShare.methods[options];
+            if(method)
+                return method(this,param);
+        }else
+            init(this,options);
+    }
+
+    //插件默认参数
+    $.fn.socialShare.defaults = {
+        url: window.location.href,
+        title: document.title,
+        content: '',
+        pic: ''
+    }
+
+    //插件方法
+    $.fn.socialShare.methods = {
+        //初始化方法
+        init:function(jq,options){
+            return jq.each(function(){
+                init(this,options);
+            });
+        },
+        tQQ:function(jq,options){
+            return jq.each(function(){
+                tQQ(this,options);
+            })
+        },
+        qZone:function(jq,options){
+            return jq.each(function(){
+                qZone(this,options);
+            })
+        },
+        sinaWeibo:function(jq,options) {
+            return jq.each(function(){
+                sinaWeibo(this,options);
+            });
+        },
+        doubanShare:function(jq,options) {
+            return jq.each(function(){
+                doubanShare(this,options);
+            });
+        },
+        weixinShare:function(jq,options){
+            return jq.each(function(){
+                weixinShare(this,options);
+            });
+        }
+    }
+    //分享地址
+    var qzone = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url={url}&title={title}&pics={pic}&summary={content}';
+    var sina = 'http://service.weibo.com/share/share.php?url={url}&title={title}&pic={pic}&searchPic=false';
+    var tqq = 'http://connect.qq.com/widget/shareqq/index.html?c=share&a=index&url={url}&title={title}&appkey=801cf76d3cfc44ada52ec13114e84a96';
+    var douban = 'http://www.douban.com/share/service?href={url}&name={title}&text={content}&image={pic}';
+    var weixin = 'http://qr.liantu.com/api.php?text={url}';
+})(jQuery, window, document);
+
+    $(function(){
+        $('.pl-submit-btn').click(function(){
+            $('#li-pl-time').addClass('active').siblings().removeClass('active');
+            $('#pl-time').addClass('active').siblings().removeClass('active');
+            $('#pl-time').addClass('in').siblings().removeClass('in');
+        });
+    })
+
+</script></div> <script type="text/javascript" src="https://www.ednchina.com/e/extend/lgyPl/api.js"></script>
+
+<div class="row-title">
+	您可能感兴趣的文章
+</div>
+<div class="row-recommend">
+	<ul>
+
+<li>
+	<a href="https://www.ednchina.com/news/201909241111.html" class="thetitle" target="_blank">
+		为“别人的设计”(SED)问题进行除错
+	</a>
+	<span class="thecon">
+		 你曾经不得不去除错或改善“别人的设计”(Someone Else's Design；SED)吗？你如何剥茧抽丝地找到问题发生的根源，以及如何发挥你的工程专业，解决那些棘手的问题？
+	</span>
+</li>
+
+<li>
+	<a href="https://www.ednchina.com/news/201909231001.html" class="thetitle" target="_blank">
+		拆解iPhone11 Pro Max：三摄、反向无线充电有哪些秘密？
+	</a>
+	<span class="thecon">
+		 21日，国外著名拆解网站iFixit正式上线了iPhone 11 Pro Max的详细拆解报告。iPhone 11 Pro Max的三摄有哪些秘密？iPhone 11内部到底有没有反向无线充电的硬件？更长的续航时间是如何做到的？内部结构发生了哪些变化？EDN带大家详细分析该拆解报告：
+	</span>
+</li>
+
+<li>
+	<a href="https://www.ednchina.com/news/2019052818127.html" class="thetitle" target="_blank">
+		拆解：英特尔电脑棒，比别的品牌强在哪？
+	</a>
+	<span class="thecon">
+		 近年来，由于传统外形PC的需求变得越来越萧条，英特尔努力尝试研发了多种计算机外形和尺寸，试图重燃客户热情。例如英特尔电脑棒，它可以用于非常小巧的家庭影院，以及数字标牌等其他应用。
+	</span>
+</li>
+
+<li>
+	<a href="https://www.ednchina.com/news/201904031313.html" class="thetitle" target="_blank">
+		拆解iPad mini 5：除了芯片升级，内部还有什么改变？
+	</a>
+	<span class="thecon">
+		 苹果今年更新了 iPad mini，作为第五代产品，虽然搭载了 A12 仿生芯片，但外观上变化却不大因此被很多人称为缩小版的iPad Air。那么除了芯片外，iPad mini 5 内部还有什么改变呢？国外知名拆解网站 iFixit 带来了详尽拆解。
+	</span>
+</li>
+
+<li>
+	<a href="https://www.ednchina.com/news/201903051041.html" class="thetitle" target="_blank">
+		三星Galaxy S10+物料清单(BoM)曝光，整机成本占售价42%
+	</a>
+	<span class="thecon">
+		 每当三星发布新旗舰之后，其成本及利润都是大家关注的话题之一。那么今年三星这台在国内卖 6999 元起的新旗舰 Galaxy S10+的成本是多少？每台 S10 又能给三星带来多少利润？近日国外评测机构 TechInsights 就对采用 Exynos 9820 处理器（欧版）的 Galaxy S10+ 进行拆解，并公布了该机的物料清单(BoM)。
+	</span>
+</li>
+
+<li>
+	<a href="https://www.ednchina.com/news/2019020113317.html" class="thetitle" target="_blank">
+		绕着汽车转一圈，你能想到哪些电子技术？
+	</a>
+	<span class="thecon">
+		 不论是车厂、系统集成商还是半导体供应商，每个厂商的PPT都有一个共同的口号：更安全、更环保绿色、更智能。这些技术和方向的实现需要依靠大量高精度的传感和测量。这就是“三化”背后一个非常重要的基础性工作。可能很多人了解人工智能这些数字类的技术。但数字类的技术再牛，也需要有很好的信号源。
+	</span>
+</li>
+	</ul>
+</div>
+<div class="row-title">
+	相关推荐
+</div>
+<div class="row-recommend">
+	<ul class="recommend"><li><a href="https://www.eet-china.com/news/201909301408.html" class="thetitle" target="_blank">淡定看待千亿市值，汇顶加码研发布局物联网 </a> <span class="thecon">目前中国市值千亿的股票有84只，主要集中在银行、保险、地产、汽车等传统产业板块，而日前汇顶科技股价大涨，市值首次突破了千亿大关，成为首家市值破千亿的A股半导体公司。对此，汇顶科技研发副总裁叶金春表示：“内部对这件事反应还是比较平淡的，因为我们的目标是成为世界级的综合型半导体企业……”</span></li><li><a href="https://www.eet-china.com/news/201909291127.html" class="thetitle" target="_blank">『全球CEO峰会』重磅演讲者：Yole Développement创始人Jean-Christophe ELOY </a> <span class="thecon">11月7日-8日，在深圳与全球“连接”。
+随着摩尔定律的放缓，前沿技术不再是人们关注的唯一焦点，创新正朝着创造差异化的方向转变。而“连接”，让一切可能变得可控。
+ASPENCORE 第二届“全球CEO峰会”仍选址在全球创新指数最强的深圳举办，峰会将邀请世界各地行业领袖和创新巨擘汇集深圳，探讨新一轮技术冲击下最热门的技术话题，搜罗差异化的创新点，准确定义下一代电子产品。</span></li><li><a href="https://www.esmchina.com/news/5718.html" class="thetitle" target="_blank">『全球CEO峰会』重磅演讲者：Yole创始人Jean-Christophe ELOY </a> <span class="thecon">在ASPENCORE第二届“全球CEO 峰会”上，Jean-Christophe ELOY将带来题为《超越摩尔是如何成为半导体行业的领导力量的》主题报道，着重讲解超越摩尔设备增长背后的驱动力，以及行业中为支持此类增长的预期变化……</span></li><li><a href="https://www.roboticschina.com/news/2853.html" class="thetitle" target="_blank">AI芯片发展概述及市场分析 </a> <span class="thecon">业界对AI芯片尚没有严格的界定，广义上说，擅长执行人工智能算法的芯片即为AI芯片，目前主要有GPU、FPGA和ASIC三种技术路线。根据承担的任务和部署位置，大致可以将AI芯片分为云端</span></li><li><a href="https://www.eet-china.com/news/201909291121.html" class="thetitle" target="_blank">拆解：Apple Watch Series 5，差别不大 </a> <span class="thecon">Apple Watch Series 5 发布后，一直被用户吐槽与上一代差别不大，著名拆解网站 iFixit 本周先后拆解了这款新手表的44mm和40mm，拆解结果印证了人们的看法。</span></li><li><a href="https://www.esmchina.com/news/5743.html" class="thetitle" target="_blank">传音上市前夕被华为起诉，涉及开机画面侵权！ </a> <span class="thecon">昨日（9月28日），有媒体报道华为起诉了以传音为代表的一批手机制造商，深圳市中级人民法院已经受理。据了解，传音控股将于9月30日在科创板上市交易……</span></li><li><a href="https://www.eet-china.com/news/201909291146.html" class="thetitle" target="_blank">《我和我的祖国》中那些可爱可敬的工程师们 </a> <span class="thecon">《我和我的祖国》这首歌曲诞生于上世纪80年代初，在新中国成立70周年之际，与这首歌同名的电影也将作为献礼片上映。影片分为七个单元故事，其中前两个故事都是以工程师为主角，作为为工程师群体发声的专业媒体，《电子工程专辑》把这两章拿出来给大家伙说说……</span></li><li><a href="https://www.esmchina.com/news/5742.html" class="thetitle" target="_blank">9月原厂新品推荐：传感器、dToF模块、整流器 </a> <span class="thecon">每月一次的《国际电子商情》原厂新品推荐准时奉上，9月将为大家介绍多款传感器、小型开关、dToF模块、PCB模块、整流器等新品……</span></li></ul>
+</div>
+</div> <!-- detail-con -->
+<div class="new-public">
+	<div class="public-r-ad public-r-ad-top ">
+		<div class="tag_banner">
+			<div id="div-gpt-ad-1512121863269-1"></div>
+			<div class="ad-title">
+				广告
+			</div>
+		</div>
+	</div>
+	<div class="r-comment-title nav nav-tabs visible-lg visible-md">
+		<ul id="myTab">
+			<li class="active"><a data-toggle="tab" href="#hot-c" rel="nofollow">热门评论</a></li>
+			<li><a data-toggle="tab" href="#latest-c" rel="nofollow">最新评论</a></li>
+		</ul>
+	</div> <!--r-comment-title-->
+	<div id="myTabContent" class="tab-content r-comment-tab visible-lg visible-md">
+		<div class="tab-pane fade active in" id="hot-c">
+			<script type="text/javascript">
+                document.write("<s" + "cript type='text/javascript' src='/d/js/js/1518083279.js?" + Math.random() + "'></s" + "cript>");
+			</script><script type="text/javascript" src="/d/js/js/1518083279.js?0.9349733372889129"></script><div class="comment-home-list">        <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909241001.html#pl-area-box">            	我一个做灯的只想知道为啥比我们的灯贵那么多？真舍得成本...            </a>            <div class="icon-r">                <span class="iconfont"></span>                2            </div>        </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909241001.html" target="_blank">                美国工程师拆解16美元的智能LED灯泡            </a>        </div><!-- original-artcle -->    </div><div class="comment-home-list">        <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909241301.html#pl-area-box">            	以此为荣？...            </a>            <div class="icon-r">                <span class="iconfont"></span>                1            </div>        </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909241301.html" target="_blank">                苹果iOS 13封杀山寨AirPods，华强北：一天内攻破！            </a>        </div><!-- original-artcle -->    </div><div class="comment-home-list">        <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909241001.html#pl-area-box">            	相信是没见过灌胶的老外...            </a>            <div class="icon-r">                <span class="iconfont"></span>                1            </div>        </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909241001.html" target="_blank">                美国工程师拆解16美元的智能LED灯泡            </a>        </div><!-- original-artcle -->    </div><div class="comment-home-list">        <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909201001.html#pl-area-box">            	1.方形摄像头华为也是抄袭，第一次使用并不是华为2.所谓的AI性能目前并没...            </a>            <div class="icon-r">                <span class="iconfont"></span>                1            </div>        </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909201001.html" target="_blank">                细数华为Mate30哪些方面超越了iPhone 11 Pro？            </a>        </div><!-- original-artcle -->    </div><div class="comment-home-list">        <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909291001.html#pl-area-box">            	拆个菊厂的m30分析下?...            </a>            <div class="icon-r">                <span class="iconfont"></span>                1            </div>        </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909291001.html" target="_blank">                芯片级拆解iPhone 11 Pro Max，物料成本清单曝光            </a>        </div><!-- original-artcle -->    </div>
+		</div>
+		<div class="tab-pane fade" id="latest-c">
+			<script type="text/javascript">
+                document.write("<s" + "cript type='text/javascript' src='/d/js/js/1518083278.js?" + Math.random() + "'></s" + "cript>");
+			</script><script type="text/javascript" src="/d/js/js/1518083278.js?0.29058728150680824"></script>    <div class="comment-home-list">                <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909291001.html#pl-area-box">                电容都贴歪了...            </a>                   </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909291001.html" target="_blank">                芯片级拆解iPhone 11 Pro Max，物料成本清单曝光            </a>        </div><!-- original-artcle -->   </div>    <div class="comment-home-list">                <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909291001.html#pl-area-box">                拆个菊厂的m30分析下?...            </a>                   </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909291001.html" target="_blank">                芯片级拆解iPhone 11 Pro Max，物料成本清单曝光            </a>        </div><!-- original-artcle -->   </div>    <div class="comment-home-list">                <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909271301.html#pl-area-box">                没有电容就没办法运行，你是在说废话？...            </a>                   </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909271301.html" target="_blank">                科研人员正在研究如何“杀死主板”！            </a>        </div><!-- original-artcle -->   </div>    <div class="comment-home-list">                <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909271301.html#pl-area-box">                电容用在电源部分的大容值没办法集成，别的都好说，如果真能做到内部互联，外...            </a>                   </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909271301.html" target="_blank">                科研人员正在研究如何“杀死主板”！            </a>        </div><!-- original-artcle -->   </div>    <div class="comment-home-list">                <div class="reply">            <em class="arrow-r"></em>            <a href="https://www.ednchina.com/news/201909271301.html#pl-area-box">                一个电容就把全集成卡的死死的...            </a>                   </div>        <div class="original-artcle">            <a href="https://www.ednchina.com/news/201909271301.html" target="_blank">                科研人员正在研究如何“杀死主板”！            </a>        </div><!-- original-artcle -->   </div>
+		</div>
+	</div>
+	<div class="public-r-title">
+		近期热点
+	</div>
+	<div class="media-artcle">
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909241001.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-24/8f9bf085d4c57714a42385b26f196bfe.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/analyze" target="_blank" class="thetag">设计解剖</a>
+					<a href="https://www.ednchina.com/news/201909241001.html" target="_blank" class="thetitle">
+						美国工程师拆解16美元的智能LED灯泡					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909171401.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-17/9d685573fd05b3906ebec6e711f6fcd0.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/mpd" target="_blank" class="thetag">手机设计</a>
+					<a href="https://www.ednchina.com/news/201909171401.html" target="_blank" class="thetitle">
+						iPhone 11 Pro Max拆解图曝光，主板设计一目了然					</a>
+				</div>
+			</div>
+					</div>
+		<div class="public-r-ad-text ">
+			<div class="tag_banner">
+				<div id="div-gpt-ad-1512121863269-6" style="float: left;"></div>
+				<div class="ad-title">
+					广告
+				</div>
+			</div>
+
+		</div>
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909231001.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-23/f990aae5e5a58329212ac87f7a39c203.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/analyze" target="_blank" class="thetag">设计解剖</a>
+					<a href="https://www.ednchina.com/news/201909231001.html" target="_blank" class="thetitle">
+						拆解iPhone11 Pro Max：三摄、反向无线充电有哪些秘密？					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909201001.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-20/3daf11fe318242510cc804ca2198507c.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/mpd" target="_blank" class="thetag">手机设计</a>
+					<a href="https://www.ednchina.com/news/201909201001.html" target="_blank" class="thetitle">
+						细数华为Mate30哪些方面超越了iPhone 11 Pro？					</a>
+				</div>
+			</div>
+					</div>
+	</div> <!-- media-artcle -->
+	<div class="public-r-ad ">
+		<div class="tag_banner">
+			<div id="div-gpt-ad-1512121863269-2"></div>
+			<div class="ad-title">
+				广告
+			</div>
+		</div>
+
+	</div><!-- public-r-ad -->
+	<div class="media-artcle">
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/2019091909496.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-19/0a647d7f1f9372b84d090f28471da5dc.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/connector" target="_blank" class="thetag">连接器</a>
+					<a href="https://www.ednchina.com/news/2019091909496.html" target="_blank" class="thetitle">
+						如何连接电线？这些方法你用过吗。。。					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909121111.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-12/89a23fd51e8a746bf1798dca8916ed62.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/uwbbtzigbee" target="_blank" class="thetag">无线技术</a>
+					<a href="https://www.ednchina.com/news/201909121111.html" target="_blank" class="thetitle">
+						详解苹果iPhone11的U1芯片，为干掉数据线接口做准备？					</a>
+				</div>
+			</div>
+					</div>
+		<div class="public-r-ad-text ">
+			<div class="tag_banner">
+				<div id="div-gpt-ad-1512121863269-7" style="float: left;"></div>
+				<div class="ad-title">
+					广告
+				</div>
+			</div>
+
+		</div>
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909241301.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-24/f00d49191ebb14c360b6b06bdb05bd85.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/industrial-frontiers" target="_blank" class="thetag">产业前沿</a>
+					<a href="https://www.ednchina.com/news/201909241301.html" target="_blank" class="thetitle">
+						苹果iOS 13封杀山寨AirPods，华强北：一天内攻破！					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909161401.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-16/0a0f491362b006ecd679fcad50ba2b15.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/communication" target="_blank" class="thetag">通信</a>
+					<a href="https://www.ednchina.com/news/201909161401.html" target="_blank" class="thetitle">
+						支持NSA的是假5G？5G手机该如何选？					</a>
+				</div>
+			</div>
+					</div>
+	</div>
+	<div class="public-r-ad ">
+		<div class="tag_banner">
+			<div id="div-gpt-ad-1512121863269-3"></div>
+			<div class="ad-title">
+				广告
+			</div>
+		</div>
+
+	</div>
+	<div class="media-artcle">
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909231501.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-23/7123215f2d8d3296b1904f257a41ed37.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/quantum-computing" target="_blank" class="thetag">量子计算机</a>
+					<a href="https://www.ednchina.com/news/201909231501.html" target="_blank" class="thetitle">
+						谷歌声称已达到“量子霸权” ，但论文为何被“秒删”？					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909121401.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-12/020f6203cf0819fa4298debaec3f969e.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/mcu" target="_blank" class="thetag">控制/MCU</a>
+					<a href="https://www.ednchina.com/news/201909121401.html" target="_blank" class="thetitle">
+						换用知名厂商的微控制器之后，收银机却不工作了！					</a>
+				</div>
+			</div>
+					</div>
+		<div class="public-r-ad-text ">
+			<div class="tag_banner">
+				<div id="div-gpt-ad-1512121863269-8" style="float: left;"></div>
+				<div class="ad-title">
+					广告
+				</div>
+			</div>
+
+		</div>
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909181501.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-18/ecb0e300b3066a4ece6ba72acec1c7e1.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/roboticleanring" target="_blank" class="thetag">机器学习</a>
+					<a href="https://www.ednchina.com/news/201909181501.html" target="_blank" class="thetitle">
+						华为发布全球最快AI训练集群Atlas900，昇腾910加持					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909161601.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-16/0e4258632a0af7e8c9bfddea7ca78cff.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/fingerprint-identification" target="_blank" class="thetag">指纹识别</a>
+					<a href="https://www.ednchina.com/news/201909161601.html" target="_blank" class="thetitle">
+						“剪刀手”拍照泄露指纹信息？辟谣来了！					</a>
+				</div>
+			</div>
+					</div>
+	</div>
+	<div class="public-r-ad ">
+		<div class="tag_banner">
+			<div id="div-gpt-ad-1512121863269-4"></div>
+			<div class="ad-title">
+				广告
+			</div>
+		</div>
+
+	</div>
+	<div class="media-artcle">
+		<div class="media-artcle">
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909191401.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-01-17/3d537c16959f358879cb5720f1b22a95.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/power-management" target="_blank" class="thetag">电源管理</a>
+					<a href="https://www.ednchina.com/news/201909191401.html" target="_blank" class="thetitle">
+						如何用好电位器？					</a>
+				</div>
+			</div>
+						<div class="public-r-artcle">
+				<div class="r-artcle-pic">
+					<a href="https://www.ednchina.com/news/201909181401.html" target="_blank">
+						<img src="//www.ednchina.com/d/file/news/2019-09-18/aa25b744f6fc47c70e114345600ccaba.jpg" class="img-responsive">
+					</a>
+				</div>
+				<div class="r-artcle-text">
+					<a href="https://www.ednchina.com/tag/battery" target="_blank" class="thetag">电池技术</a>
+					<a href="https://www.ednchina.com/news/201909181401.html" target="_blank" class="thetitle">
+						iPhone 11主动禁用反向无线充电，因充电效率不佳					</a>
+				</div>
+			</div>
+					</div>
+	</div>
+
+	<div class="public-r-title">
+		可能感兴趣的话题
+	</div>
+	<div class="interested-box">
+		<ul class="hot_ul">
+		<li><a href="https://www.mianbaoban.cn/download/20626.html" target="_blank">c#以太网串口源码 </a></li><li><a href="https://forum.mianbaoban.cn/topic/73750_1_1.html" target="_blank">细数大兴机场黑科技 </a></li><li><a href="https://www.mianbaoban.cn/blog/3876349-408847.html" target="_blank">【MATLAB】simulink Switch </a></li><li><a href="https://www.mianbaoban.cn/mp/a7847.html" target="_blank">骁龙本如何解决工作难题？ </a></li><li><a href="https://forum.mianbaoban.cn/topic/73767_1_1.html" target="_blank">阿里6万工程师奋斗，8个方向解析中国科技需要什么样的根技术？（附：阿里AI全景图） </a></li><li><a href="https://www.mianbaoban.cn/download/20623.html" target="_blank">模电康华光版 </a></li><li><a href="https://www.mianbaoban.cn/blog/3876349-408849.html" target="_blank">【MATLAB】simulink Variant Source </a></li><li><a href="https://www.mianbaoban.cn/download/20618.html" target="_blank">现代电子电路原理与设计 </a></li><li><a href="https://www.mianbaoban.cn/download/20625.html" target="_blank">LPC单片机应用经验小结 </a></li><li><a href="https://www.mianbaoban.cn/download/20622.html" target="_blank">Verilog语言学习 </a></li><li><a href="https://www.mianbaoban.cn/mp/a7846.html" target="_blank">为什么我会建议你学点编程？ </a></li><li><a href="https://www.mianbaoban.cn/blog/3876349-408848.html" target="_blank">【MATLAB】simulink Variant Sink </a></li><li><a href="https://forum.mianbaoban.cn/topic/73746_1_1.html" target="_blank">8张让你彻底理解晶体管开关电路图 </a></li><li><a href="https://www.mianbaoban.cn/download/20624.html" target="_blank">《鸟哥的Linux私房菜-基础篇》第四版 </a></li><li><a href="https://forum.mianbaoban.cn/topic/73725_1_1.html" target="_blank">波士顿动力Atlas机器人学会了体操表演，这落地姿势你给几分？ </a></li></ul>
+	</div>
+
+	<div class="column-box-list public-r-tags">
+		<div class="right-tags">
+			<div class="public-r-title">
+				热门TAGS
+			</div>
+			<div class="box-list-con hot-tags-con">
+				<a href="https://www.ednchina.com/tag/industrial-frontiers" target="_blank">产业前沿</a>&nbsp;<a href="https://www.ednchina.com/tag/consumer-electronics" target="_blank">消费电子</a>&nbsp;<a href="https://www.ednchina.com/tag/write" target="_blank">EDN原创</a>&nbsp;<a href="https://www.ednchina.com/tag/communication" target="_blank">通信</a>&nbsp;<a href="https://www.ednchina.com/tag/mems" target="_blank">传感/MEMS</a>&nbsp;<a href="https://www.ednchina.com/tag/power-management" target="_blank">电源管理</a>&nbsp;<a href="https://www.ednchina.com/tag/cpu-dsp" target="_blank">处理器与DSP</a>&nbsp;<a href="https://www.ednchina.com/tag/auto" target="_blank">汽车电子</a>&nbsp;<a href="https://www.ednchina.com/tag/AI" target="_blank">人工智能</a>&nbsp;<a href="https://www.ednchina.com/tag/technical-applications" target="_blank">技术实例</a>&nbsp;<a href="https://www.ednchina.com/tag/mpd" target="_blank">手机设计</a>&nbsp;<a href="https://www.ednchina.com/tag/edaipic" target="_blank">EDA/IP/IC设计</a>&nbsp;<a href="https://www.ednchina.com/tag/IoT" target="_blank">物联网</a>&nbsp;<a href="https://www.ednchina.com/tag/analog" target="_blank">模拟设计</a>&nbsp;<a href="https://www.ednchina.com/tag/industrial" target="_blank">工业电子</a>&nbsp;<a href="https://www.ednchina.com/tag/rf" target="_blank">RF/微波</a>&nbsp;<a href="https://www.ednchina.com/tag/uwbbtzigbee" target="_blank">无线技术</a>&nbsp;<a href="https://www.ednchina.com/tag/chip" target="_blank">芯片</a>			</div>
+			<div class="themore">
+				<a href="https://www.ednchina.com/tags.html" target="_blank">查看更多TAGS</a>
+			</div>
+		</div>
+	</div><!-- 热门tags -->
+</div><!-- new-public -->
+</div><!-- column-detail -->
+<div class="bg-layer"></div>
+<div class="clearfix"></div>
+<div class="left-seat"></div>
+
+<div class="column-ad column-ad-bottom ">
+	<div class="tag_banner">
+		<div id="div-gpt-ad-1512121863269-5"></div>
+		<div class="ad-title">
+			广告
+		</div>
+	</div>
+
+</div>
+<div class="back-top" style="display: block;">
+        <span class="iconfont" title="返回顶部">
+            
+        </span>
+</div> <!-- 返回顶部 -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<div class="alert_message"></div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+
+<div class="footer">
+<div class="folding-panel folding-before visible-xs">
+        <span class="thetext">
+            展开内容
+        </span>
+        <span class="iconfont"></span>
+    </div>
+    <div class="footer_con">
+        <div class="concern">
+            <div class="footet_title">关注我们</div>
+            <div class="concern_btn hidden-xs" style="height:60px;">
+		<div class="thebtn weixinbtn">
+			<a href="javascript:void(0)" class="iconfont"></a>
+			<img src="https://www.ednchina.com/images/code.jpg" class="code_img">
+		</div>
+		<div class="thebtn">
+			<a href="http://weibo.com/ednchina" rel="nofollow" target="_blank" class="iconfont"></a>
+		</div>
+	</div>
+	<div class="concern_link" style="line-height: 24px; margin-top: 20px;">
+		<a href="http://site.ednchina.com/about-us/index.html" rel="nofollow" target="_blank" style="display: block; color:#fff; font-size: 12px;">关于我们</a>
+		<a href="http://site.eet-china.com/about-us/contact-us.html?_ga=2.263274188.1391611265.1521508040-855076374.1512718075" rel="nofollow" target="_blank" style="display: block; color:#fff; font-size: 12px;">联系我们</a>
+	</div>
+
+            <div class="concern_btn-xs visible-xs">
+                <div class="guanzhu-btn">
+                    关注微信<span class="iconfont"></span>
+                </div>
+                <div class="code-img">
+                    <img src="https://www.ednchina.com/images/code.jpg">
+                </div>
+                <div class="guanzhu-btn">
+                    <a href="http://weibo.com/ednchina" rel="nofollow">关注微博<span class="iconfont"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="site_nav">
+            <div class="footet_title">站点导航</div>
+            <div class="site_nav_list">
+                <ul>
+                    <li><a href="https://www.ednchina.com/news" target="_blank">新闻</a></li>
+                    <!--<li><a href="javascript:void(0)" >图集</a></li>-->
+                    <li><a href="http://forum.mianbaoban.cn/" target="_blank">论坛</a></li>
+                    <li><a href="http://www.mianbaoban.cn/blog/" target="_blank">博客</a></li>
+                    <li><a href="https://www.ednchina.com/video" target="_blank">视频</a></li>
+                    <li><a href="https://www.ednchina.com/webinars/" target="_blank">在线研讨会</a></li>
+                    <li><a href="http://site.ednchina.com/RD/index.html" rel="nofollow" target="_blank">参考设计</a></li>
+                    <li><a href="https://www.ednchina.com/downloads/" target="_blank">资料下载</a></li>
+                    <li><a href="https://www.ednchina.com/iqs/" target="_blank">小测验</a></li>
+                    <li><a href="https://www.ednchina.com/rc" target="_blank">供应商资源</a></li>
+                    <li><a href="http://site.ednchina.com/events/index.html" rel="nofollow" target="_blank">行业活动</a></li>
+                    <li><a href="https://subscription.eet-china.com" rel="nofollow" target="_blank">EDN杂志</a></li>
+                    <li><a href="http://archive.ednchina.com/www.ednchina.com/NEWS_TYPE_TA_technical-articles.HTM" target="_blank" rel="nofollow">旧站设计实例</a></li>
+                    <li><a href="http://bbs.ednchina.com/BLOG.HTM" rel="nofollow" target="_blank">旧站博客</a></li>
+
+                    <li><a href="https://www.mianbaoban.cn/mp" rel="nofollow" target="_blank">面包芯语</a></li>
+                    <li><a href="https://estore.mianbaoban.cn" rel="nofollow" target="_blank">E币商城</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="global_web">
+            <div class="footet_title">全球网站</div>
+            <dl>
+                <dt>中国大陆</dt>
+                <dd><a href="http://www.eet-china.com/" target="_blank">电子工程专辑</a></dd>
+                <dd><a href="http://www.ednchina.com/" target="_blank">电子技术设计</a></dd>
+                <dd><a href="http://www.esmchina.com/" target="_blank">国际电子商情</a></dd>
+                <dd><a href="https://www.roboticschina.com/" target="_blank">机器人网</a></dd>
+                <dd><a href="https://www.mianbaoban.cn/" target="_blank">面包板社区</a></dd>
+                <dd><a href=" http://www.datasheetschina.com/" rel="nofollow" target="_blank">DatasheetsChina.com</a></dd>
+            </dl>
+            <dl>
+                <dt>台湾地区</dt>
+                <dd><a href="http://www.eettaiwan.com/" rel="nofollow" target="_blank">EE Times Taiwan 電子工程專輯</a></dd>
+                <dd><a href="http://www.edntaiwan.com/" rel="nofollow" target="_blank">EDN Taiwan 電子技術設計</a></dd>
+            </dl>
+            <dl class="theright">
+                <dt>其它亚洲地区</dt>
+                <dd><a href="http://www.eetasia.com/" rel="nofollow" target="_blank">EE Times Asia</a></dd>
+                <dd><a href="http://www.eetindia.co.in/" rel="nofollow" target="_blank">EE Times India</a></dd>
+                <dd><a href="http://eetimes.jp/" rel="nofollow" target="_blank">EE Times Japan</a></dd>
+                <dd><a href="http://www.ednasia.com/" rel="nofollow" target="_blank">EDN Asia</a></dd>
+                <dd><a href="http://www.ednjapan.com/" rel="nofollow" target="_blank">EDN Japan</a></dd>
+            </dl>
+            <dl class="thelast">
+                <dt>欧美地区</dt>
+                <dd><a href="http://www.eetimes.com/" rel="nofollow" target="_blank">EE Times US</a></dd>
+                <dd><a href="http://www.edn.com/" rel="nofollow" target="_blank">EDN US</a></dd>
+                <dd><a href="http://www.datasheets.com/" rel="nofollow" target="_blank">Datasheets.com</a></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="footer_bottom">
+        Copyright © 2000-2019 eMedia Asia Ltd. All rights reserved.<br>
+        北京科能广告有限公司深圳分公司 版权所有<br>
+        <span><a style="color:#a1a1a1" href="http://www.beian.miit.gov.cn" rel="nofollow">粤ICP备16057936号-4</a></span><br>
+    </div>
+
+</div>
+<script type="text/javascript" src="https://www.ednchina.com/js/info.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/js/function.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-30911153-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-30911153-1');
+</script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?8389243b4fb6156c2fb080a018bf68a1";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<script>
+
+</script>
+<script src="https://www.ednchina.com/e/public/onclick/?enews=donews&amp;classid=2&amp;id=4385"></script>
+<script type="text/javascript" src="https://www.ednchina.com/e/public/welcome_ad"></script><div class="welcome-ad"><div class="ad_a"><a target="_self" href="javascript:location.reload();">点击跳转</a></div>    <div class="welcome-ad-con">        <!-- /122049170/WELCOME_AD_NEW -->        <div id="div-gpt-ad-1523434024271-0">                 </div>        <div class="count">            <span class="thenum"></span>            <span class="iconfont"></span>        </div>        <div class="ad-text">            广告        </div>    </div></div>
+<script type="text/javascript" src="https://www.ednchina.com/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/js/lowbrowser.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/js/indexpublic.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/js/index.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/js/fixed.js"></script>
+<script type="text/javascript" src="/js/new_interest/Interest.js"></script>
+<script type="text/javascript" src="/js/new_interest/recommend.js"></script>
+<script type="text/javascript" src="/js/function.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+
+<script type="text/javascript" src="https://www.ednchina.com/skin/default/js/tabs.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/e/data/js/ajax.js"></script>
+<script type="text/javascript" src="https://www.ednchina.com/d/js/custom/phone_paging_loading.js"></script>
+<script async="async" src="//www.googletagservices.com/tag/js/gpt.js"></script>
+<script id="advertising" src="https://www.ednchina.com/d/js/advertising/articleorbrowse.js" mytype="browse" keyword="CPUDSP,AI,ROS"></script>
+<script src="https://www.ednchina.com/d/js/advertising/welcome_ad.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#share-weibo').on("click",function(){
+            $(this).socialShare('sinaWeibo');
+        })
+        $('#mobile-weibo').on("click",function(){
+            $(this).socialShare('sinaWeibo');
+        })
+        $('#share-weixin').on("click",function(){
+            $(this).socialShare('weixinShare');
+        })
+        $('#share-qZone').on("click",function(){
+            $(this).socialShare('qZone');
+        })
+        $('#mobile-qZone').on("click",function(){
+            $(this).socialShare('qZone');
+        })
+    })
+</script>
+<!--wechat js-sdk-->
+<script type="text/JavaScript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    $(document).ready(function () {
+        var wx_pic = 'https://www.ednchina.com/d/file/news/2019-09-25/16e40175b2bb7c49106af67bdb868475.jpg';
+    ;
+
+        //通过ajax，在页面加载的时候获取微信分享接口signature，nonceStr，timestamp 和appId
+        $.ajax({
+            type: "post",
+            url: "/wechat.php",
+            dataType: "json",
+            //data:"url="+window.location.href,
+            success: function (data) {
+                //console.log(data);
+                wx.config({
+                    debug: false,
+                    appId: data.appId,
+                    timestamp: data.timestamp,
+                    nonceStr: data.nonceStr,
+                    signature: data.signature,
+                    jsApiList: ['checkJsApi','onMenuShareAppMessage', 'onMenuShareTimeline']
+                    // 功能列表，我们要使用JS-SDK的什么功能
+                });
+                wx.ready(function () {
+                    wx.onMenuShareAppMessage({
+                        title: '阿里发布最强AI芯片：性能“吊打”同行，一块顶十块GPU', // 分享标题
+                        desc: '发布含光800芯片时，张建锋拿出一张芯片展示，称“这个芯片真的非常大”。张建锋表示，“含光800”是阿里平头哥成立后首款正式流片的芯片，并称含光800性能“吊打”同行。', // 分享描述
+                        link: window.location.href,//分享点击之后的链接
+                        imgUrl:wx_pic, // 分享图标
+                        type: 'link', // 分享类型,music、video或link，不填默认为link
+                        success: function () {
+                            //成功之后的回调
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                    wx.onMenuShareTimeline({
+                        title: '阿里发布最强AI芯片：性能“吊打”同行，一块顶十块GPU', // 分享标题
+                        desc: '发布含光800芯片时，张建锋拿出一张芯片展示，称“这个芯片真的非常大”。张建锋表示，“含光800”是阿里平头哥成立后首款正式流片的芯片，并称含光800性能“吊打”同行。', // 分享描述
+                        imgUrl:wx_pic, // 分享图标
+                        type: 'link', // 分享类型,music、video或link，不填默认为link
+                        success: function () {
+                            //成功之后的回调
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                });
+                wx.error(function (res) {
+                    //打印错误消息。及把 debug:false,设置为debug:ture就可以直接在网页上看到弹出的错误提示
+                });
+            }
+        })
+    });
+</script>
+<!--wechat js-sdk end-->
+<script type="text/javascript">
+    var data = {
+        type: 'diggtop',
+        classid: 2,
+        id: 4385,
+        site:[1,3,4]
+    };
+var is_login=0;
+</script>
+<script type="text/x-mathjax-config;executed=true">
+     MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+         jax: ["input/TeX","output/HTML-CSS"],
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                displayMath: [["$$", "$$"]], //段内公式选择符
+                skipTags: ["script", "noscript", "style", "textarea", "pre", "code", "a"] //避开某些标签
+            },
+            "HTML-CSS": {
+                showMathMenu: false
+            },
+            showProcessingMessages: false,
+             messageStyle: "none"
+        });
+</script>
+<script type="text/javascript" src="https://www.ednchina.com/js/mathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="https://www.ednchina.com/js/layer.js">
+</script>
+<script type="text/javascript" src="https://www.ednchina.com/js/infotextkey.js">
+</script>
+</body></html>

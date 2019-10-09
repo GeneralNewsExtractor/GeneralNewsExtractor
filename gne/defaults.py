@@ -4,6 +4,7 @@ AUTHOR_PATTERN = [
             "作者[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
             "编辑[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
             "文[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
+            "原创[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
             "撰文[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：]",
             "来源[：|:| |丨|/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5|:|：|<]"]
 
@@ -50,4 +51,4 @@ USELESS_TAG = ['style', 'script', 'link', 'video', 'iframe', 'source', 'picture'
 # if one tag in the follow list does not contain any child node nor content, it could be removed
 TAGS_CAN_BE_REMOVE_IF_EMPTY = ['section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span']
 
-USELESS_ATTR = ['share', 'contribution', 'copyright', 'disclaimer', 'recommend']
+USELESS_ATTR = ['share', 'contribution', 'copyright', 'disclaimer', 'recommend', 'related', 'footer', 'comment', 'social', 'submeta']

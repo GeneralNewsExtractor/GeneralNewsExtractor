@@ -52,10 +52,10 @@ def remove_noise_node(element, noise_xpath_list):
 
 
 def iter_node(element: HtmlElement):
-    yield element
     for sub_element in element:
         if isinstance(sub_element, HtmlElement):
             yield from iter_node(sub_element)
+    yield element
 
 
 def remove_node(node: HtmlElement):

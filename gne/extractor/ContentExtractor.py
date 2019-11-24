@@ -2,6 +2,8 @@ import re
 import numpy as np
 from gne.utils import iter_node
 from gne.defaults import USELESS_TAG
+from lxml.html import etree
+from html import unescape
 
 
 class ContentExtractor:
@@ -14,7 +16,7 @@ class ContentExtractor:
         self.node_info = {}
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
 
-    def extract(self, selector):
+    def extract(self, selector, with_body_html=False):
         body = selector.xpath('//body')[0]
         for node in iter_node(body):
             node_hash = hash(node)
@@ -23,15 +25,21 @@ class ContentExtractor:
             ti_text = density_info['ti_text']
             text_tag_count = self.count_text_tag(node, tag='p')
             sbdi = self.calc_sbdi(ti_text, density_info['ti'], density_info['lti'])
-            self.node_info[node_hash] = {'ti': density_info['ti'],
+            images_list = node.xpath('.//img/@src')
+            node_info = {'ti': density_info['ti'],
                                          'lti': density_info['lti'],
                                          'tgi': density_info['tgi'],
                                          'ltgi': density_info['ltgi'],
                                          'node': node,
                                          'density': text_density,
                                          'text': ti_text,
+                                         'images': images_list,
                                          'text_tag_count': text_tag_count,
                                          'sbdi': sbdi}
+            if with_body_html:
+                body_source_code = unescape(etree.tostring(node).decode())
+                node_info['body_html'] = body_source_code
+            self.node_info[node_hash] = node_info
         std = self.calc_standard_deviation()
         self.calc_new_score(std)
         result = sorted(self.node_info.items(), key=lambda x: x[1]['score'], reverse=True)

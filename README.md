@@ -153,6 +153,20 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 1. 目前本项目只适用于新闻页的信息提取。如果目标网站不是新闻页，或者是今日头条中的相册型文章，那么抽取结果可能不符合预期。
 2. 可能会有一些新闻页面出现抽取结果中的作者为空字符串的情况，这可能是由于文章本身没有作者，或者使用了已有正则表达式没有覆盖到的情况。
 
+## Changelog
+
+### 2019.11.24
+1. 增加更多的 UselessAttr
+2. 返回的结果包含`images`字段，里面的结果是一个列表，保存了正文中的所有图片 URL
+3. 指定`with_body_html`参数，返回的数据中将会包含`body_html`字段，这是正文的 HTMl 源代码：
+
+```python
+...
+result = GeneralNewsExtractor().extract(html, with_body_html=True)
+body_html = result['body_html']
+print(f'正文的网页源代码为：{body_html}')
+```
+
 ## Todo
 
 * ~~使用一个配置文件来存放常量数据，而不是直接 Hard Code 写在代码中。~~

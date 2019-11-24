@@ -3,7 +3,7 @@ setup(
     name='GeneralNewsExtractor',
     packages=find_packages(exclude=[]),
     install_requires=['lxml', 'numpy'],
-    version='0.0.3',
+    version='0.0.4',
     description='General extractor of news pages.',
     author='Kingname',
     author_email='contact@kingname.info',

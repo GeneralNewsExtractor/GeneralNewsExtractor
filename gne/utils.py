@@ -13,8 +13,7 @@ def normalize_node(element: HtmlElement):
         if node.tag.lower() in TAGS_CAN_BE_REMOVE_IF_EMPTY and is_empty_element(node):
             remove_node(node)
 
-
-        # p 标签下面的 span 标签中的文字，可以合并到 p 标签中
+        # merge text in span or strong to parent p tag
         if node.tag.lower() == 'p':
             etree.strip_tags(node, 'span')
             etree.strip_tags(node, 'strong')
@@ -25,6 +24,11 @@ def normalize_node(element: HtmlElement):
 
         if node.tag.lower() == 'span' and not node.getchildren():
             node.tag = 'p'
+
+        # remove empty p tag
+        if node.tag.lower() == 'p':
+            if not node.text or not node.text.strip():
+                remove_node(node)
 
         class_name = node.get('class')
         if class_name:

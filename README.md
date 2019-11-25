@@ -49,7 +49,7 @@ pipenv install git+https://github.com/kingname/GeneralNewsExtractor.git#egg=gne
 >>> result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
 >>> print(result)
 
-{"title": "xxxx", "publish_time": "2019-09-10 11:12:13", "author": "yyy", "content": "zzzz"}
+{"title": "xxxx", "publish_time": "2019-09-10 11:12:13", "author": "yyy", "content": "zzzz", "images": ["/xxx.jpg", "/yyy.png"]}
 ```
 
 
@@ -109,7 +109,7 @@ print(result)
 
 对大多数新闻页面而言，以上的写法就能够解决问题了。
 
-但某些新闻网页下面会有评论，评论里面可能存在长篇大论，它们会看起来比真正的新闻正文更像是正文，因此`extractor.extract()`方法还有一个默认参数`noise_mode_list`，用于在网页预处理时提前把评论区域整个移除。
+但某些新闻网页下面会有评论，评论里面可能存在长篇大论，它们会看起来比真正的新闻正文更像是正文，因此`extractor.extract()`方法还有一个默认参数`noise_node_list`，用于在网页预处理时提前把评论区域整个移除。
 
 `noise_mode_list`的值是一个列表，列表里面的每一个元素都是 XPath，对应了你需要提前移除的，可能会导致干扰的目标标签。
 
@@ -123,25 +123,17 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## 运行截图
 
-### 凤凰网
-
-![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-232516.png)
-
 ### 网易新闻
 
-![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-233122.png)
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20191125-231230.png)
 
 ### 今日头条
 
-![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-233313.png)
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20191125-225851.png)
 
 ### 新浪新闻
 
-![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-233702.png)
-
-### 观察者网
-
-![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20190909-234102.png)
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20191125-231506.png)
 
 
 ## 项目文档
@@ -156,6 +148,7 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 ## Changelog
 
 ### 2019.11.24
+
 1. 增加更多的 UselessAttr
 2. 返回的结果包含`images`字段，里面的结果是一个列表，保存了正文中的所有图片 URL
 3. 指定`with_body_html`参数，返回的数据中将会包含`body_html`字段，这是正文的 HTMl 源代码：
@@ -191,3 +184,5 @@ print(f'正文的网页源代码为：{body_html}')
 在使用 Python 实现这个抽取器的过程中，我发现论文里面的公式和方法存在一些纰漏，会导致部分节点报错。我将会单独写几篇文章来介绍这里的修改。请关注我的微信公众号：未闻Code：
 
 ![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/wechatplatform.jpg)
+
+

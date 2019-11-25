@@ -131,6 +131,9 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20191125-231506.png)
 
+### 凤凰网
+
+![](https://github.com/kingname/GeneralNewsExtractor/blob/master/screenshots/WX20191126-004218.png)
 
 ## 项目文档
 

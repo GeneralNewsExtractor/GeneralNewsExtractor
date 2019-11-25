@@ -26,7 +26,7 @@ def normalize_node(element: HtmlElement):
             node.tag = 'p'
 
         # remove empty p tag
-        if node.tag.lower() == 'p':
+        if node.tag.lower() == 'p' and not node.xpath('.//img'):
             if not node.text or not node.text.strip():
                 remove_node(node)
 

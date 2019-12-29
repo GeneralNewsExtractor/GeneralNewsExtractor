@@ -2,6 +2,7 @@ import re
 from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY, USELESS_ATTR
 from lxml.html import fromstring, HtmlElement
 from lxml.html import etree
+from urllib.parse import urlparse, urljoin
 
 
 def normalize_node(element: HtmlElement):
@@ -75,3 +76,27 @@ def remove_node(node: HtmlElement):
 
 def is_empty_element(node: HtmlElement):
     return not node.getchildren() and not node.text
+
+
+def pad_host_for_images(host, url):
+    """
+    网站上的图片可能有如下几种格式：
+
+    完整的绝对路径：https://xxx.com/1.jpg
+    完全不含 host 的相对路径： /1.jpg
+    含 host 但是不含 scheme:  xxx.com/1.jpg 或者  ://xxx.com/1.jpg
+
+    :param host:
+    :param url:
+    :return:
+    """
+    if url.startswith('http'):
+        return url
+    parsed_uri = urlparse(host)
+    scheme = parsed_uri.scheme
+    netloc = parsed_uri.netloc
+    if url.startswith(':'):
+        return f'{scheme}{url}'
+    if url.startswith('//'):
+        return f'{scheme}:{url}'
+    return urljoin(host, url)

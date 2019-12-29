@@ -3,10 +3,10 @@ from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, Autho
 
 
 class GeneralNewsExtractor:
-    def extract(self, html, title_xpath='', noise_node_list=None, with_body_html=False):
+    def extract(self, html, title_xpath='', host='', noise_node_list=None, with_body_html=False):
         element = pre_parse(html)
         remove_noise_node(element, noise_node_list)
-        content = ContentExtractor().extract(element, with_body_html)
+        content = ContentExtractor().extract(element, host, with_body_html)
         title = TitleExtractor().extract(element, title_xpath=title_xpath)
         publish_time = TimeExtractor().extractor(element)
         author = AuthorExtractor().extractor(element)

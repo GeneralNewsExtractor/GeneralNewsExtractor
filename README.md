@@ -146,6 +146,29 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Changelog
 
+### 2019.12.29
+
+1. 现在可以通过传入参数`host`来把提取的图片url 拼接为绝对路径
+
+例如：
+
+```python
+extractor = GeneralNewsExtractor()
+result = extractor.extract(html,
+                           host='https://www.xxx.com')
+```
+
+返回数据中：
+
+```python
+{
+    ...
+    "images": [
+        "https://www.xxx.com/W020190918234243033577.jpg"
+      ]
+}
+```
+
 ### 2019.11.24
 
 1. 增加更多的 UselessAttr

@@ -1,4 +1,6 @@
+import os
 import re
+import yaml
 from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY, USELESS_ATTR
 from lxml.html import fromstring, HtmlElement
 from lxml.html import etree
@@ -47,6 +49,7 @@ def pre_parse(html):
 
 
 def remove_noise_node(element, noise_xpath_list):
+    noise_xpath_list = noise_xpath_list or config.get('noise_node_list')
     if not noise_xpath_list:
         return
     for noise_xpath in noise_xpath_list:
@@ -94,9 +97,20 @@ def pad_host_for_images(host, url):
         return url
     parsed_uri = urlparse(host)
     scheme = parsed_uri.scheme
-    netloc = parsed_uri.netloc
     if url.startswith(':'):
         return f'{scheme}{url}'
     if url.startswith('//'):
         return f'{scheme}:{url}'
     return urljoin(host, url)
+
+
+def read_config():
+    if os.path.exists('.gne'):
+        with open('.gne', encoding='utf-8') as f:
+            config_text = f.read()
+        config = yaml.safe_load(config_text)
+        return config
+    return {}
+
+
+config = read_config()

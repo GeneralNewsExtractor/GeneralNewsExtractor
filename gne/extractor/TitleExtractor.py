@@ -1,4 +1,5 @@
 import re
+from gne.utils import config
 from lxml.html import HtmlElement
 from gne.defaults import TITLE_HTAG_XPATH, TITLE_SPLIT_CHAR_PATTERN
 
@@ -29,7 +30,7 @@ class TitleExtractor:
             return ''
         return title_list[0]
 
-    def extract(self, element: HtmlElement, title_xpath: str=''):
+    def extract(self, element: HtmlElement, title_xpath: str = ''):
+        title_xpath = title_xpath or config.get('title', {}).get('xpath')
         title = self.extract_by_xpath(element, title_xpath) or self.extract_by_title(element) or self.extract_by_htag(element)
         return title
-

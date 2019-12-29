@@ -1,6 +1,6 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.douban.com/simple/"
+url = "https://mirrors.163.com/pypi/simple/"
 verify_ssl = true
 
 [dev-packages]
@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 lxml = "*"
 numpy = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"

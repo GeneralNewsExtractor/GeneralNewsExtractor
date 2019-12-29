@@ -1,6 +1,6 @@
 import re
 import numpy as np
-from gne.utils import iter_node
+from gne.utils import iter_node, pad_host_for_images
 from gne.defaults import USELESS_TAG
 from lxml.html import etree
 from html import unescape
@@ -16,7 +16,7 @@ class ContentExtractor:
         self.node_info = {}
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
 
-    def extract(self, selector, with_body_html=False):
+    def extract(self, selector, host='', with_body_html=False):
         body = selector.xpath('//body')[0]
         for node in iter_node(body):
             node_hash = hash(node)
@@ -26,6 +26,8 @@ class ContentExtractor:
             text_tag_count = self.count_text_tag(node, tag='p')
             sbdi = self.calc_sbdi(ti_text, density_info['ti'], density_info['lti'])
             images_list = node.xpath('.//img/@src')
+            if host:
+                images_list = [pad_host_for_images(host, url) for url in images_list]
             node_info = {'ti': density_info['ti'],
                                          'lti': density_info['lti'],
                                          'tgi': density_info['tgi'],

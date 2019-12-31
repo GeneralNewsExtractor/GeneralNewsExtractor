@@ -1,0 +1,7 @@
+include *.md
+include LICENSE.txt
+include *.in
+include *.rst
+
+global-exclude __pycache__
+global-exclude .gne

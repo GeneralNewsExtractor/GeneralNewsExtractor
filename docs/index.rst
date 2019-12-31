@@ -42,10 +42,10 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
    # 以下两种方案任选一种即可
 
    # 使用 pip 安装
-   pip install --upgrade git+https://github.com/kingname/GeneralNewsExtractor.git
+   pip install --upgrade generalnewsextractor
 
    # 使用 pipenv 安装
-   pipenv install git+https://github.com/kingname/GeneralNewsExtractor.git#egg=gne
+   pipenv install generalnewsextractor
 
 2. 使用 GNE
 

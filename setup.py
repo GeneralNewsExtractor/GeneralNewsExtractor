@@ -6,7 +6,7 @@ with open('pypi_desc.md', 'r', encoding='utf-8') as f:
 setup(
     name='GeneralNewsExtractor',
     packages=find_packages(exclude=[]),
-    install_requires=['lxml', 'numpy'],
+    install_requires=['lxml', 'numpy', 'pyyaml'],
     version='0.1.2',
     description='General extractor of news pages.',
     long_description=readme,

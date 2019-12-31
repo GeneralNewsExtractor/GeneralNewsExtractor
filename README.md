@@ -27,10 +27,10 @@
 # 以下两种方案任选一种即可
 
 # 使用 pip 安装
-pip install --upgrade generalnewsextractor
+pip install --upgrade gne
 
 # 使用 pipenv 安装
-pipenv install generalnewsextractor
+pipenv install gne
 
 ```
 

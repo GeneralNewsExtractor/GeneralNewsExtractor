@@ -4,10 +4,10 @@ with open('pypi_desc.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 setup(
-    name='GeneralNewsExtractor',
+    name='gne',
     packages=find_packages(exclude=[]),
     install_requires=['lxml', 'numpy', 'pyyaml'],
-    version='0.1.2',
+    version='0.1.4',
     description='General extractor of news pages.',
     long_description=readme,
     long_description_content_type='text/markdown',

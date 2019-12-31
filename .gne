@@ -1,12 +1,7 @@
 title:
     xpath: //title/text()
-    regex:
-        expression: title>(.*?)<
 host: https://www.xxx.com
 noise_node_list:
     - //div[@class=\"comment-list\"]
     - //*[@style=\"display:none\"]
 with_body_html: true
-
-
-

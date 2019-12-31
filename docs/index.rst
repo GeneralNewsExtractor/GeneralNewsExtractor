@@ -128,6 +128,64 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
 
 .. image:: _static/WX20191126-004218.png
 
+API
+=========
+
+GNE 的函数原型为：
+
+.. code-block:: python
+
+   class GeneralNewsExtractor:
+       def extract(self, html, title_xpath='', host='', noise_node_list=None, with_body_html=False)
+
+各个参数的意义如下：
+
+- **html(str)**: 目标网站的源代码
+- **title_xpath(str)**: 新闻标题的 XPath，用于定向提取标题
+- **host(str)**: 图片所在的域名，例如 ``https://www.kingname.info``, 那么，当GNE 从新闻网站提取到图片的相对连接``/images/123.png``时，会把 ``host`` 拼接上去，变成``https://www.kingname.info/images/123.png``
+- **noise_node_list(List[str])**: 一个包含 XPath 的列表。这个列表中的 XPath 对应的标签，会在预处理时被直接删除掉，从而避免他们影响新闻正文的提取
+- **with_body_html(bool)**: 默认为 False，此时，返回的提取结果不含新闻正文所在标签的 HTML 源代码。当把它设置为 True 时，返回的结果会包含字段 ``body_html``，内容是新闻正文所在标签的 HTML 源代码
+
+配置文件
+========
+
+API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 除了直接写到 ``extract`` 方法中外，还可以
+通过一个配置文件来设置。
+
+请在项目的根目录创建一个文件 ``.gne``，配置文件可以用 YAML 格式，也可以使用 JSON 格式。
+
+- YAML 格式配置文件
+
+.. code-block:: yaml
+
+   title:
+       xpath: //title/text()
+   host: https://www.xxx.com
+   noise_node_list:
+       - //div[@class=\"comment-list\"]
+       - //*[@style=\"display:none\"]
+   with_body_html: true
+
+- JSON 格式配置文件：
+
+.. code-block:: json
+
+   {
+       "title": {
+           "xpath": "//title/text()"
+       },
+       "host": "https://www.xxx.com",
+       "noise_node_list": ["//div[@class=\"comment-list\"]",
+                           "//*[@style=\"display:none\"]"],
+       "with_body_html": true
+   }
+
+这两种写法是完全等价的。
+
+配置文件与 ``extract`` 方法的参数一样，并不是所有字段都需要提供。你只需要填写你需要的字段即可。
+
+如果一个参数，既在 ``extract`` 方法中，又在 ``.gne``配置文件中，但值不一样，那么 ``extract`` 方法中的这个参数的优先级更高。
+
 已知问题
 ============
 

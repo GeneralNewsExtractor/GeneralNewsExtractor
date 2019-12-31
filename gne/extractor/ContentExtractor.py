@@ -1,6 +1,6 @@
 import re
 import numpy as np
-from gne.utils import iter_node, pad_host_for_images
+from gne.utils import iter_node, pad_host_for_images, config
 from gne.defaults import USELESS_TAG
 from lxml.html import etree
 from html import unescape
@@ -26,20 +26,21 @@ class ContentExtractor:
             text_tag_count = self.count_text_tag(node, tag='p')
             sbdi = self.calc_sbdi(ti_text, density_info['ti'], density_info['lti'])
             images_list = node.xpath('.//img/@src')
+            host = host or config.get('host', '')
             if host:
                 images_list = [pad_host_for_images(host, url) for url in images_list]
             node_info = {'ti': density_info['ti'],
-                                         'lti': density_info['lti'],
-                                         'tgi': density_info['tgi'],
-                                         'ltgi': density_info['ltgi'],
-                                         'node': node,
-                                         'density': text_density,
-                                         'text': ti_text,
-                                         'images': images_list,
-                                         'text_tag_count': text_tag_count,
-                                         'sbdi': sbdi}
-            if with_body_html:
-                body_source_code = unescape(etree.tostring(node).decode())
+                         'lti': density_info['lti'],
+                         'tgi': density_info['tgi'],
+                         'ltgi': density_info['ltgi'],
+                         'node': node,
+                         'density': text_density,
+                         'text': ti_text,
+                         'images': images_list,
+                         'text_tag_count': text_tag_count,
+                         'sbdi': sbdi}
+            if with_body_html or config.get('with_body_html', False):
+                body_source_code = unescape(etree.tostring(node, encoding='utf-8').decode())
                 node_info['body_html'] = body_source_code
             self.node_info[node_hash] = node_info
         std = self.calc_standard_deviation()

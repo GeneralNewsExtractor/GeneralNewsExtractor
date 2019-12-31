@@ -1,4 +1,4 @@
-from .utils import pre_parse, remove_noise_node
+from .utils import pre_parse, remove_noise_node, config
 from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor
 
 
@@ -11,10 +11,10 @@ class GeneralNewsExtractor:
         publish_time = TimeExtractor().extractor(element)
         author = AuthorExtractor().extractor(element)
         result = {'title': title,
-                'author': author,
-                'publish_time': publish_time,
-                'content': content[0][1]['text'],
-                'images': content[0][1]['images']}
-        if with_body_html:
+                  'author': author,
+                  'publish_time': publish_time,
+                  'content': content[0][1]['text'],
+                  'images': content[0][1]['images']}
+        if with_body_html or config.get('with_body_html', False):
             result['body_html'] = content[0][1]['body_html']
         return result

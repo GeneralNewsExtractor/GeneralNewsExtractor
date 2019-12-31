@@ -48,6 +48,8 @@ pipenv install git+https://github.com/kingname/GeneralNewsExtractor.git#egg=gne
 {"title": "xxxx", "publish_time": "2019-09-10 11:12:13", "author": "yyy", "content": "zzzz", "images": ["/xxx.jpg", "/yyy.png"]}
 ```
 
+更多使用说明，请参阅 [GNE 的文档](https://generalnewsextractor.readthedocs.io/)
+
 
 ### 开发环境
 
@@ -145,6 +147,10 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 2. 可能会有一些新闻页面出现抽取结果中的作者为空字符串的情况，这可能是由于文章本身没有作者，或者使用了已有正则表达式没有覆盖到的情况。
 
 ## Changelog
+
+### 2019.12.31
+
+通用参数可以通过 YAML、JSON 批量设置了。只需要在项目的根目录下创建一个 ``.gne`` ，就可以实现函数默认参数的功能。
 
 ### 2019.12.29
 

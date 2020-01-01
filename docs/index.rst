@@ -249,6 +249,8 @@ Changelog
 
 验证消息： ``GNE``
 
+如果你不用微信，那么可以加入 Telegram 交流群：[https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw](https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw)
+
 目录
 ==================
 

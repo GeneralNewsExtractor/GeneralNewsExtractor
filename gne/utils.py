@@ -1,17 +1,15 @@
 import os
 import re
 import yaml
-from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY, USELESS_ATTR
 from lxml.html import fromstring, HtmlElement
 from lxml.html import etree
 from urllib.parse import urlparse, urljoin
+from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY, USELESS_ATTR, HIGH_WEIGHT_ARRT_KEYWORD
 
 
 def normalize_node(element: HtmlElement):
+    etree.strip_elements(element, *USELESS_TAG)
     for node in iter_node(element):
-        if node.tag.lower() in USELESS_TAG:
-            remove_node(node)
-
         # inspired by readability.
         if node.tag.lower() in TAGS_CAN_BE_REMOVE_IF_EMPTY and is_empty_element(node):
             remove_node(node)
@@ -30,8 +28,8 @@ def normalize_node(element: HtmlElement):
 
         # remove empty p tag
         if node.tag.lower() == 'p' and not node.xpath('.//img'):
-            if not node.text or not node.text.strip():
-                remove_node(node)
+            if not (node.text and node.text.strip()):
+                drop_tag(node)
 
         class_name = node.get('class')
         if class_name:
@@ -44,6 +42,7 @@ def normalize_node(element: HtmlElement):
 def pre_parse(html):
     html = re.sub('</?br.*?>', '', html)
     element = fromstring(html)
+
     normalize_node(element)
     return element
 
@@ -75,6 +74,17 @@ def remove_node(node: HtmlElement):
     parent = node.getparent()
     if parent is not None:
         parent.remove(node)
+
+
+def drop_tag(node: HtmlElement):
+    """
+    only delete the tag, but merge its text to parent.
+    :param node:
+    :return:
+    """
+    parent = node.getparent()
+    if parent is not None:
+        node.drop_tag()
 
 
 def is_empty_element(node: HtmlElement):
@@ -111,6 +121,10 @@ def read_config():
         config = yaml.safe_load(config_text)
         return config
     return {}
+
+
+def get_high_weight_keyword_pattern():
+    return re.compile('|'.join(HIGH_WEIGHT_ARRT_KEYWORD), flags=re.I)
 
 
 config = read_config()

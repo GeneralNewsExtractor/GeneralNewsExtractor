@@ -7,7 +7,7 @@ setup(
     name='gne',
     packages=find_packages(exclude=[]),
     install_requires=['lxml', 'numpy', 'pyyaml'],
-    version='0.1.4',
+    version='0.1.5',
     description='General extractor of news pages.',
     long_description=readme,
     long_description_content_type='text/markdown',

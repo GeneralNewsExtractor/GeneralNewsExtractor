@@ -4,7 +4,7 @@ from gne import GeneralNewsExtractor
 
 
 if __name__ == '__main__':
-    html_list = glob.glob('**/*/*.html', recursive=True)
+    html_list = glob.glob('tests/*/*.html', recursive=True)
     for html_file in html_list:
         with open(html_file, encoding='utf-8') as f:
             html = f.read()

@@ -1,9 +1,8 @@
 import re
 import numpy as np
-from gne.utils import iter_node, pad_host_for_images, config
-from gne.defaults import USELESS_TAG
 from lxml.html import etree
 from html import unescape
+from gne.utils import iter_node, pad_host_for_images, config, get_high_weight_keyword_pattern
 
 
 class ContentExtractor:
@@ -14,6 +13,7 @@ class ContentExtractor:
         """
         self.content_tag = content_tag
         self.node_info = {}
+        self.high_weight_keyword_pattern = get_high_weight_keyword_pattern()
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
 
     def extract(self, selector, host='', with_body_html=False):
@@ -84,6 +84,7 @@ class ContentExtractor:
         """
         ti_text = '\n'.join(self.get_all_text_of_element(element))
         ti = len(ti_text)
+        ti = self.increase_tag_weight(ti, element)
         lti = len(''.join(self.get_all_text_of_element(element.xpath('.//a'))))
         tgi = len(element.xpath('.//*'))
         ltgi = len(element.xpath('.//a'))
@@ -91,6 +92,12 @@ class ContentExtractor:
             return {'density': 0, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
         density = (ti - lti) / (tgi - ltgi)
         return {'density': density, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
+
+    def increase_tag_weight(self, ti, element):
+        tag_class = element.get('class', '')
+        if self.high_weight_keyword_pattern.search(tag_class):
+            return 2 * ti
+        return ti
 
     def calc_sbdi(self, text, ti, lti):
         """

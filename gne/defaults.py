@@ -64,3 +64,9 @@ USELESS_ATTR = ['share',
                 'submeta',
                 'report-infor'
                 ]
+
+
+HIGH_WEIGHT_ARRT_KEYWORD = ['content',
+                            'article',
+                            'news_txt',
+                            'post_text']

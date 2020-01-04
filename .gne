@@ -4,4 +4,5 @@ host: https://www.xxx.com
 noise_node_list:
     - //div[@class=\"comment-list\"]
     - //*[@style=\"display:none\"]
-with_body_html: true
+    - //*[@class="contheight"]
+with_body_html: false

@@ -136,7 +136,7 @@ GNE 的函数原型为：
 .. code-block:: python
 
    class GeneralNewsExtractor:
-       def extract(self, html, title_xpath='', host='', noise_node_list=None, with_body_html=False)
+       def extract(self, html, title_xpath='', host='', author_xpath='', publish_time_xpath='', noise_node_list=None, with_body_html=False)
 
 各个参数的意义如下：
 
@@ -145,11 +145,13 @@ GNE 的函数原型为：
 - **host(str)**: 图片所在的域名，例如 ``https://www.kingname.info``, 那么，当GNE 从新闻网站提取到图片的相对连接``/images/123.png``时，会把 ``host`` 拼接上去，变成``https://www.kingname.info/images/123.png``
 - **noise_node_list(List[str])**: 一个包含 XPath 的列表。这个列表中的 XPath 对应的标签，会在预处理时被直接删除掉，从而避免他们影响新闻正文的提取
 - **with_body_html(bool)**: 默认为 False，此时，返回的提取结果不含新闻正文所在标签的 HTML 源代码。当把它设置为 True 时，返回的结果会包含字段 ``body_html``，内容是新闻正文所在标签的 HTML 源代码
+- **author_xpath(str)**: 文章作者的 XPath，用于定向提取文章作者
+- **publish_time_xpath(str)**: 文章发布时间的 XPath，用于定向提取文章发布时间
 
 配置文件
 ========
 
-API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 除了直接写到 ``extract`` 方法中外，还可以
+API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 、 ``author_xpath``、 ``publish_time_xpath`` 除了直接写到 ``extract`` 方法中外，还可以
 通过一个配置文件来设置。
 
 请在项目的根目录创建一个文件 ``.gne``，配置文件可以用 YAML 格式，也可以使用 JSON 格式。
@@ -165,6 +167,10 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
        - //div[@class=\"comment-list\"]
        - //*[@style=\"display:none\"]
    with_body_html: true
+   author:
+       xpath: //meta[@name="author"]/@content
+   publish_time:
+       xpath: //em[@id="publish_time"]/text()
 
 - JSON 格式配置文件：
 
@@ -177,7 +183,13 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
        "host": "https://www.xxx.com",
        "noise_node_list": ["//div[@class=\"comment-list\"]",
                            "//*[@style=\"display:none\"]"],
-       "with_body_html": true
+       "with_body_html": true,
+       "author": {
+           "xpath": "//meta[@name=\"author\"]/@content"
+       },
+       "publish_time": {
+           "xpath": "//em[@id=\"publish_time\"]/text()"
+       }
    }
 
 这两种写法是完全等价的。
@@ -195,11 +207,24 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
 Changelog
 ==========
 
+2020.02.13
+-------------
+
+1. 在 ``GeneralNewsExtractor().extract()`` 方法中传入参数 ``author_xpath`` 和 ``publish_time_xpath`` 强行指定抓取作者与发布时间的位置。
+2. 在 ``.gne`` 配置文件中，通过如下两个配置分别指定作者与发布时间的 XPath：
+
+.. code-block:: yaml
+   author:
+       xpath: //meta[@name="author"]/@content
+   publish_time:
+       xpath: //em[@id="publish_time"]/text()
+
+
 2020.01.04
 ------------
 
-1. 修复由于`node.getparent().remove()`会移除父标签中，位于自己后面的 text 的问题
-2. 对于class 中含有`article`/`content`/`news_txt`/`post_text`的标签，增加权重
+1. 修复由于 ``node.getparent().remove()`` 会移除父标签中，位于自己后面的 text 的问题
+2. 对于class 中含有 ``article`` / ``content`` / ``news_txt`` / ``post_text`` 的标签，增加权重
 3. 使用更科学的方法移除无效标签
 
 2019.12.31
@@ -257,7 +282,7 @@ Changelog
 
 验证消息： ``GNE``
 
-如果你不用微信，那么可以加入 Telegram 交流群：[https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw](https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw)
+如果你不用微信，那么可以加入 Telegram 交流群：`https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw <https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw>`_
 
 目录
 ==================

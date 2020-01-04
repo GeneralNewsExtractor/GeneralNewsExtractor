@@ -6,3 +6,7 @@ noise_node_list:
     - //*[@style=\"display:none\"]
     - //*[@class="contheight"]
 with_body_html: false
+author:
+    xpath: //meta[@name="author"]/@content
+publish_time:
+    xpath: //em[@id="publish_time"]/text()

@@ -198,8 +198,8 @@ Changelog
 2020.01.04
 ------------
 
-1. 修复由于`node.getparent().remove()`会移除父标签中，位于自己后面的 text 的问题
-2. 对于class 中含有`article`/`content`/`news_txt`/`post_text`的标签，增加权重
+1. 修复由于 ``node.getparent().remove()`` 会移除父标签中，位于自己后面的 text 的问题
+2. 对于class 中含有 ``article`` / ``content`` / ``news_txt`` / ``post_text`` 的标签，增加权重
 3. 使用更科学的方法移除无效标签
 
 2019.12.31
@@ -257,7 +257,7 @@ Changelog
 
 验证消息： ``GNE``
 
-如果你不用微信，那么可以加入 Telegram 交流群：[https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw](https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw)
+如果你不用微信，那么可以加入 Telegram 交流群：`https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw <https://t.me/joinchat/Bc5swww_XnVR7pEtDUl1vw>`_
 
 目录
 ==================

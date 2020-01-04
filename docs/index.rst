@@ -195,8 +195,16 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
 Changelog
 ==========
 
+2020.01.04
+------------
+
+1. 修复由于`node.getparent().remove()`会移除父标签中，位于自己后面的 text 的问题
+2. 对于class 中含有`article`/`content`/`news_txt`/`post_text`的标签，增加权重
+3. 使用更科学的方法移除无效标签
+
 2019.12.31
 ------------
+
 通用参数可以通过 YAML、JSON 批量设置了。只需要在项目的根目录下创建一个 ``.gne`` ，就可以实现函数默认参数的功能。
 
 2019.12.29

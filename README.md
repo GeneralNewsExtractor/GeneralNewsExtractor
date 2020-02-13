@@ -148,6 +148,18 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Changelog
 
+### 2020.02.13
+
+1. 在GeneralNewsExtractor().extract()方法中传入参数`author_xpath`和`publish_time_xpath`强行指定抓取作者与发布时间的位置。
+2. 在.gne 配置文件中，通过如下两个配置分别指定作者与发布时间的 XPath
+
+```yaml
+author:
+    xpath: //meta[@name="author"]/@content
+publish_time:
+    xpath: //em[@id="publish_time"]/text()
+```
+
 ### 2020.01.04
 
 1. 修复由于`node.getparent().remove()`会移除父标签中，位于自己后面的 text 的问题

@@ -214,6 +214,7 @@ Changelog
 2. 在 ``.gne`` 配置文件中，通过如下两个配置分别指定作者与发布时间的 XPath：
 
 .. code-block:: yaml
+
    author:
        xpath: //meta[@name="author"]/@content
    publish_time:

@@ -70,3 +70,26 @@ HIGH_WEIGHT_ARRT_KEYWORD = ['content',
                             'article',
                             'news_txt',
                             'post_text']
+
+
+PUBLISH_TIME_META = [  # 部分特别规范的新闻网站，可以直接从 HTML 的 meta 数据中获得发布时间
+    '//meta[starts-with(@property, "rnews:datePublished")]/@content',
+    '//meta[starts-with(@property, "article:published_time")]/@content',
+    '//meta[starts-with(@property, "og:published_time")]/@content',
+    '//meta[starts-with(@property, "og:release_date")]/@content',
+    '//meta[starts-with(@itemprop, "datePublished")]/@content',
+    '//meta[starts-with(@itemprop, "dateUpdate")]/@content',
+    '//meta[starts-with(@name, "OriginalPublicationDate")]/@content',
+    '//meta[starts-with(@name, "article_date_original")]/@content',
+    '//meta[starts-with(@name, "og:time")]/@content',
+    '//meta[starts-with(@name, "apub:time")]/@content',
+    '//meta[starts-with(@name, "publication_date")]/@content',
+    '//meta[starts-with(@name, "sailthru.date")]/@content',
+    '//meta[starts-with(@name, "PublishDate")]/@content',
+    '//meta[starts-with(@name, "publishdate")]/@content',
+    '//meta[starts-with(@name, "PubDate")]/@content',
+    '//meta[starts-with(@name, "pubtime")]/@content',
+    '//meta[starts-with(@name, "_pubtime")]/@content',
+    '//meta[starts-with(@name, "weibo: article:create_at")]/@content',
+    '//meta[starts-with(@pubdate, "pubdate")]/@content',
+]

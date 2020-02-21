@@ -148,6 +148,10 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Changelog
 
+### 2020.02.21
+
+1. 感谢@止水提供的 meta 对应的新闻时间属性，现在会从 HTML 的 meta 数据中检查是否有发布时间。
+
 ### 2020.02.13
 
 1. 在GeneralNewsExtractor().extract()方法中传入参数`author_xpath`和`publish_time_xpath`强行指定抓取作者与发布时间的位置。

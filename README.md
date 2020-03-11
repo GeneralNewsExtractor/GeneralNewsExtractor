@@ -154,6 +154,10 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Changelog
 
+### 2020.03.11
+
+1. 预处理可能会破坏 HTML 结构，导致用户自定义的 XPath 无法正确工作，因此需要把提取用户名、发布时间、标题的代码放在预处理之前。
+
 ### 2020.02.21
 
 1. 感谢@止水提供的 meta 对应的新闻时间属性，现在会从 HTML 的 meta 数据中检查是否有发布时间。

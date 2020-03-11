@@ -39,10 +39,13 @@ def normalize_node(element: HtmlElement):
                     break
 
 
-def pre_parse(html):
+def html2element(html):
     html = re.sub('</?br.*?>', '', html)
     element = fromstring(html)
+    return element
 
+
+def pre_parse(element):
     normalize_node(element)
     return element
 

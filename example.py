@@ -13,6 +13,7 @@ if __name__ == '__main__':
                                    host='https://www.xxx.com',
                                    noise_node_list=['//div[@class="comment-list"]',
                                                     '//*[@style="display:none"]',
+                                                    '//div[@class="statement"]'
                                                     ])
         print(f'>>>>>>>>>>>>>{html_file}>>>>>>>>>>>>>')
         print(json.dumps(result, indent=2, ensure_ascii=False))

@@ -4,6 +4,7 @@ url = "https://mirrors.163.com/pypi/simple/"
 verify_ssl = true
 
 [dev-packages]
+mypy = "*"
 
 [packages]
 lxml = "*"

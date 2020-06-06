@@ -9,6 +9,7 @@ class GeneralNewsExtractor:
                 author_xpath='',
                 publish_time_xpath='',
                 host='',
+                body_xpath='',
                 noise_node_list=None,
                 with_body_html=False):
 
@@ -21,12 +22,16 @@ class GeneralNewsExtractor:
         author = AuthorExtractor().extractor(element, author_xpath=author_xpath)
         element = pre_parse(element)
         remove_noise_node(element, noise_node_list)
-        content = ContentExtractor().extract(element, host, with_body_html)
+        content = ContentExtractor().extract(element,
+                                             host=host,
+                                             with_body_html=with_body_html,
+                                             body_xpath=body_xpath)
         result = {'title': title,
                   'author': author,
                   'publish_time': publish_time,
                   'content': content[0][1]['text'],
-                  'images': content[0][1]['images']}
+                  'images': content[0][1]['images']
+                  }
         if with_body_html or config.get('with_body_html', False):
             result['body_html'] = content[0][1]['body_html']
         return result

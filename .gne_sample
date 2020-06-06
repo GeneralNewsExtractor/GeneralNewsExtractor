@@ -5,6 +5,8 @@ noise_node_list:
     - //div[@class=\"comment-list\"]
     - //*[@style=\"display:none\"]
     - //*[@class="contheight"]
+body:
+    xpath: //div[@class="news_txt"]
 with_body_html: false
 author:
     xpath: //meta[@name="author"]/@content

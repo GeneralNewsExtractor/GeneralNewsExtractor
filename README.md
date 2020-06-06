@@ -154,6 +154,43 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Changelog
 
+### 2020.06.06
+
+1. 优化标题提取逻辑，根据@止水 和 @asyncins 的建议，通过对比 //title/text()中的文本与 <h> 标签中的文本，提取出标题。
+2. 增加 `body_xpath`参数，精确定义正文所在的位置，强力避免干扰。
+
+例如对于澎湃新闻，在不设置`body_xpath`参数时：
+
+```python
+result = extractor.extract(html,
+                           host='https://www.xxx.com',
+                           noise_node_list=['//div[@class="comment-list"]',
+                                            '//*[@style="display:none"]',
+                                            '//div[@class="statement"]'
+                                            ])
+```
+
+提取效果如下：
+
+![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-06-06-11-51-44.png)
+
+设置了`body_xpath`以后：
+
+```python
+result = extractor.extract(html,
+                           host='https://www.xxx.com',
+                           body_xpath='//div[@class="news_txt"]',  # 缩小正文提取范围
+                           noise_node_list=['//div[@class="comment-list"]',
+                                            '//*[@style="display:none"]',
+                                            '//div[@class="statement"]'
+                                            ])
+```
+
+结果如下：
+
+![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-06-06-11-53-30.png)
+
+
 ### 2020.03.11
 
 1. 预处理可能会破坏 HTML 结构，导致用户自定义的 XPath 无法正确工作，因此需要把提取用户名、发布时间、标题的代码放在预处理之前。

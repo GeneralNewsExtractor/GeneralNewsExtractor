@@ -142,22 +142,31 @@ GNE 的函数原型为：
 .. code-block:: python
 
    class GeneralNewsExtractor:
-       def extract(self, html, title_xpath='', host='', author_xpath='', publish_time_xpath='', noise_node_list=None, with_body_html=False)
+       def extract(self,
+                   html,
+                   title_xpath='',
+                   host='',
+                   author_xpath='',
+                   publish_time_xpath='',
+                   body_xpath='',
+                   noise_node_list=None,
+                   with_body_html=False)
 
 各个参数的意义如下：
 
-- **html(str)**: 目标网站的源代码
-- **title_xpath(str)**: 新闻标题的 XPath，用于定向提取标题
-- **host(str)**: 图片所在的域名，例如 ``https://www.kingname.info``, 那么，当GNE 从新闻网站提取到图片的相对连接``/images/123.png``时，会把 ``host`` 拼接上去，变成``https://www.kingname.info/images/123.png``
-- **noise_node_list(List[str])**: 一个包含 XPath 的列表。这个列表中的 XPath 对应的标签，会在预处理时被直接删除掉，从而避免他们影响新闻正文的提取
-- **with_body_html(bool)**: 默认为 False，此时，返回的提取结果不含新闻正文所在标签的 HTML 源代码。当把它设置为 True 时，返回的结果会包含字段 ``body_html``，内容是新闻正文所在标签的 HTML 源代码
-- **author_xpath(str)**: 文章作者的 XPath，用于定向提取文章作者
-- **publish_time_xpath(str)**: 文章发布时间的 XPath，用于定向提取文章发布时间
+- **html(str)**: 必填，目标网站的源代码
+- **title_xpath(str)**: 可选，新闻标题的 XPath，用于定向提取标题
+- **host(str)**: 可选，图片所在的域名，例如 ``https://www.kingname.info``, 那么，当GNE 从新闻网站提取到图片的相对连接``/images/123.png``时，会把 ``host`` 拼接上去，变成``https://www.kingname.info/images/123.png``
+- **body_xpath(str)**: 可选，新闻正文所在的标签的 XPath，用于缩小提取正文的范围，降低噪音
+- **noise_node_list(List[str])**: 可选，一个包含 XPath 的列表。这个列表中的 XPath 对应的标签，会在预处理时被直接删除掉，从而避免他们影响新闻正文的提取
+- **with_body_html(bool)**: 可选，默认为 False，此时，返回的提取结果不含新闻正文所在标签的 HTML 源代码。当把它设置为 True 时，返回的结果会包含字段 ``body_html``，内容是新闻正文所在标签的 HTML 源代码
+- **author_xpath(str)**: 可选，文章作者的 XPath，用于定向提取文章作者
+- **publish_time_xpath(str)**: 可选，文章发布时间的 XPath，用于定向提取文章发布时间
 
 配置文件
 ========
 
-API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 、 ``author_xpath``、 ``publish_time_xpath`` 除了直接写到 ``extract`` 方法中外，还可以
+API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 、 ``author_xpath`` 、 ``publish_time_xpath`` 、 ``body_xpath`` 除了直接写到 ``extract`` 方法中外，还可以
 通过一个配置文件来设置。
 
 请在项目的根目录创建一个文件 ``.gne``，配置文件可以用 YAML 格式，也可以使用 JSON 格式。
@@ -172,6 +181,8 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
    noise_node_list:
        - //div[@class=\"comment-list\"]
        - //*[@style=\"display:none\"]
+   body:
+       xpath: //div[@class="news-text"]
    with_body_html: true
    author:
        xpath: //meta[@name="author"]/@content
@@ -189,6 +200,9 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
        "host": "https://www.xxx.com",
        "noise_node_list": ["//div[@class=\"comment-list\"]",
                            "//*[@style=\"display:none\"]"],
+       "body": {
+           "xpath": "//div[@class=\"news-text\"]"
+       },
        "with_body_html": true,
        "author": {
            "xpath": "//meta[@name=\"author\"]/@content"
@@ -212,6 +226,43 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
 
 Changelog
 ==========
+
+2020.06.06
+-----------
+
+1. 优化标题提取逻辑，根据@止水 和 @asyncins 的建议，通过对比 ``//title/text()`` 中的文本与 ``<h>`` 标签中的文本，提取出标题。
+2. 增加 ``body_xpath`` 参数，精确定义正文所在的位置，强力避免干扰。
+
+例如对于澎湃新闻，在不设置 ``body_xpath`` 参数时：
+
+.. code-block:: python
+   result = extractor.extract(html,
+                              host='https://www.xxx.com',
+                              noise_node_list=['//div[@class="comment-list"]',
+                                               '//*[@style="display:none"]',
+                                               '//div[@class="statement"]'
+                                               ])
+
+
+提取效果如下：
+
+![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-06-06-11-51-44.png)
+
+设置了 ``body_xpath`` 以后：
+
+.. code-block:: python
+   result = extractor.extract(html,
+                              host='https://www.xxx.com',
+                              body_xpath='//div[@class="news_txt"]',  # 缩小正文提取范围
+                              noise_node_list=['//div[@class="comment-list"]',
+                                               '//*[@style="display:none"]',
+                                               '//div[@class="statement"]'
+                                               ])
+
+
+结果如下：
+
+![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-06-06-11-53-30.png)
 
 2020.03.11
 ------------

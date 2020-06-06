@@ -16,8 +16,12 @@ class ContentExtractor:
         self.high_weight_keyword_pattern = get_high_weight_keyword_pattern()
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
 
-    def extract(self, selector, host='', with_body_html=False):
-        body = selector.xpath('//body')[0]
+    def extract(self, selector, host='', body_xpath='', with_body_html=False):
+        body_xpath = body_xpath or config.get('body', {}).get('xpath', '')
+        if body_xpath:
+            body = selector.xpath(body_xpath)[0]
+        else:
+            body = selector.xpath('//body')[0]
         for node in iter_node(body):
             node_hash = hash(node)
             density_info = self.calc_text_density(node)

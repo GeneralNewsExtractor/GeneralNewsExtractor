@@ -236,6 +236,8 @@ Changelog
 例如对于澎湃新闻，在不设置 ``body_xpath`` 参数时：
 
 .. code-block:: python
+   :linenos:
+
    result = extractor.extract(html,
                               host='https://www.xxx.com',
                               noise_node_list=['//div[@class="comment-list"]',
@@ -246,11 +248,13 @@ Changelog
 
 提取效果如下：
 
-![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-06-06-11-51-44.png)
+.. image:: _static/2020-06-06-11-53-30.png
 
 设置了 ``body_xpath`` 以后：
 
 .. code-block:: python
+   :linenos:
+
    result = extractor.extract(html,
                               host='https://www.xxx.com',
                               body_xpath='//div[@class="news_txt"]',  # 缩小正文提取范围
@@ -262,7 +266,7 @@ Changelog
 
 结果如下：
 
-![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-06-06-11-53-30.png)
+.. image:: _static/2020-06-06-11-53-30.png
 
 2020.03.11
 ------------

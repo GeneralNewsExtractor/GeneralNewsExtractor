@@ -154,6 +154,11 @@ result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'
 
 ## Changelog
 
+### 2020.06.27
+
+1. 不再需要计算文本密度的标准差
+2. 🚀减少重复计算，大幅度提升分析速度
+
 ### 2020.06.06
 
 1. 优化标题提取逻辑，根据@止水 和 @asyncins 的建议，通过对比 //title/text()中的文本与 <h> 标签中的文本，提取出标题。

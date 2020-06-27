@@ -15,6 +15,7 @@ class ContentExtractor:
         self.node_info = {}
         self.high_weight_keyword_pattern = get_high_weight_keyword_pattern()
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
+        self.element_text_cache = {}
 
     def extract(self, selector, host='', body_xpath='', with_body_html=False):
         body_xpath = body_xpath or config.get('body', {}).get('xpath', '')
@@ -47,8 +48,7 @@ class ContentExtractor:
                 body_source_code = unescape(etree.tostring(node, encoding='utf-8').decode())
                 node_info['body_html'] = body_source_code
             self.node_info[node_hash] = node_info
-        std = self.calc_standard_deviation()
-        self.calc_new_score(std)
+        self.calc_new_score()
         result = sorted(self.node_info.items(), key=lambda x: x[1]['score'], reverse=True)
         return result
 
@@ -56,17 +56,24 @@ class ContentExtractor:
         return len(element.xpath(f'.//{tag}'))
 
     def get_all_text_of_element(self, element_list):
-        text_list = []
         if not isinstance(element_list, list):
             element_list = [element_list]
 
+        text_list = []
         for element in element_list:
-            for text in element.xpath('.//text()'):
-                text = text.strip()
-                if not text:
-                    continue
-                clear_text = re.sub(' +', ' ', text, flags=re.S)
-                text_list.append(clear_text.replace('\n', ''))
+            element_flag = element.getroottree().getpath(element)
+            if element_flag in self.element_text_cache: # 直接读取缓存的数据，而不是再重复提取一次
+                text_list = self.element_text_cache[element_flag]
+            else:
+                element_text_list = []
+                for text in element.xpath('.//text()'):
+                    text = text.strip()
+                    if not text:
+                        continue
+                    clear_text = re.sub(' +', ' ', text, flags=re.S)
+                    element_text_list.append(clear_text.replace('\n', ''))
+                self.element_text_cache[element_flag] = element_text_list
+                text_list = element_text_list
         return text_list
 
     def calc_text_density(self, element):
@@ -125,16 +132,11 @@ class ContentExtractor:
                 count += 1
         return count
 
-    def calc_standard_deviation(self):
-        score_list = [x['density'] for x in self.node_info.values()]
-        std = np.std(score_list, ddof=1)
-        return std
-
-    def calc_new_score(self, std):
+    def calc_new_score(self):
         """
-        score = log(std) * ndi * log10(text_tag_count + 2) * log(sbdi)
+        score = 1 * ndi * log10(text_tag_count + 2) * log(sbdi)
 
-        std：每个节点文本密度的标准差
+        1：在论文里面，这里使用的是 log(std)，但是每一个密度都乘以相同的对数，他们的相对大小是不会改变的，所以我们没有必要计算
         ndi：节点 i 的文本密度
         text_tag_count: 正文所在标签数。例如正文在<p></p>标签里面，这里就是 p 标签数，如果正文在<div></div>标签，这里就是 div 标签数
         sbdi：节点 i 的符号密度
@@ -142,6 +144,6 @@ class ContentExtractor:
         :return:
         """
         for node_hash, node_info in self.node_info.items():
-            score = np.log(std) * node_info['density'] * np.log10(node_info['text_tag_count'] + 2) * np.log(
+            score = node_info['density'] * np.log10(node_info['text_tag_count'] + 2) * np.log(
                 node_info['sbdi'])
             self.node_info[node_hash]['score'] = score

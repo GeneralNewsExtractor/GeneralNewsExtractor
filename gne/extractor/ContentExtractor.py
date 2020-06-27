@@ -15,6 +15,7 @@ class ContentExtractor:
         self.node_info = {}
         self.high_weight_keyword_pattern = get_high_weight_keyword_pattern()
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
+        self.element_text_cache = {}
 
     def extract(self, selector, host='', body_xpath='', with_body_html=False):
         body_xpath = body_xpath or config.get('body', {}).get('xpath', '')
@@ -55,17 +56,24 @@ class ContentExtractor:
         return len(element.xpath(f'.//{tag}'))
 
     def get_all_text_of_element(self, element_list):
-        text_list = []
         if not isinstance(element_list, list):
             element_list = [element_list]
 
+        text_list = []
         for element in element_list:
-            for text in element.xpath('.//text()'):
-                text = text.strip()
-                if not text:
-                    continue
-                clear_text = re.sub(' +', ' ', text, flags=re.S)
-                text_list.append(clear_text.replace('\n', ''))
+            element_flag = element.getroottree().getpath(element)
+            if element_flag in self.element_text_cache: # 直接读取缓存的数据，而不是再重复提取一次
+                text_list = self.element_text_cache[element_flag]
+            else:
+                element_text_list = []
+                for text in element.xpath('.//text()'):
+                    text = text.strip()
+                    if not text:
+                        continue
+                    clear_text = re.sub(' +', ' ', text, flags=re.S)
+                    element_text_list.append(clear_text.replace('\n', ''))
+                self.element_text_cache[element_flag] = element_text_list
+                text_list = element_text_list
         return text_list
 
     def calc_text_density(self, element):

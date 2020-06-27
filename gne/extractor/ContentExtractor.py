@@ -73,7 +73,7 @@ class ContentExtractor:
                     clear_text = re.sub(' +', ' ', text, flags=re.S)
                     element_text_list.append(clear_text.replace('\n', ''))
                 self.element_text_cache[element_flag] = element_text_list
-                text_list = element_text_list
+                text_list.extend(element_text_list)
         return text_list
 
     def calc_text_density(self, element):

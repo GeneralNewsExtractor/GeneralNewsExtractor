@@ -1,5 +1,5 @@
 from .utils import pre_parse, remove_noise_node, config, html2element
-from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor
+from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor
 
 
 class GeneralNewsExtractor:
@@ -35,3 +35,10 @@ class GeneralNewsExtractor:
         if with_body_html or config.get('with_body_html', False):
             result['body_html'] = content[0][1]['body_html']
         return result
+
+
+class ListPageExtractor:
+    def extract(self, html, feature):
+        element = html2element(html)
+        extractor = ListExtractor()
+        return extractor.extract(element, feature)

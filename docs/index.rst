@@ -62,6 +62,15 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
 >>> print(result)
 {"title": "xxxx", "publish_time": "2019-09-10 11:12:13", "author": "yyy", "content": "zzzz", "images": ["/xxx.jpg", "/yyy.png"]}
 
+3. 提取列表页
+
+>>> from gne import ListPageExtractor
+>>> html = '''经过渲染的网页 HTML 代码'''
+>>> list_extractor = ListPageExtractor()
+>>> result = list_extractor.extract(html, feature='列表中任意元素的 XPath")
+>>> print(result)
+
+
 注意事项
 =========
 
@@ -178,6 +187,7 @@ GeneralNewsExtractor 的函数原型为：
 ListPageExtractor的函数原型为：
 
 .. code-block:: python
+
    class ListExtractor:
        def extract(self, element: HtmlElement, feature)
 

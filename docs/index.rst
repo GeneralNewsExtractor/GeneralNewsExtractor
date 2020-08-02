@@ -111,6 +111,12 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
 
    result = extractor.extract(html, noise_node_list=['//div[@class="comment-list"]'])
 
+- ``提取新闻列表页的功能是测试功能，请勿用于生产环境`` 。你可以通过Chrome 浏览器开发者工具中的 ``Copy XPath`` 来复制列表中任意一项的XPath，如下图所示。
+
+.. image:: _static/2020-08-02-17-07-19.png
+
+GNE 会根据这一项的 XPath，自动找到这个列表里面其他行的数据。
+
 运行截图
 =========
 
@@ -134,10 +140,16 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
 
 .. image:: _static/WX20191126-004218.png
 
+
+网易新闻首页列表
+---------------
+
+.. image:: _static/WX20200802-170137@2x.png
+
 API
 =========
 
-GNE 的函数原型为：
+GeneralNewsExtractor 的函数原型为：
 
 .. code-block:: python
 
@@ -162,6 +174,18 @@ GNE 的函数原型为：
 - **with_body_html(bool)**: 可选，默认为 False，此时，返回的提取结果不含新闻正文所在标签的 HTML 源代码。当把它设置为 True 时，返回的结果会包含字段 ``body_html``，内容是新闻正文所在标签的 HTML 源代码
 - **author_xpath(str)**: 可选，文章作者的 XPath，用于定向提取文章作者
 - **publish_time_xpath(str)**: 可选，文章发布时间的 XPath，用于定向提取文章发布时间
+
+ListPageExtractor的函数原型为：
+
+.. code-block:: python
+   class ListExtractor:
+       def extract(self, element: HtmlElement, feature)
+
+各个参数的意义如下：
+
+- **element(HtmlElement)**：必填，经过 lxml.html.fromstring 处理后的 Dom 树对象
+- **feature(str)**: 必填，列表中，任意一行的 XPath 或者内容。GNE 会根据这个 XPath 或者内容，自动找到它所在的列表，并返回该列表下面的全部内容。
+
 
 配置文件
 ========
@@ -223,132 +247,6 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
 
 1. 目前本项目只适用于新闻页的信息提取。如果目标网站不是新闻页，或者是今日头条中的相册型文章，那么抽取结果可能不符合预期。
 2. 可能会有一些新闻页面出现抽取结果中的作者为空字符串的情况，这可能是由于文章本身没有作者，或者使用了已有正则表达式没有覆盖到的情况。
-
-Changelog
-==========
-
-2020.06.27
-------------
-
-1. 不再需要计算文本密度的标准差
-2. 🚀减少重复计算，大幅度提升分析速度
-
-2020.06.06
------------
-
-1. 优化标题提取逻辑，根据@止水 和 @asyncins 的建议，通过对比 ``//title/text()`` 中的文本与 ``<h>`` 标签中的文本，提取出标题。
-2. 增加 ``body_xpath`` 参数，精确定义正文所在的位置，强力避免干扰。
-
-例如对于澎湃新闻，在不设置 ``body_xpath`` 参数时：
-
-.. code-block:: python
-   :linenos:
-
-   result = extractor.extract(html,
-                              host='https://www.xxx.com',
-                              noise_node_list=['//div[@class="comment-list"]',
-                                               '//*[@style="display:none"]',
-                                               '//div[@class="statement"]'
-                                               ])
-
-
-提取效果如下：
-
-.. image:: _static/2020-06-06-11-53-30.png
-
-设置了 ``body_xpath`` 以后：
-
-.. code-block:: python
-   :linenos:
-
-   result = extractor.extract(html,
-                              host='https://www.xxx.com',
-                              body_xpath='//div[@class="news_txt"]',  # 缩小正文提取范围
-                              noise_node_list=['//div[@class="comment-list"]',
-                                               '//*[@style="display:none"]',
-                                               '//div[@class="statement"]'
-                                               ])
-
-
-结果如下：
-
-.. image:: _static/2020-06-06-11-53-30.png
-
-2020.03.11
-------------
-
-1. 预处理可能会破坏 HTML 结构，导致用户自定义的 XPath 无法正确工作，因此需要把提取用户名、发布时间、标题的代码放在预处理之前。
-
-2020.02.21
-------------
-
-1. 感谢@止水提供的 meta 对应的新闻时间属性，现在会从 HTML 的 meta 数据中检查是否有发布时间。
-
-2020.02.13
--------------
-
-1. 在 ``GeneralNewsExtractor().extract()`` 方法中传入参数 ``author_xpath`` 和 ``publish_time_xpath`` 强行指定抓取作者与发布时间的位置。
-2. 在 ``.gne`` 配置文件中，通过如下两个配置分别指定作者与发布时间的 XPath：
-
-.. code-block:: yaml
-
-   author:
-       xpath: //meta[@name="author"]/@content
-   publish_time:
-       xpath: //em[@id="publish_time"]/text()
-
-
-2020.01.04
-------------
-
-1. 修复由于 ``node.getparent().remove()`` 会移除父标签中，位于自己后面的 text 的问题
-2. 对于class 中含有 ``article`` / ``content`` / ``news_txt`` / ``post_text`` 的标签，增加权重
-3. 使用更科学的方法移除无效标签
-
-2019.12.31
-------------
-
-通用参数可以通过 YAML、JSON 批量设置了。只需要在项目的根目录下创建一个 ``.gne`` ，就可以实现函数默认参数的功能。
-
-2019.12.29
-------------
-
-1. 现在可以通过传入参数 ``host`` 来把提取的图片url 拼接为绝对路径
-
-例如：
-
-.. code-block:: python
-   :linenos:
-
-   extractor = GeneralNewsExtractor()
-   result = extractor.extract(html,
-                              host='https://www.xxx.com')
-
-返回数据中：
-
-.. code-block:: python
-   :linenos:
-
-   {
-       ...
-       "images": [
-           "https://www.xxx.com/W020190918234243033577.jpg"
-         ]
-   }
-
-2019.11.24
------------
-
-1. 增加更多的 UselessAttr
-2. 返回的结果包含 ``images`` 字段，里面的结果是一个列表，保存了正文中的所有图片 URL
-3. 指定 ``with_body_html`` 参数，返回的数据中将会包含 ``body_html`` 字段，这是正文的 HTMl 源代码：
-
-.. code-block:: python
-   :linenos:
-
-   result = GeneralNewsExtractor().extract(html, with_body_html=True)
-   body_html = result['body_html']
-   print(f'正文的网页源代码为：{body_html}')
 
 
 交流沟通

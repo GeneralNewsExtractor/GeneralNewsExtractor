@@ -37,7 +37,7 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
 
 0. 在线体验
 
-如果你想先体验 GNE 的提取效果，那么你可以访问 `http://122.51.39.219 <http://122.51.39.219/>`_。
+如果你想先体验 GNE 的提取效果，那么你可以访问 `http://gne.kingname.info <http://gne.kingname.info/>`_。
 一般情况下，你只需要把网页粘贴到最上面的多行文本框中，然后点 ``提取`` 按钮即可。通过附加更多的参数，可以让提取更精确。具体
 参数的写法与作用，请参阅 `API <https://generalnewsextractor.readthedocs.io/zh_CN/latest/#api>`_
 

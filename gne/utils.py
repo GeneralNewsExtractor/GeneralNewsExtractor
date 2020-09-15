@@ -33,10 +33,9 @@ def normalize_node(element: HtmlElement):
 
         class_name = node.get('class')
         if class_name:
-            for attribute in USELESS_ATTR:
-                if attribute in class_name:
-                    remove_node(node)
-                    break
+            if class_name in USELESS_ATTR:
+                remove_node(node)
+                break
 
 
 def html2element(html):
@@ -47,6 +46,7 @@ def html2element(html):
 
 def pre_parse(element):
     normalize_node(element)
+
     return element
 
 

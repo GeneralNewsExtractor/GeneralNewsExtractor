@@ -1,5 +1,11 @@
 # General News Extractor Changelog
 
+## 0.2.3 (2020-09-15)
+
+### Bug fix
+
+1. `USELESS_ATTR`对应的节点，只有 class 完全匹配才需要删除。之前包含就删除的匹配方式会导致 ifeng 的正文被删除。
+
 ## 0.2.2 (2020-08-02)
 
 ### Features

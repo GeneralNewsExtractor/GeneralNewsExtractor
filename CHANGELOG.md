@@ -1,5 +1,11 @@
 # General News Extractor Changelog
 
+## 0.2.4 (2020-10-06)
+
+### Features
+
+1. 预处理时，把 <footer>标签移除。
+
 ## 0.2.3 (2020-09-15)
 
 ### Bug fix

@@ -1,4 +1,4 @@
-from .utils import pre_parse, remove_noise_node, config, html2element
+from .utils import pre_parse, remove_noise_node, config, html2element, normalize_text
 from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor
 
 
@@ -16,7 +16,8 @@ class GeneralNewsExtractor:
         # 对 HTML 进行预处理可能会破坏 HTML 原有的结构，导致根据原始 HTML 编写的 XPath 不可用
         # 因此，如果指定了 title_xpath/author_xpath/publish_time_xpath，那么需要先提取再进行
         # 预处理
-        element = html2element(html)
+        normal_html = normalize_text(html)
+        element = html2element(normal_html)
         title = TitleExtractor().extract(element, title_xpath=title_xpath)
         publish_time = TimeExtractor().extractor(element, publish_time_xpath=publish_time_xpath)
         author = AuthorExtractor().extractor(element, author_xpath=author_xpath)
@@ -39,6 +40,7 @@ class GeneralNewsExtractor:
 
 class ListPageExtractor:
     def extract(self, html, feature):
-        element = html2element(html)
+        normalize_html = normalize_text(html)
+        element = html2element(normalize_html)
         extractor = ListExtractor()
         return extractor.extract(element, feature)

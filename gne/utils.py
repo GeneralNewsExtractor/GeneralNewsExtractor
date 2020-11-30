@@ -1,6 +1,7 @@
 import os
 import re
 import yaml
+import unicodedata
 from lxml.html import fromstring, HtmlElement
 from lxml.html import etree
 from urllib.parse import urlparse, urljoin
@@ -167,6 +168,15 @@ def get_longest_common_sub_string(str1: str, str2: str) -> str:
             else:
                 matrix[index_of_str1][index_of_str2] = 0
     return str1[start_position: start_position + max_length]
+
+
+def normalize_text(html):
+    """
+    使用 NFKC 对网页源代码进行归一化，把特殊符号转换为普通符号
+    :param html:
+    :return:
+    """
+    return unicodedata.normalize('NFKC', html)
 
 
 config = read_config()

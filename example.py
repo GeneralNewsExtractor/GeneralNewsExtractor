@@ -11,7 +11,7 @@ if __name__ == '__main__':
         extractor = GeneralNewsExtractor()
         result = extractor.extract(html,
                                    host='https://www.xxx.com',
-                                   # body_xpath='//div[@class="article-story"]',
+                                   # body_xpath='//div[@class="show_text"]',
                                    noise_node_list=['//div[@class="comment-list"]',
                                                     '//*[@style="display:none"]',
                                                     '//div[@class="statement"]'

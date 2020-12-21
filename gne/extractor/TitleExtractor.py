@@ -20,7 +20,9 @@ class TitleExtractor:
             return ''
         title = re.split(TITLE_SPLIT_CHAR_PATTERN, title_list[0])
         if title:
-            return title[0]
+            if len(title[0]) >= 4:
+                return title[0]
+            return title_list[0]
         else:
             return ''
 

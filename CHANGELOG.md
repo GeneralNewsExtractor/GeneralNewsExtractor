@@ -1,5 +1,11 @@
 # General News Extractor Changelog
 
+## 0.2.5 (2020-12-21)
+
+### Bug fix
+
+1. 在使用 title 标签提取标题时，对于分隔符-_|分割的第一段内容，必须要大于4个字符才当做标题，否则会返回整个 title 标签的文本。
+
 ## 0.2.4 (2020-10-06)
 
 ### Features

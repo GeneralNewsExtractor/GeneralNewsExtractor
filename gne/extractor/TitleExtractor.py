@@ -53,7 +53,7 @@ class TitleExtractor:
             lcs = get_longest_common_sub_string(title_text, h_tag_text)
             if len(lcs) > len(news_title):
                 news_title = lcs
-        return news_title
+        return news_title if len(news_title) > 4 else ''
 
     def extract(self, element: HtmlElement, title_xpath: str = '') -> str:
         title_xpath = title_xpath or config.get('title', {}).get('xpath')

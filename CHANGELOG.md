@@ -1,5 +1,11 @@
 # General News Extractor Changelog
 
+## 0.2.6 (2021-02-17)
+
+### Bug fix
+
+1. 修复 extract_by_htag_and_title 在发现 H 标签中的文本与 title 标签的文本在最小公共子串长度小于4时被认为是标题的问题。
+
 ## 0.2.5 (2020-12-21)
 
 ### Bug fix

@@ -1,6 +1,6 @@
 # GNE
 
-![](https://github.com/GeneralNewsExtractor/GeneralNewsExtractor/blob/master/logo.png)
+![](https://github.com/GeneralNewsExtractor/GeneralNewsExtractor/raw/master/screenshots/logo.png)
 
 ## 项目起源
 

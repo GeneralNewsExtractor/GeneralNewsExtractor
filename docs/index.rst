@@ -348,7 +348,7 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
 交流沟通
 ==========
 
-如果您觉得GNE对您的日常开发或公司有帮助，请加作者微信 mxqiuchen（或扫描下方二维码） 并注明"GNE"，作者会将你拉入群。
+如果您觉得GNE对您的日常开发或公司有帮助，请加作者微信 mekingname（或扫描下方二维码） 并注明"GNE"，作者会将你拉入群。
 
 .. image:: https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/IMG_3729_2.JPG
 

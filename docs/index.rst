@@ -146,6 +146,7 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
        body = get_body()
        iter_node(body)
    }
+   insert_visiability_info()
 
 
 我给出了一个使用 Puppeteer 生成这些特殊 HTML 的项目： `GneRender <https://github.com/GeneralNewsExtractor/GneRender>`_

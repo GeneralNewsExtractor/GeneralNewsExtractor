@@ -1,4 +1,5 @@
 import re
+import json
 import numpy as np
 from lxml.html import etree
 from html import unescape
@@ -17,13 +18,20 @@ class ContentExtractor:
         self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
         self.element_text_cache = {}
 
-    def extract(self, selector, host='', body_xpath='', with_body_html=False):
+    def extract(self, selector, host='', body_xpath='', with_body_html=False, use_visiable_info=False):
         body_xpath = body_xpath or config.get('body', {}).get('xpath', '')
         if body_xpath:
             body = selector.xpath(body_xpath)[0]
         else:
             body = selector.xpath('//body')[0]
         for node in iter_node(body):
+            if use_visiable_info:
+                if not node.attrib.get('is_visiable', True):
+                    continue
+                coordinate_json = node.attrib.get('coordinate', '{}')
+                coordinate = json.loads(coordinate_json)
+                if coordinate.get('height', 0) < 150:  # 正文块的高度应该要大于150px
+                    continue
             node_hash = hash(node)
             density_info = self.calc_text_density(node)
             text_density = density_info['density']
@@ -44,6 +52,9 @@ class ContentExtractor:
                          'images': images_list,
                          'text_tag_count': text_tag_count,
                          'sbdi': sbdi}
+            if use_visiable_info:
+                node_info['is_visiable'] = node.attrib['is_visiable']
+                node_info['coordinate'] = node.attrib.get('coordinate', '')
             if with_body_html or config.get('with_body_html', False):
                 body_source_code = unescape(etree.tostring(node, encoding='utf-8').decode())
                 node_info['body_html'] = body_source_code
@@ -53,7 +64,15 @@ class ContentExtractor:
         return result
 
     def count_text_tag(self, element, tag='p'):
-        return len(element.xpath(f'.//{tag}'))
+        """
+        当前标签下面的 text()和 p 标签，都应该进行统计
+        :param element:
+        :param tag:
+        :return:
+        """
+        tag_num = len(element.xpath(f'.//{tag}'))
+        direct_text = len(element.xpath('text()'))
+        return tag_num + direct_text
 
     def get_all_text_of_element(self, element_list):
         if not isinstance(element_list, list):
@@ -63,7 +82,7 @@ class ContentExtractor:
         for element in element_list:
             element_flag = element.getroottree().getpath(element)
             if element_flag in self.element_text_cache: # 直接读取缓存的数据，而不是再重复提取一次
-                text_list = self.element_text_cache[element_flag]
+                text_list.extend(self.element_text_cache[element_flag])
             else:
                 element_text_list = []
                 for text in element.xpath('.//text()'):
@@ -75,6 +94,29 @@ class ContentExtractor:
                 self.element_text_cache[element_flag] = element_text_list
                 text_list.extend(element_text_list)
         return text_list
+
+    def need_skip_ltgi(self, ti, lti):
+        """
+        有时候，会出现像维基百科一样，在文字里面加a 标签关键词的情况，例如：
+
+        <div>
+        我是正文我是正文我是正文<a href="xxx">关键词1</a>我是正文我是正文我是正文我是正文
+        我是正文我是正文我是正文我是正文我是正文<a href="xxx">关键词2</a>我是正文我是正文
+        我是正文
+        </div>
+
+        在这种情况下，tgi = ltgi = 2，计算公式的分母为0. 为了把这种情况和列表页全是链接的
+        情况区分出来，所以要做一下判断。检查节点下面所有 a 标签的超链接中的文本数量与本节点
+        下面所有文本数量的比值。如果超链接的文本数量占比极少，那么此时，ltgi 应该忽略
+        :param ti: 节点 i 的字符串字数
+        :param lti: 节点 i 的带链接的字符串字数
+        :return: bool
+        """
+        if lti == 0:
+            return False
+
+        return ti // lti > 10  # 正文的字符数量是链接字符数量的十倍以上
+
 
     def calc_text_density(self, element):
         """
@@ -96,11 +138,16 @@ class ContentExtractor:
         ti_text = '\n'.join(self.get_all_text_of_element(element))
         ti = len(ti_text)
         ti = self.increase_tag_weight(ti, element)
-        lti = len(''.join(self.get_all_text_of_element(element.xpath('.//a'))))
+        a_tag_list = element.xpath('.//a')
+
+        lti = len(''.join(self.get_all_text_of_element(a_tag_list)))
         tgi = len(element.xpath('.//*'))
-        ltgi = len(element.xpath('.//a'))
+        ltgi = len(a_tag_list)
         if (tgi - ltgi) == 0:
-            return {'density': 0, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
+            if not self.need_skip_ltgi(ti, lti):
+                return {'density': 0, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
+            else:
+                ltgi = 0
         density = (ti - lti) / (tgi - ltgi)
         return {'density': density, 'ti_text': ti_text, 'ti': ti, 'lti': lti, 'tgi': tgi, 'ltgi': ltgi}
 

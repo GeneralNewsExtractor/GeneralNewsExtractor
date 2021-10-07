@@ -11,7 +11,8 @@ class GeneralNewsExtractor:
                 host='',
                 body_xpath='',
                 noise_node_list=None,
-                with_body_html=False):
+                with_body_html=False,
+                use_visiable_info=False):
 
         # 对 HTML 进行预处理可能会破坏 HTML 原有的结构，导致根据原始 HTML 编写的 XPath 不可用
         # 因此，如果指定了 title_xpath/author_xpath/publish_time_xpath，那么需要先提取再进行
@@ -26,7 +27,8 @@ class GeneralNewsExtractor:
         content = ContentExtractor().extract(element,
                                              host=host,
                                              with_body_html=with_body_html,
-                                             body_xpath=body_xpath)
+                                             body_xpath=body_xpath,
+                                             use_visiable_info=use_visiable_info)
         result = {'title': title,
                   'author': author,
                   'publish_time': publish_time,

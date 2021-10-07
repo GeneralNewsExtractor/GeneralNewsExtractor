@@ -73,6 +73,84 @@ GeneralNewsExtractor（GNE）是一个通用新闻网站正文抽取模块，输
 >>> result = list_extractor.extract(html, feature='列表中任意元素的 XPath")
 >>> print(result)
 
+4. 基于可视化区域提高识别准确度（从 gne 0.3.0 版本加入）
+
+请打开文件 ``example_visiable.py`` ，从这个文件里面，你可以看到GNE 会从 ``visiable_test`` 文件夹中读取特殊的 HTML源代码，并且在调用 ``extractor.extract()`` 方法
+的时候，会传入一个参数： ``use_visiable_info=True`` 。此时，GNE 会基于这些HTML 中带有的节点坐标信息，更准确地提取正文。
+
+这些特殊的 HTML 主要特点如图所示：
+
+.. image:: _static/WX20211007-144800@2x.png
+
+在 ``body`` 标签下面的所有节点，都有一个属性叫做 ``is_visiable`` ，它的值是字符串的 ``true`` 或者 ``false`` 。如果值为 ``true`` ,
+那么，还有一个属性叫做 ``coordinate`` 。它的值是一个 JSON 字符串，包含了这个节点的尺寸，坐标等信息。
+
+那么，这些特殊的 HTML 是怎么生成的呢？其实只需要在网页上执行这样一段 js 代码就可以了：
+
+.. code-block:: javascript
+
+   function insert_visiability_info() {
+       function get_body() {
+           var body = document.getElementsByTagName('body')[0]
+           return body
+       }
+
+       function insert_info(element) {
+           is_visiable = element.offsetParent !== null
+           element.setAttribute('is_visiable', is_visiable)
+           if (is_visiable) {
+               react = element.getBoundingClientRect()
+               coordinate = JSON.stringify(react)
+               element.setAttribute('coordinate', coordinate)
+           }
+       }
+
+       function iter_node(node) {
+           children = node.children
+           insert_info(node)
+           if (children.length !== 0) {
+               for(const element of children) {
+                   iter_node(element)
+               }
+           }
+       }
+
+       function sizes() {
+           let contentWidth = [...document.body.children].reduce(
+             (a, el) => Math.max(a, el.getBoundingClientRect().right), 0)
+             - document.body.getBoundingClientRect().x;
+
+           return {
+             windowWidth:  document.documentElement.clientWidth,
+             windowHeight: document.documentElement.clientHeight,
+             pageWidth:    Math.min(document.body.scrollWidth, contentWidth),
+             pageHeight:   document.body.scrollHeight,
+             screenWidth:  window.screen.width,
+             screenHeight: window.screen.height,
+             pageX:        document.body.getBoundingClientRect().x,
+             pageY:        document.body.getBoundingClientRect().y,
+             screenX:     -window.screenX,
+             screenY:     -window.screenY - (window.outerHeight-window.innerHeight),
+           }
+       }
+
+       function insert_page_info() {
+           page_info = sizes()
+           node = document.createElement('meta')
+           node.setAttribute('name', 'page_visiability_info')
+           node.setAttribute('page_info', JSON.stringify(page_info))
+           document.getElementsByTagName('head')[0].appendChild(node)
+       }
+
+       insert_page_info()
+       body = get_body()
+       iter_node(body)
+   }
+
+
+我给出了一个使用 Puppeteer 生成这些特殊 HTML 的项目： `GneRender <https://github.com/GeneralNewsExtractor/GneRender>`_
+你可以阅读里面的 ``render.js`` 文件，就可以知道怎么做了。如果你使用的是 Selenium，其实原理是一样的。
+
 
 注意事项
 =========
@@ -174,7 +252,8 @@ GeneralNewsExtractor 的函数原型为：
                    publish_time_xpath='',
                    body_xpath='',
                    noise_node_list=None,
-                   with_body_html=False)
+                   with_body_html=False,
+                   use_visiable_info=False)
 
 各个参数的意义如下：
 
@@ -186,6 +265,7 @@ GeneralNewsExtractor 的函数原型为：
 - **with_body_html(bool)**: 可选，默认为 False，此时，返回的提取结果不含新闻正文所在标签的 HTML 源代码。当把它设置为 True 时，返回的结果会包含字段 ``body_html``，内容是新闻正文所在标签的 HTML 源代码
 - **author_xpath(str)**: 可选，文章作者的 XPath，用于定向提取文章作者
 - **publish_time_xpath(str)**: 可选，文章发布时间的 XPath，用于定向提取文章发布时间
+- **use_visiable_info(bool)**: 可选，HTML 是否带有节点坐标和可视化信息
 
 ListPageExtractor的函数原型为：
 
@@ -203,7 +283,7 @@ ListPageExtractor的函数原型为：
 配置文件
 ========
 
-API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 、 ``author_xpath`` 、 ``publish_time_xpath`` 、 ``body_xpath`` 除了直接写到 ``extract`` 方法中外，还可以
+API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_body_html`` 、 ``author_xpath`` 、 ``publish_time_xpath`` 、 ``body_xpath``、 ``use_visiable_info`` 除了直接写到 ``extract`` 方法中外，还可以
 通过一个配置文件来设置。
 
 请在项目的根目录创建一个文件 ``.gne``，配置文件可以用 YAML 格式，也可以使用 JSON 格式。
@@ -225,6 +305,8 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
        xpath: //meta[@name="author"]/@content
    publish_time:
        xpath: //em[@id="publish_time"]/text()
+   use_visiable_info: false
+
 
 - JSON 格式配置文件：
 
@@ -246,7 +328,8 @@ API 中的参数 ``title_xpath``、 ``host``、 ``noise_node_list``、 ``with_bo
        },
        "publish_time": {
            "xpath": "//em[@id=\"publish_time\"]/text()"
-       }
+       },
+       "use_visiable_info": false
    }
 
 这两种写法是完全等价的。

@@ -20,6 +20,7 @@ class ContentExtractor:
 
     def extract(self, selector, host='', body_xpath='', with_body_html=False, use_visiable_info=False):
         body_xpath = body_xpath or config.get('body', {}).get('xpath', '')
+        use_visiable_info = use_visiable_info or config.get('use_visiable_info', False)
         if body_xpath:
             body = selector.xpath(body_xpath)[0]
         else:

@@ -31,6 +31,7 @@ class ContentExtractor:
                     continue
                 coordinate_json = node.attrib.get('coordinate', '{}')
                 coordinate = json.loads(coordinate_json)
+
                 if coordinate.get('height', 0) < 150:  # 正文块的高度应该要大于150px
                     continue
             node_hash = hash(node)

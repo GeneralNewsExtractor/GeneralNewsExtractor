@@ -101,3 +101,8 @@ PUBLISH_TIME_META = [  # 部分特别规范的新闻网站，可以直接从 HTM
     '//meta[starts-with(@name, "weibo: article:create_at")]/@content',
     '//meta[starts-with(@pubdate, "pubdate")]/@content',
 ]
+
+# 满足下面的XPath，极有可能是文章详情页
+ARTICLE_XPATH = [
+    '//*[@class="article__content"]',
+]

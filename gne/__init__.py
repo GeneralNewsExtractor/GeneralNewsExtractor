@@ -1,5 +1,9 @@
 from .utils import pre_parse, remove_noise_node, config, html2element, normalize_text
-from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor
+from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor, MetaExtractor
+
+
+class NoContentException(Exception):
+    ...
 
 
 class GeneralNewsExtractor:
@@ -19,6 +23,7 @@ class GeneralNewsExtractor:
         # 预处理
         normal_html = normalize_text(html)
         element = html2element(normal_html)
+        meta_content = MetaExtractor().extract(element)
         title = TitleExtractor().extract(element, title_xpath=title_xpath)
         publish_time = TimeExtractor().extractor(element, publish_time_xpath=publish_time_xpath)
         author = AuthorExtractor().extractor(element, author_xpath=author_xpath)
@@ -29,11 +34,14 @@ class GeneralNewsExtractor:
                                              with_body_html=with_body_html,
                                              body_xpath=body_xpath,
                                              use_visiable_info=use_visiable_info)
+        if not content:
+            raise NoContentException('无法提取正文！')
         result = {'title': title,
                   'author': author,
                   'publish_time': publish_time,
                   'content': content[0][1]['text'],
-                  'images': content[0][1]['images']
+                  'images': content[0][1]['images'],
+                  'meta': meta_content
                   }
         if with_body_html or config.get('with_body_html', False):
             result['body_html'] = content[0][1]['body_html']
@@ -46,3 +54,4 @@ class ListPageExtractor:
         element = html2element(normalize_html)
         extractor = ListExtractor()
         return extractor.extract(element, feature)
+

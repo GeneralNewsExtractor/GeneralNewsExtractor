@@ -4,7 +4,8 @@ from gne import GeneralNewsExtractor
 
 
 if __name__ == '__main__':
-    html_list = glob.glob('visiable_test/**/*.html', recursive=True)
+    # html_list = glob.glob('visiable_test/khan/*.html', recursive=True)
+    html_list = glob.glob('/Users/kingname/Jupyter/news.html', recursive=True)
     for html_file in html_list:
         with open(html_file, encoding='utf-8') as f:
             html = f.read()
@@ -16,6 +17,7 @@ if __name__ == '__main__':
                                                     '//*[@style="display:none"]',
                                                     '//div[@class="statement"]'
                                                     ],
+                                   normalize=False,
                                    use_visiable_info=True)
         print(f'>>>>>>>>>>>>>{html_file}>>>>>>>>>>>>>')
         print(json.dumps(result, indent=2, ensure_ascii=False))

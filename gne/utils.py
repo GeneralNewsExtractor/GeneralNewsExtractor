@@ -173,6 +173,7 @@ def get_longest_common_sub_string(str1: str, str2: str) -> str:
 def normalize_text(html):
     """
     使用 NFKC 对网页源代码进行归一化，把特殊符号转换为普通符号
+    注意，中文标点符号可能会被转换成英文标点符合。
     :param html:
     :return:
     """

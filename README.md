@@ -2,7 +2,10 @@
 
 ![](https://github.com/GeneralNewsExtractor/GeneralNewsExtractor/raw/master/screenshots/logo.png)
 
-![](https://star-history.com/#GeneralNewsExtractor/GeneralNewsExtractor&Date)
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=GeneralNewsExtractor/GeneralNewsExtractor&type=Date)](https://star-history.com/#GeneralNewsExtractor/GeneralNewsExtractor&Date)
+
 
 ## 项目起源
 

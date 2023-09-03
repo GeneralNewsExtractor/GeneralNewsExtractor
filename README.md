@@ -2,6 +2,11 @@
 
 ![](https://github.com/GeneralNewsExtractor/GeneralNewsExtractor/raw/master/screenshots/logo.png)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=GeneralNewsExtractor/GeneralNewsExtractor&type=Date)](https://star-history.com/#GeneralNewsExtractor/GeneralNewsExtractor&Date)
+
+
 ## 项目起源
 
 开发这个项目，源自于我在知网发现了一篇关于自动化抽取新闻类网站正文的算法论文——[《基于文本及符号密度的网页正文提取方法》](https://kns.cnki.net/KCMS/detail/detail.aspx?dbcode=CJFQ&dbname=CJFDLAST2019&filename=GWDZ201908029&v=MDY4MTRxVHJXTTFGckNVUkxPZmJ1Wm5GQ2poVXJyQklqclBkTEc0SDlqTXA0OUhiWVI4ZVgxTHV4WVM3RGgxVDM=)）

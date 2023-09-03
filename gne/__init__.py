@@ -2,6 +2,9 @@ from .exceptions import NoContentException
 from .utils import pre_parse, remove_noise_node, config, html2element, normalize_text
 from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor, MetaExtractor
 
+__version__ = "0.3.0"
+__author__ = "Kingname"
+
 
 class GeneralNewsExtractor:
     def extract(self,

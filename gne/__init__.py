@@ -1,5 +1,5 @@
 from .exceptions import NoContentException
-from .utils import pre_parse, remove_noise_node, config, html2element, normalize_text
+from .utils import pre_parse, remove_noise_node, config, html2element, normalize_text, fix_html
 from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor, MetaExtractor
 
 __version__ = "0.3.0"
@@ -22,6 +22,7 @@ class GeneralNewsExtractor:
         # 对 HTML 进行预处理可能会破坏 HTML 原有的结构，导致根据原始 HTML 编写的 XPath 不可用
         # 因此，如果指定了 title_xpath/author_xpath/publish_time_xpath，那么需要先提取再进行
         # 预处理
+        html = fix_html(html)
         if normalize:
             normal_html = normalize_text(html)
         else:

@@ -70,13 +70,15 @@ USELESS_ATTR = {
                 'comment',
                 'social',
                 'submeta',
-                'report-infor'
+                'report-infor',
+                'header_toolbar'
                 }
 
 
 HIGH_WEIGHT_ARRT_KEYWORD = ['content',
                             'article',
                             'news_txt',
+                            'pages_content',
                             'post_text']
 
 

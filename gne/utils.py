@@ -180,4 +180,15 @@ def normalize_text(html):
     return unicodedata.normalize('NFKC', html)
 
 
+def fix_html(html):
+    """
+    有一些网站的HTML不规范，比如</html>出现在源代码的中间。这个时候需要修复一下。
+    :param html:
+    :return: html
+    """
+    new_html = html.replace('</html>', '')
+    new_html = f'{new_html}</html>'
+    return new_html
+
+
 config = read_config()

@@ -1,5 +1,11 @@
 # General News Extractor Changelog
 
+## 0.3.1 (2024-04-17)
+
+### Bug fix
+
+有一些网站源代码不规范，在html中间突然出现</html>。末尾又出现一次</html>.这种情况下，会导致解析出错。现在已经修复。
+
 ## 0.3.0 (2021-10-07)
 
 ### New Feature

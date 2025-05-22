@@ -215,4 +215,6 @@ GNE 会根据这一项的 XPath，自动找到这个列表里面其他行的数�
 
 ![](https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/wechatplatform.jpg)
 
+## 致谢
 
+@bigbrother666sh

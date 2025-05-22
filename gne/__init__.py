@@ -20,9 +20,10 @@ class GeneralNewsExtractor:
                 use_visiable_info=False):
 
         # 对 HTML 进行预处理可能会破坏 HTML 原有的结构，导致根据原始 HTML 编写的 XPath 不可用
-        # 因此，如果指定了 title_xpath/author_xpath/publish_time_xpath，那么需要先提取再进行
+        # 因此，如果指定了 noise_node/title_xpath/author_xpath/publish_time_xpath，那么需要先提取再进行
         # 预处理
         html = fix_html(html)
+        remove_noise_node(element, noise_node_list)
         if normalize:
             normal_html = normalize_text(html)
         else:
@@ -33,7 +34,7 @@ class GeneralNewsExtractor:
         publish_time = TimeExtractor().extractor(element, publish_time_xpath=publish_time_xpath)
         author = AuthorExtractor().extractor(element, author_xpath=author_xpath)
         element = pre_parse(element)
-        remove_noise_node(element, noise_node_list)
+        
         content = ContentExtractor().extract(element,
                                              host=host,
                                              with_body_html=with_body_html,

@@ -23,7 +23,7 @@ class GeneralNewsExtractor:
         # 因此，如果指定了 noise_node/title_xpath/author_xpath/publish_time_xpath，那么需要先提取再进行
         # 预处理
         html = fix_html(html)
-        remove_noise_node(element, noise_node_list)
+
         if normalize:
             normal_html = normalize_text(html)
         else:
@@ -33,6 +33,7 @@ class GeneralNewsExtractor:
         title = TitleExtractor().extract(element, title_xpath=title_xpath)
         publish_time = TimeExtractor().extractor(element, publish_time_xpath=publish_time_xpath)
         author = AuthorExtractor().extractor(element, author_xpath=author_xpath)
+        remove_noise_node(element, noise_node_list)
         element = pre_parse(element)
         
         content = ContentExtractor().extract(element,

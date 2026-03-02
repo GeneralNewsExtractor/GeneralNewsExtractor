@@ -1,0 +1,37 @@
+[project]
+name = "gne"
+version = "0.3.1"
+description = "General extractor of news pages."
+readme = "pypi_desc.md"
+license = "MIT"
+authors = [
+    { name = "Kingname", email = "contact@kingname.info" },
+]
+keywords = ["python", "webcrawler", "webspider"]
+requires-python = ">=3.8"
+dependencies = [
+    "lxml>=4.9.1",
+    "pyyaml>=5.4.1",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://github.com/GeneralNewsExtractor/GeneralNewsExtractor"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mypy",
+]

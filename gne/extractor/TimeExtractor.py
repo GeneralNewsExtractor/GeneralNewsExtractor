@@ -1,6 +1,9 @@
+import re
 from gne.utils import config
 from lxml.html import HtmlElement
 from gne.defaults import DATETIME_PATTERN, PUBLISH_TIME_META
+
+_DATE_SEP_RE = re.compile(r'[-/.]')
 
 
 class TimeExtractor:
@@ -20,14 +23,35 @@ class TimeExtractor:
             return publish_time
         return ''
 
+    @staticmethod
+    def _is_valid_date(date_str):
+        """基本日期校验：月份 1-12，日 1-31"""
+        # 提取日期部分（去掉时间部分）
+        date_part = date_str.strip().split()[0]
+        # 替换中文年月日为分隔符
+        date_part = date_part.replace('年', '-').replace('月', '-').replace('日', '')
+        parts = _DATE_SEP_RE.split(date_part)
+        try:
+            if len(parts) >= 3:
+                month = int(parts[-2])
+                day = int(parts[-1])
+                if month < 1 or month > 12:
+                    return False
+                if day < 1 or day > 31:
+                    return False
+        except (ValueError, IndexError):
+            pass
+        return True
+
     def extract_from_text(self, element: HtmlElement) -> str:
         text = ''.join(element.xpath('.//text()'))
         for dt in self.time_pattern:
             dt_obj = dt.search(text)
             if dt_obj:
-                return dt_obj.group(1)
-        else:
-            return ''
+                result = dt_obj.group(1)
+                if self._is_valid_date(result):
+                    return result
+        return ''
 
     def extract_from_meta(self, element: HtmlElement) -> str:
         """

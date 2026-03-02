@@ -11,6 +11,24 @@ _BR_RE = re.compile(r'</?br.*?>')
 HIGH_WEIGHT_KEYWORD_RE = re.compile('|'.join(HIGH_WEIGHT_ARRT_KEYWORD), flags=re.I)
 
 
+def _is_useless_node(class_name, id_name):
+    """检查节点的 class 或 id 是否表明它是噪声节点。
+    使用按分隔符拆分后的词级匹配，避免短关键词（如 'ad'、'nav'）的子串误匹配。
+    """
+    for value in (class_name, id_name):
+        if not value:
+            continue
+        value_lower = value.lower()
+        # 先按空格拆分出各个 class/id，再按 - 和 _ 拆分为词
+        for cls in value_lower.split():
+            if cls in USELESS_ATTR:
+                return True
+            parts = re.split(r'[-_]+', cls)
+            if any(part in USELESS_ATTR for part in parts):
+                return True
+    return False
+
+
 def normalize_node(element: HtmlElement):
     etree.strip_elements(element, *USELESS_TAG)
     # 先收集需要删除的节点，避免遍历过程中修改树结构
@@ -42,8 +60,7 @@ def normalize_node(element: HtmlElement):
         class_name = node.get('class', '')
         id_name = node.get('id', '')
         if class_name or id_name:
-            if any(attr in class_name for attr in USELESS_ATTR) or \
-               any(attr in id_name for attr in USELESS_ATTR):
+            if _is_useless_node(class_name, id_name):
                 nodes_to_remove.append(node)
 
     for node in nodes_to_remove:

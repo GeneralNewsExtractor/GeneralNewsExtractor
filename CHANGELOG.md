@@ -1,5 +1,13 @@
 # General News Extractor Changelog
 
+## 0.4.1 (2026-03-02)
+
+### Bug fix
+
+1. 修复 USELESS_ATTR 子串匹配导致正文被误删的严重 bug：短关键词（如 `ad`、`nav`）会误匹配含有这些子串的正常 class/id（如 `padding`、`canvas`、`headline`），改为按 `-` `_` 空格拆分后的词级匹配
+2. 添加 meta author 校验（`_is_valid_author`），过滤纯数字、邮箱、占位符等无效作者值
+3. 添加日期校验（`_is_valid_date`），拒绝月份 >12 或日期 >31 的匹配结果，避免版本号等被误识别为日期
+
 ## 0.4.0 (2026-03-02)
 
 ### Performance

@@ -1,5 +1,39 @@
 # General News Extractor Changelog
 
+## 0.4.0 (2026-03-02)
+
+### Performance
+
+1. 移除 numpy 依赖，改用标准库 `math` 模块计算对数，减少安装体积、加快 import 速度
+2. 预编译所有正则表达式（`DATETIME_PATTERN`、`AUTHOR_PATTERN`、BR 标签、高权重关键词），避免运行时重复编译
+3. `GeneralNewsExtractor` 预创建各 extractor 实例，`extract()` 调用间复用，不再每次 new
+4. 最长公共子串算法改为滚动数组，空间复杂度从 O(n*m) 降至 O(min(n,m))
+5. `count_punctuation_num` 改为生成器表达式，更 Pythonic
+
+### Bug fix
+
+1. 修复正则表达式字符类 bug：`[-|/|.]` → `[-/.]`、`[：|:| |丨|/]` → `[：: 丨/]`，`|` 在 `[]` 中是字面量而非"或"
+2. 修复 `normalize_node` 中匹配到 USELESS_ATTR 后 `break` 退出整个循环的 bug，改为收集后批量删除
+3. 修复 `normalize_node` 遍历过程中修改树结构的问题，先将 `iter_node` 结果转为 list
+4. 修复 `ArticleClassifier` 中 `classfy_by_weight` 拼写错误及缺失的 return 语句
+5. 清理 `MetaExtractor` 中未实现的 `extract_meta` 方法
+
+### Enhancements
+
+1. 新增 `og:title` meta 标签提取作为标题候选
+2. 新增 `<meta name="author">` 提取，优先于正则匹配
+3. 新增 `date`、`DC.date` 等 meta 时间 XPath
+4. USELESS_TAG 移除 `blockquote`（新闻正文常用引用），新增 `nav`、`aside`
+5. USELESS_ATTR 新增 `sidebar`、`navigation`、`nav`、`breadcrumb`、`ad`、`advertisement`，并改为子串匹配同时检查 `id` 属性
+6. HIGH_WEIGHT_ARRT_KEYWORD 新增 `post_body`、`entry-content`、`article-body`、`story-body`、`main-content`
+
+### Infrastructure
+
+1. 依赖管理从 pipenv 迁移到 uv，使用 `pyproject.toml` + `uv.lock`
+2. 删除 `Pipfile`、`Pipfile.lock`、`setup.py`、`setup.cfg`、`requirements.txt`、`MANIFEST.in`
+3. 升级 lxml 最低版本至 4.9.1（修复 CVE-2022-2309）
+4. Python 版本支持范围更新为 3.8 - 3.13
+
 ## 0.3.1 (2024-04-17)
 
 ### Bug fix

@@ -55,10 +55,17 @@ class TitleExtractor:
                 news_title = lcs
         return news_title if len(news_title) > 4 else ''
 
+    def extract_by_og_title(self, element: HtmlElement) -> str:
+        og_title = element.xpath('//meta[@property="og:title"]/@content')
+        if og_title:
+            return og_title[0].strip()
+        return ''
+
     def extract(self, element: HtmlElement, title_xpath: str = '') -> str:
         title_xpath = title_xpath or config.get('title', {}).get('xpath')
         title = (self.extract_by_xpath(element, title_xpath)
                  or self.extract_by_htag_and_title(element)
+                 or self.extract_by_og_title(element)
                  or self.extract_by_title(element)
                  or self.extract_by_htag(element)
                  )

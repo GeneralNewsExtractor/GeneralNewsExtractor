@@ -36,7 +36,7 @@ with open('pypi_desc.md', 'r', encoding='utf-8') as f:
 setup(
     name='gne',
     packages=find_packages(exclude=[]),
-    install_requires=['lxml', 'numpy', 'pyyaml'],
+    install_requires=['lxml', 'pyyaml'],
     version=get_version_string(),
     description='General extractor of news pages.',
     long_description=readme,

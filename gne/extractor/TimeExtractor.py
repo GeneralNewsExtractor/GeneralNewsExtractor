@@ -1,4 +1,3 @@
-import re
 from gne.utils import config
 from lxml.html import HtmlElement
 from gne.defaults import DATETIME_PATTERN, PUBLISH_TIME_META
@@ -24,7 +23,7 @@ class TimeExtractor:
     def extract_from_text(self, element: HtmlElement) -> str:
         text = ''.join(element.xpath('.//text()'))
         for dt in self.time_pattern:
-            dt_obj = re.search(dt, text)
+            dt_obj = dt.search(text)
             if dt_obj:
                 return dt_obj.group(1)
         else:

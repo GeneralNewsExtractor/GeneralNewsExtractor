@@ -7,13 +7,19 @@ from lxml.html import etree
 from urllib.parse import urlparse, urljoin
 from .defaults import USELESS_TAG, TAGS_CAN_BE_REMOVE_IF_EMPTY, USELESS_ATTR, HIGH_WEIGHT_ARRT_KEYWORD
 
+_BR_RE = re.compile(r'</?br.*?>')
+HIGH_WEIGHT_KEYWORD_RE = re.compile('|'.join(HIGH_WEIGHT_ARRT_KEYWORD), flags=re.I)
+
 
 def normalize_node(element: HtmlElement):
     etree.strip_elements(element, *USELESS_TAG)
-    for node in iter_node(element):
+    # 先收集需要删除的节点，避免遍历过程中修改树结构
+    nodes_to_remove = []
+    for node in list(iter_node(element)):
         # inspired by readability.
         if node.tag.lower() in TAGS_CAN_BE_REMOVE_IF_EMPTY and is_empty_element(node):
             remove_node(node)
+            continue
 
         # merge text in span or strong to parent p tag
         if node.tag.lower() == 'p':
@@ -31,16 +37,21 @@ def normalize_node(element: HtmlElement):
         if node.tag.lower() == 'p' and not node.xpath('.//img'):
             if not (node.text and node.text.strip()):
                 drop_tag(node)
+                continue
 
-        class_name = node.get('class')
-        if class_name:
-            if class_name in USELESS_ATTR:
-                remove_node(node)
-                break
+        class_name = node.get('class', '')
+        id_name = node.get('id', '')
+        if class_name or id_name:
+            if any(attr in class_name for attr in USELESS_ATTR) or \
+               any(attr in id_name for attr in USELESS_ATTR):
+                nodes_to_remove.append(node)
+
+    for node in nodes_to_remove:
+        remove_node(node)
 
 
 def html2element(html):
-    html = re.sub('</?br.*?>', '', html)
+    html = _BR_RE.sub('', html)
     element = fromstring(html)
     return element
 
@@ -128,26 +139,12 @@ def read_config():
 
 
 def get_high_weight_keyword_pattern():
-    return re.compile('|'.join(HIGH_WEIGHT_ARRT_KEYWORD), flags=re.I)
+    return HIGH_WEIGHT_KEYWORD_RE
 
 
 def get_longest_common_sub_string(str1: str, str2: str) -> str:
     """
-    获取两个字符串的最长公共子串。
-
-    构造一个矩阵，横向是字符串1，纵向是字符串2，例如：
-
-      青南是天才！？
-    听0 0 0 0 00 0
-    说0 0 0 0 00 0
-    青1 0 0 0 00 0
-    南0 1 0 0 00 0
-    是0 0 1 0 00 0
-    天0 0 0 1 00 0
-    才0 0 0 0 10 0
-    ！0 0 0 0 01 0
-
-    显然，只要斜对角线最长的就是最长公共子串
+    获取两个字符串的最长公共子串。使用滚动数组优化空间复杂度为 O(min(n,m))。
 
     :param str1:
     :param str2:
@@ -155,18 +152,21 @@ def get_longest_common_sub_string(str1: str, str2: str) -> str:
     """
     if not all([str1, str2]):
         return ''
-    matrix = [[0] * (len(str2) + 1) for _ in range(len(str1) + 1)]
+    # 确保 str2 是较短的字符串，以优化空间
+    if len(str1) < len(str2):
+        str1, str2 = str2, str1
+    prev_row = [0] * (len(str2) + 1)
     max_length = 0
     start_position = 0
     for index_of_str1 in range(1, len(str1) + 1):
+        curr_row = [0] * (len(str2) + 1)
         for index_of_str2 in range(1, len(str2) + 1):
             if str1[index_of_str1 - 1] == str2[index_of_str2 - 1]:
-                matrix[index_of_str1][index_of_str2] = matrix[index_of_str1 - 1][index_of_str2 - 1] + 1
-                if matrix[index_of_str1][index_of_str2] > max_length:
-                    max_length = matrix[index_of_str1][index_of_str2]
+                curr_row[index_of_str2] = prev_row[index_of_str2 - 1] + 1
+                if curr_row[index_of_str2] > max_length:
+                    max_length = curr_row[index_of_str2]
                     start_position = index_of_str1 - max_length
-            else:
-                matrix[index_of_str1][index_of_str2] = 0
+        prev_row = curr_row
     return str1[start_position: start_position + max_length]
 
 

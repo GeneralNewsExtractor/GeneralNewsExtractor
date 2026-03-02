@@ -11,7 +11,7 @@ class ArticleClassifier:
         for xpath in ARTICLE_XPATH:
             if self.element.xpath(xpath):
                 return True
-        return self.classfy_by_weight()
+        return self.classify_by_weight()
 
     def classify_by_weight(self):
         has_title = False
@@ -33,3 +33,4 @@ class ArticleClassifier:
                 ):
                     has_title = True
                     break
+        return has_title

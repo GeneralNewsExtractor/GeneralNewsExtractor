@@ -1,6 +1,6 @@
 import re
 import json
-import numpy as np
+import math
 from lxml.html import etree
 from html import unescape
 from gne.utils import iter_node, pad_host_for_images, config, get_high_weight_keyword_pattern
@@ -15,10 +15,15 @@ class ContentExtractor:
         self.content_tag = content_tag
         self.node_info = {}
         self.high_weight_keyword_pattern = get_high_weight_keyword_pattern()
-        self.punctuation = set('''！，。？、；：“”‘’《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
+        self.punctuation = set('''！，。？、；：""''《》%（）,.?:;'"!%()''')  # 常见的中英文标点符号
+        self.element_text_cache = {}
+
+    def reset(self):
+        self.node_info = {}
         self.element_text_cache = {}
 
     def extract(self, selector, host='', body_xpath='', with_body_html=False, use_visiable_info=False):
+        self.reset()
         body_xpath = body_xpath or config.get('body', {}).get('xpath', '')
         use_visiable_info = use_visiable_info or config.get('use_visiable_info', False)
         if body_xpath:
@@ -175,11 +180,7 @@ class ContentExtractor:
         return sbdi or 1   # sbdi 不能为0，否则会导致求对数时报错。
 
     def count_punctuation_num(self, text):
-        count = 0
-        for char in text:
-            if char in self.punctuation:
-                count += 1
-        return count
+        return sum(1 for char in text if char in self.punctuation)
 
     def calc_new_score(self):
         """
@@ -193,6 +194,6 @@ class ContentExtractor:
         :return:
         """
         for node_hash, node_info in self.node_info.items():
-            score = node_info['density'] * np.log10(node_info['text_tag_count'] + 2) * np.log(
+            score = node_info['density'] * math.log10(node_info['text_tag_count'] + 2) * math.log(
                 node_info['sbdi'])
             self.node_info[node_hash]['score'] = score

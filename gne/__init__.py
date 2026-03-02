@@ -7,6 +7,13 @@ __author__ = "Kingname"
 
 
 class GeneralNewsExtractor:
+    def __init__(self):
+        self._content_extractor = ContentExtractor()
+        self._title_extractor = TitleExtractor()
+        self._time_extractor = TimeExtractor()
+        self._author_extractor = AuthorExtractor()
+        self._meta_extractor = MetaExtractor()
+
     def extract(self,
                 html,
                 title_xpath='',
@@ -29,14 +36,14 @@ class GeneralNewsExtractor:
         else:
             normal_html = html
         element = html2element(normal_html)
-        meta_content = MetaExtractor().extract(element)
-        title = TitleExtractor().extract(element, title_xpath=title_xpath)
-        publish_time = TimeExtractor().extractor(element, publish_time_xpath=publish_time_xpath)
-        author = AuthorExtractor().extractor(element, author_xpath=author_xpath)
+        meta_content = self._meta_extractor.extract(element)
+        title = self._title_extractor.extract(element, title_xpath=title_xpath)
+        publish_time = self._time_extractor.extractor(element, publish_time_xpath=publish_time_xpath)
+        author = self._author_extractor.extractor(element, author_xpath=author_xpath)
         remove_noise_node(element, noise_node_list)
         element = pre_parse(element)
-        
-        content = ContentExtractor().extract(element,
+
+        content = self._content_extractor.extract(element,
                                              host=host,
                                              with_body_html=with_body_html,
                                              body_xpath=body_xpath,
@@ -61,4 +68,3 @@ class ListPageExtractor:
         element = html2element(normalize_html)
         extractor = ListExtractor()
         return extractor.extract(element, feature)
-

@@ -2,7 +2,7 @@ from .exceptions import NoContentException
 from .utils import pre_parse, remove_noise_node, config, html2element, normalize_text, fix_html
 from gne.extractor import ContentExtractor, TitleExtractor, TimeExtractor, AuthorExtractor, ListExtractor, MetaExtractor
 
-__version__ = "0.4.1"
+__version__ = "0.4.2"
 __author__ = "Kingname"
 
 

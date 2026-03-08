@@ -1,14 +1,14 @@
 import re
 
 AUTHOR_PATTERN_STR = [
-            r"责编[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"责任编辑[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"作者[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"编辑[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"文[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"原创[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"撰文[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：]",
-            r"来源[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z]{2,20})[^\u4E00-\u9FA5:：<]",
+            r"责编[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"责任编辑[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"作者[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"编辑[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"文[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"原创[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"撰文[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：]",
+            r"来源[：: 丨/]\s*([\u4E00-\u9FA5a-zA-Z0-9][\u4E00-\u9FA5a-zA-Z]{1,19})[^\u4E00-\u9FA5:：<]",
 ]
 
 AUTHOR_PATTERN = [re.compile(p) for p in AUTHOR_PATTERN_STR]

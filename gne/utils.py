@@ -60,7 +60,7 @@ def normalize_node(element: HtmlElement):
         class_name = node.get('class', '')
         id_name = node.get('id', '')
         if class_name or id_name:
-            if _is_useless_node(class_name, id_name):
+            if node.tag.lower() not in ('body', 'html') and _is_useless_node(class_name, id_name):
                 nodes_to_remove.append(node)
 
     for node in nodes_to_remove:

@@ -1,6 +1,6 @@
 [project]
 name = "gne"
-version = "0.4.1"
+version = "0.4.2"
 description = "General extractor of news pages."
 readme = "pypi_desc.md"
 license = "MIT"

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNE — General News Extractor</title>
+    <meta name="description" content="Extract news article content from any HTML with near-perfect accuracy. A Python library powered by text density algorithms.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #08080a;
+            --bg-raised: #0f0f12;
+            --bg-surface: #141418;
+            --border: rgba(255, 255, 255, 0.055);
+            --border-highlight: rgba(255, 255, 255, 0.1);
+            --text-primary: #e2ded6;
+            --text-secondary: #8a8680;
+            --text-tertiary: #5a5652;
+            --accent: #c9a84c;
+            --accent-dim: rgba(201, 168, 76, 0.12);
+            --green: #7d9e82;
+            --blue: #6b8cae;
+            --rose: #ae6b7d;
+            --orange: #ae8a6b;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --mono: 'JetBrains Mono', 'Menlo', monospace;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--sans);
+            font-weight: 400;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ─── Grain overlay ─── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 200px;
+        }
+
+        /* ─── Navigation ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(8, 8, 10, 0.8);
+            backdrop-filter: blur(20px) saturate(1.2);
+            -webkit-backdrop-filter: blur(20px) saturate(1.2);
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.3s;
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.825rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.01em;
+            transition: color 0.25s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links .lang-switch {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            transition: all 0.25s;
+        }
+
+        .nav-links .lang-switch:hover {
+            border-color: var(--border-highlight);
+            color: var(--text-primary);
+        }
+
+        /* ─── Layout ─── */
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 4rem);
+        }
+
+        section {
+            padding: clamp(4rem, 10vw, 8rem) 0;
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            padding-top: calc(72px + clamp(5rem, 12vw, 10rem));
+            padding-bottom: clamp(3rem, 8vw, 6rem);
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.1s;
+        }
+
+        .hero-label::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: clamp(2.75rem, 6.5vw, 5rem);
+            line-height: 1.08;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+            max-width: 720px;
+            margin-bottom: 1.75rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.35s;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: start;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.45s;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: var(--text-primary);
+            color: var(--bg);
+            font-family: var(--sans);
+            font-size: 0.825rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 24px rgba(226, 222, 214, 0.08);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--sans);
+            font-size: 0.825rem;
+            font-weight: 400;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-highlight);
+            color: var(--text-primary);
+        }
+
+        /* ─── Code Block ─── */
+        .editor {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .editor-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .editor-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .editor-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text-tertiary);
+            opacity: 0.4;
+        }
+
+        .editor-dots span:first-child { background: #e5534b; opacity: 0.7; }
+        .editor-dots span:nth-child(2) { background: #d4a72c; opacity: 0.7; }
+        .editor-dots span:nth-child(3) { background: #57ab5a; opacity: 0.7; }
+
+        .editor-title {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.02em;
+        }
+
+        .editor-body {
+            padding: 1.25rem 1.5rem;
+            overflow-x: auto;
+        }
+
+        .editor-body pre {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            line-height: 1.85;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        .editor-body .line {
+            display: block;
+        }
+
+        .editor-body .line-num {
+            display: inline-block;
+            width: 2ch;
+            margin-right: 1.5ch;
+            color: var(--text-tertiary);
+            opacity: 0.5;
+            user-select: none;
+            text-align: right;
+        }
+
+        .syn-keyword { color: #d2a6ff; }
+        .syn-func { color: #82aaff; }
+        .syn-class { color: #ffcb6b; }
+        .syn-string { color: #c3e88d; }
+        .syn-comment { color: var(--text-tertiary); font-style: italic; }
+        .syn-param { color: #f78c6c; }
+        .syn-op { color: #89ddff; }
+        .syn-plain { color: #bfc7d5; }
+        .syn-key { color: #f78c6c; }
+        .syn-bracket { color: #89ddff; }
+
+        /* ─── Stats ─── */
+        .stats {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: clamp(2.5rem, 5vw, 3.5rem) 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 32px;
+            background: var(--border);
+        }
+
+        .stat-value {
+            font-family: var(--serif);
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ─── Features ─── */
+        .features-header {
+            margin-bottom: clamp(3rem, 6vw, 4.5rem);
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            max-width: 480px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .feature-card {
+            background: var(--bg);
+            padding: clamp(1.5rem, 3vw, 2.25rem);
+            transition: background 0.4s;
+        }
+
+        .feature-card:hover {
+            background: var(--bg-raised);
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 7px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        .feature-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--accent);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .feature-card h3 {
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* ─── API Section ─── */
+        .api-header {
+            margin-bottom: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .api-block {
+            background: var(--bg-raised);
+            padding: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .api-block-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 1.25rem;
+        }
+
+        .api-block pre {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            line-height: 1.9;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* ─── Install ─── */
+        .install {
+            text-align: center;
+        }
+
+        .install-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .install-sub {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+        }
+
+        .install-cmd {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1rem 0.85rem 1.5rem;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            transition: border-color 0.3s;
+        }
+
+        .install-cmd:hover {
+            border-color: var(--border-highlight);
+        }
+
+        .install-cmd .dollar {
+            color: var(--text-tertiary);
+            user-select: none;
+        }
+
+        .install-cmd .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            padding: 0.35rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .install-cmd .copy-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .install-cmd .copy-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .copy-tooltip {
+            position: absolute;
+            top: -2rem;
+            right: 0;
+            font-family: var(--sans);
+            font-size: 0.7rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        .copy-tooltip.show {
+            opacity: 1;
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.775rem;
+            color: var(--text-tertiary);
+            transition: color 0.25s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-secondary);
+        }
+
+        .footer-right {
+            font-size: 0.725rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ─── Scroll reveal ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── Animations ─── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .api-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links .nav-hide-mobile {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1.25rem;
+                text-align: center;
+            }
+
+            .footer-left {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .install-cmd {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">GNE</a>
+        <ul class="nav-links">
+            <li><a href="#features" class="nav-hide-mobile">Features</a></li>
+            <li><a href="#api" class="nav-hide-mobile">API</a></li>
+            <li><a href="https://generalnewsextractor.readthedocs.io/" target="_blank" class="nav-hide-mobile">Docs</a></li>
+            <li><a href="https://github.com/GeneralNewsExtractor/GeneralNewsExtractor" target="_blank">GitHub</a></li>
+            <li><a href="https://github.com/GeneralNewsExtractor/GeneralNewsExtractor/blob/master/README_CN.md" target="_blank" class="lang-switch">中文</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-label">Open Source News Extraction</div>
+            <div class="hero-grid">
+                <div>
+                    <h1>Extract news content with <em>precision</em></h1>
+                    <p class="hero-sub">A Python library that pulls structured data from any news page HTML — title, author, date, content, images — using text density algorithms with near-perfect accuracy.</p>
+                    <div class="hero-actions">
+                        <a href="https://github.com/GeneralNewsExtractor/GeneralNewsExtractor" target="_blank" class="btn-primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            View on GitHub
+                        </a>
+                        <a href="#install" class="btn-secondary">Install</a>
+                    </div>
+                </div>
+                <div class="editor">
+                    <div class="editor-bar">
+                        <div class="editor-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="editor-title">extract.py</div>
+                    </div>
+                    <div class="editor-body">
+                        <pre><span class="line"><span class="line-num">1</span><span class="syn-keyword">from</span> <span class="syn-plain">gne</span> <span class="syn-keyword">import</span> <span class="syn-class">GeneralNewsExtractor</span></span>
+<span class="line"><span class="line-num">2</span></span>
+<span class="line"><span class="line-num">3</span><span class="syn-plain">extractor</span> <span class="syn-op">=</span> <span class="syn-class">GeneralNewsExtractor</span><span class="syn-bracket">()</span></span>
+<span class="line"><span class="line-num">4</span><span class="syn-plain">result</span> <span class="syn-op">=</span> <span class="syn-plain">extractor</span><span class="syn-op">.</span><span class="syn-func">extract</span><span class="syn-bracket">(</span><span class="syn-plain">html</span><span class="syn-bracket">)</span></span>
+<span class="line"><span class="line-num">5</span><span class="syn-func">print</span><span class="syn-bracket">(</span><span class="syn-plain">result</span><span class="syn-bracket">)</span></span>
+<span class="line"><span class="line-num">6</span></span>
+<span class="line"><span class="line-num">7</span><span class="syn-comment"># {</span></span>
+<span class="line"><span class="line-num">8</span><span class="syn-comment">#   "title": "Breaking News...",</span></span>
+<span class="line"><span class="line-num">9</span><span class="syn-comment">#   "author": "Jane Doe",</span></span>
+<span class="line"><span class="line-num">10</span><span class="syn-comment">#   "publish_time": "2025-01-15",</span></span>
+<span class="line"><span class="line-num">11</span><span class="syn-comment">#   "content": "Full article...",</span></span>
+<span class="line"><span class="line-num">12</span><span class="syn-comment">#   "images": ["header.jpg"]</span></span>
+<span class="line"><span class="line-num">13</span><span class="syn-comment"># }</span></span></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid reveal">
+                <div class="stat-item">
+                    <div class="stat-value">~100%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3.8 — 3.13</div>
+                    <div class="stat-label">Python</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">MIT</div>
+                    <div class="stat-label">License</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Dependencies</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <div class="features-header reveal">
+                <div class="section-label">Capabilities</div>
+                <h2 class="section-title">Built for reliable extraction at scale</h2>
+            </div>
+            <div class="features-grid reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3>Universal Extraction</h3>
+                    <p>Density-based algorithm adapts to any news site structure without custom rules or selectors.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h3>Academic Foundation</h3>
+                    <p>Built on a published research paper on text and symbol density methods for web content extraction.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <h3>Rich Metadata</h3>
+                    <p>Extracts title, author, publish time, images, and full article content in one call.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <h3>Noise Removal</h3>
+                    <p>Filter out comments, ads, and sidebars with XPath-based noise node exclusion.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    </div>
+                    <h3>List Page Support</h3>
+                    <p>Extract article listings from index pages. Provide one XPath, get every item back.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+                    </div>
+                    <h3>Lightweight</h3>
+                    <p>Just lxml and pyyaml. No numpy, no heavy dependencies. Fast and lean.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API -->
+    <section id="api">
+        <div class="container">
+            <div class="api-header reveal">
+                <div class="section-label">Interface</div>
+                <h2 class="section-title">A clean API that stays out of your way</h2>
+            </div>
+            <div class="api-grid reveal">
+                <div class="api-block">
+                    <div class="api-block-label">Method Signature</div>
+                    <pre><span class="syn-keyword">class</span> <span class="syn-class">GeneralNewsExtractor</span><span class="syn-bracket">:</span>
+    <span class="syn-keyword">def</span> <span class="syn-func">extract</span><span class="syn-bracket">(</span>
+        <span class="syn-plain">self</span><span class="syn-op">,</span>
+        <span class="syn-param">html</span><span class="syn-op">,</span>
+        <span class="syn-param">title_xpath</span><span class="syn-op">=</span><span class="syn-string">''</span><span class="syn-op">,</span>
+        <span class="syn-param">host</span><span class="syn-op">=</span><span class="syn-string">''</span><span class="syn-op">,</span>
+        <span class="syn-param">author_xpath</span><span class="syn-op">=</span><span class="syn-string">''</span><span class="syn-op">,</span>
+        <span class="syn-param">publish_time_xpath</span><span class="syn-op">=</span><span class="syn-string">''</span><span class="syn-op">,</span>
+        <span class="syn-param">body_xpath</span><span class="syn-op">=</span><span class="syn-string">''</span><span class="syn-op">,</span>
+        <span class="syn-param">noise_node_list</span><span class="syn-op">=</span><span class="syn-keyword">None</span><span class="syn-op">,</span>
+        <span class="syn-param">with_body_html</span><span class="syn-op">=</span><span class="syn-keyword">False</span><span class="syn-op">,</span>
+        <span class="syn-param">use_visiable_info</span><span class="syn-op">=</span><span class="syn-keyword">False</span>
+    <span class="syn-bracket">)</span></pre>
+                </div>
+                <div class="api-block">
+                    <div class="api-block-label">Return Value</div>
+                    <pre><span class="syn-bracket">{</span>
+    <span class="syn-key">"title"</span><span class="syn-op">:</span>        <span class="syn-string">"Article headline"</span><span class="syn-op">,</span>
+    <span class="syn-key">"author"</span><span class="syn-op">:</span>       <span class="syn-string">"Author name"</span><span class="syn-op">,</span>
+    <span class="syn-key">"publish_time"</span><span class="syn-op">:</span> <span class="syn-string">"2025-01-15 09:30"</span><span class="syn-op">,</span>
+    <span class="syn-key">"content"</span><span class="syn-op">:</span>      <span class="syn-string">"Full article text..."</span><span class="syn-op">,</span>
+    <span class="syn-key">"images"</span><span class="syn-op">:</span>       <span class="syn-bracket">[</span><span class="syn-string">"/img/photo.jpg"</span><span class="syn-bracket">]</span><span class="syn-op">,</span>
+    <span class="syn-key">"body_html"</span><span class="syn-op">:</span>   <span class="syn-string">"&lt;div&gt;...&lt;/div&gt;"</span>
+<span class="syn-bracket">}</span></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Install -->
+    <section id="install">
+        <div class="container">
+            <div class="install reveal">
+                <div class="install-title">Get started now</div>
+                <p class="install-sub">One command. No configuration required.</p>
+                <div class="install-cmd" style="position:relative">
+                    <span class="dollar">$</span>
+                    <span id="pip-text">pip install gne</span>
+                    <button class="copy-btn" onclick="copyInstall()" aria-label="Copy to clipboard">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                    <span class="copy-tooltip" id="copyTooltip">Copied</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <span class="footer-logo">GNE</span>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/GeneralNewsExtractor/GeneralNewsExtractor" target="_blank">GitHub</a></li>
+                        <li><a href="https://generalnewsextractor.readthedocs.io/" target="_blank">Documentation</a></li>
+                        <li><a href="https://github.com/GeneralNewsExtractor/GeneralNewsExtractor/blob/master/README_CN.md" target="_blank">中文</a></li>
+                    </ul>
+                </div>
+                <div class="footer-right">
+                    MIT License &middot; by Kingname
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // Copy button
+        function copyInstall() {
+            navigator.clipboard.writeText('pip install gne');
+            const tooltip = document.getElementById('copyTooltip');
+            tooltip.classList.add('show');
+            setTimeout(() => tooltip.classList.remove('show'), 1500);
+        }
+
+        // Smooth anchor scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+
+</body>
+</html>

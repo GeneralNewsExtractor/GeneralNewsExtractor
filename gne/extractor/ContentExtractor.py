@@ -33,10 +33,15 @@ class ContentExtractor:
             else:
                 body = body_list[0]
         else:
-            body_list = selector.xpath('//body')
-            if not body_list:
-                return []
-            body = body_list[0]
+            # 优先检测 Schema.org articleBody 标记
+            article_body = selector.xpath('//*[@itemprop="articleBody"]')
+            if article_body:
+                body = article_body[0]
+            else:
+                body_list = selector.xpath('//body')
+                if not body_list:
+                    return []
+                body = body_list[0]
         for node in iter_node(body):
             if use_visiable_info:
                 if not node.attrib.get('is_visiable', True):

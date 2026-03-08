@@ -1,4 +1,5 @@
 import re
+import json
 from gne.utils import config, get_longest_common_sub_string
 from lxml.html import HtmlElement
 from gne.defaults import TITLE_HTAG_XPATH, TITLE_SPLIT_CHAR_PATTERN
@@ -59,6 +60,27 @@ class TitleExtractor:
         og_title = element.xpath('//meta[@property="og:title"]/@content')
         if og_title:
             return og_title[0].strip()
+        twitter_title = element.xpath('//meta[@name="twitter:title"]/@content')
+        if twitter_title:
+            return twitter_title[0].strip()
+        dc_title = element.xpath('//meta[@property="dc:title"]/@content')
+        if dc_title:
+            return dc_title[0].strip()
+        return ''
+
+    def extract_by_json_ld(self, element: HtmlElement) -> str:
+        scripts = element.xpath('//script[@type="application/ld+json"]/text()')
+        for script_text in scripts:
+            try:
+                data = json.loads(script_text.strip())
+                if isinstance(data, list):
+                    data = data[0]
+                if isinstance(data, dict):
+                    headline = data.get('headline') or data.get('name', '')
+                    if headline and len(headline) >= 4:
+                        return headline.strip()
+            except (json.JSONDecodeError, IndexError, TypeError):
+                continue
         return ''
 
     def extract(self, element: HtmlElement, title_xpath: str = '') -> str:
@@ -66,6 +88,7 @@ class TitleExtractor:
         title = (self.extract_by_xpath(element, title_xpath)
                  or self.extract_by_htag_and_title(element)
                  or self.extract_by_og_title(element)
+                 or self.extract_by_json_ld(element)
                  or self.extract_by_title(element)
                  or self.extract_by_htag(element)
                  )
